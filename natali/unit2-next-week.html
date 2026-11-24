@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Next Week — Future Plans | A1</title>
+<style>
+:root{
+  --green:#456b57;--green-dark:#2f4e3d;--sage:#e8efe9;--sage2:#f3f6f2;
+  --cream:#fbf8f1;--paper:#fffefa;--ink:#28352e;--muted:#6f7d73;
+  --line:#dce4dc;--gold:#c49a58;--good:#28734c;--bad:#a64d43;
+  --shadow:0 12px 32px rgba(39,62,47,.08);--radius:18px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:linear-gradient(120deg,#e8efe9,#f6f1e6);padding:30px 20px 24px;border-bottom:1px solid var(--line)}
+.top,main{max-width:980px;margin:auto}
+.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;font-weight:800;color:var(--green)}
+h1{font-family:Georgia,serif;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.04;margin:8px 0;color:var(--green-dark);font-weight:500}
+.subtitle{color:var(--muted);max-width:650px;margin:10px 0 18px}
+.meta{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font-size:.78rem;border:1px solid #d4dfd5;background:#ffffffa8;padding:5px 10px;border-radius:999px;color:var(--green-dark)}
+.progress-wrap{margin-top:22px;display:flex;align-items:center;gap:12px}
+.progress{height:7px;background:#d7e1d8;border-radius:99px;flex:1;overflow:hidden}
+.progress span{display:block;height:100%;width:0;background:var(--green);transition:width .25s}
+#progressText{font-size:.78rem;color:var(--muted);white-space:nowrap}
+main{padding:24px 16px 70px}
+.section{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(18px,3vw,28px);margin:18px 0;box-shadow:var(--shadow);scroll-margin-top:16px}
+.section-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}
+.num{width:36px;height:36px;border-radius:12px;background:var(--sage);color:var(--green-dark);display:grid;place-items:center;font-weight:800;flex:none}
+h2{font:500 1.55rem/1.2 Georgia,serif;margin:2px 0 4px;color:var(--green-dark)}
+h3{font-size:1rem;margin:18px 0 8px;color:var(--green-dark)}
+.small{font-size:.88rem;color:var(--muted);margin:0}
+.instruction{background:var(--sage2);border-left:3px solid var(--green);padding:12px 14px;border-radius:0 12px 12px 0;margin:12px 0 16px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+.card strong{color:var(--green-dark)}
+label{display:block;font-weight:650;margin:12px 0 6px}
+input[type=text],select{width:100%;padding:11px 12px;border:1px solid #cbd7cc;border-radius:10px;background:white;color:var(--ink);font:inherit}
+button{border:0;border-radius:10px;background:var(--green);color:white;padding:10px 15px;font:inherit;font-weight:700;cursor:pointer}
+button:hover{background:var(--green-dark)}
+button.secondary{background:#edf2ed;color:var(--green-dark);border:1px solid var(--line)}
+button.smallbtn{padding:7px 11px;font-size:.84rem}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.feedback{font-size:.9rem;margin-top:9px;min-height:1.4em}
+.good{color:var(--good);font-weight:700}.bad{color:var(--bad);font-weight:700}
+.reveal{display:none;background:#f7f5ed;border:1px dashed #d8c69f;padding:12px;border-radius:12px;margin-top:10px}
+.reveal.show{display:block}
+.example{font:1.08rem Georgia,serif;background:#f6f7f2;padding:12px;border-radius:12px;margin:8px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0}
+td,th{border:1px solid var(--line);padding:9px;text-align:left;vertical-align:top}
+th{background:var(--sage2);color:var(--green-dark)}
+details{border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin:10px 0;background:#fff}
+summary{cursor:pointer;font-weight:700;color:var(--green-dark)}
+.question{padding:13px 0;border-bottom:1px solid #edf0eb}
+.question:last-child{border:0}
+.options{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.option{border:1px solid var(--line);background:white;color:var(--ink);font-weight:500}
+.option.selected{background:var(--sage);border-color:var(--green);color:var(--green-dark)}
+.phrasebank{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.phrase{background:var(--sage2);border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-size:.9rem}
+.checkrow{display:flex;gap:10px;align-items:flex-start;margin:10px 0}
+.checkrow input{margin-top:5px;accent-color:var(--green)}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:20px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.section{padding:17px}.progress-wrap{gap:8px}}
+@media print{header{padding:15px}.section{box-shadow:none;break-inside:avoid}.actions,button,.progress-wrap{display:none!important}body{background:white}.reveal{display:block}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="eyebrow">English · A1 · Individual lesson</div>
+    <h1>Next Week</h1>
+    <p class="subtitle">Talk about simple plans, practise <b>be going to</b>, and take your time. Small sentences are real progress.</p>
+    <div class="meta"><span class="pill">50 minutes</span><span class="pill">Future plans</span><span class="pill">A1</span></div>
+    <div class="progress-wrap"><div class="progress"><span id="progressBar"></span></div><span id="progressText">0 / 7 sections</span></div>
+  </div>
+</header>
+<main>
+<section class="section" id="warmup">
+ <div class="section-head"><div class="num">1</div><div><h2>Warm-up · My week</h2><p class="small">5 minutes · Start with easy words. You can answer with one short sentence.</p></div></div>
+ <p>Look at the questions. Choose an answer or add your own idea.</p>
+ <div class="grid">
+  <div class="card"><strong>What do you usually do after work?</strong><div class="phrasebank"><span class="phrase">I go home.</span><span class="phrase">I cook dinner.</span><span class="phrase">I relax.</span><span class="phrase">I make candles.</span></div></div>
+  <div class="card"><strong>What do you like doing in your free time?</strong><div class="phrasebank"><span class="phrase">I like reading.</span><span class="phrase">I watch TV series.</span><span class="phrase">I make candles.</span><span class="phrase">I go for walks.</span></div></div>
+ </div>
+ <label for="warmAnswer">One thing about your usual week:</label><input id="warmAnswer" type="text" placeholder="I usually ...">
+</section>
+
+<section class="section" id="context">
+ <div class="section-head"><div class="num">2</div><div><h2>Context & discovery · Two plans</h2><p class="small">8 minutes · Read first. Notice the highlighted structure.</p></div></div>
+ <div class="card">
+  <p><b>Anna:</b> What are you going to do this weekend?</p>
+  <p><b>Lisa:</b> On Saturday, I'm <u>going to make</u> candles. In the evening, I'm <u>going to watch</u> a series.</p>
+  <p><b>Anna:</b> Nice! I'm <u>going to visit</u> my friend on Saturday. And on Sunday?</p>
+  <p><b>Lisa:</b> I'm not <u>going to work</u> on Sunday. I'm <u>going to read</u> a book.</p>
+  <p><b>Anna:</b> Are you <u>going to go</u> shopping, too?</p>
+  <p><b>Lisa:</b> No, I'm not. What about you?</p>
+ </div>
+ <h3>Check your understanding</h3>
+ <div class="question" data-answer="b"><b>1. What is Lisa going to do on Saturday?</b><div class="options"><button class="option" data-value="a">Visit a friend</button><button class="option" data-value="b">Make candles</button><button class="option" data-value="c">Go to work</button></div><div class="feedback"></div></div>
+ <div class="question" data-answer="a"><b>2. Is Lisa going to work on Sunday?</b><div class="options"><button class="option" data-value="a">No, she isn't.</button><button class="option" data-value="b">Yes, she is.</button></div><div class="feedback"></div></div>
+ <div class="question" data-answer="b"><b>3. Is Lisa going to go shopping?</b><div class="options"><button class="option" data-value="a">Yes, she is.</button><button class="option" data-value="b">No, she isn't.</button></div><div class="feedback"></div></div>
+ <div class="actions"><button class="smallbtn" onclick="checkChoices(this)">Check answers</button><button class="secondary smallbtn" onclick="resetChoices(this)">Try again</button></div>
+ <details><summary>Think about the meaning</summary><p>Does Lisa talk about her usual routine or her plan for the weekend?</p><p><b>Answer:</b> A plan for the weekend. She has already decided what she wants to do.</p></details>
+</section>
+
+<section class="section" id="grammar">
+ <div class="section-head"><div class="num">3</div><div><h2>Grammar focus · Be going to</h2><p class="small">10 minutes · Look at the pattern. You do not need to memorise everything at once.</p></div></div>
+ <div class="instruction"><b>We use be going to</b> to talk about plans and intentions in the future.</div>
+ <h3>1. Positive sentences</h3>
+ <div class="example">Subject + <b>am / is / are</b> + going to + verb</div>
+ <table><tr><th>Subject</th><th>Be</th><th>Example</th></tr>
+ <tr><td>I</td><td>am</td><td>I'm going to read.</td></tr><tr><td>He / She / It</td><td>is</td><td>She is going to work.</td></tr><tr><td>You / We / They</td><td>are</td><td>They are going to travel.</td></tr></table>
+ <h3>2. Negative sentences</h3><div class="example">Subject + am / is / are + <b>not</b> + going to + verb</div>
+ <p>I'm not going to work. · She isn't going to cook. · We aren't going to travel.</p>
+ <h3>3. Questions</h3><div class="example"><b>Am / Is / Are</b> + subject + going to + verb?</div>
+ <p>Are you going to read? — Yes, I am. / No, I'm not.</p>
+ <p>Is she going to work? — Yes, she is. / No, she isn't.</p>
+ <details><summary>Quick reminder: will and going to</summary>
+  <p><b>Will</b> can be used for a decision made now or a prediction: “I think it will rain.”</p>
+  <p><b>Be going to</b> is our focus today for a plan already decided: “I'm going to make candles on Saturday.”</p>
+  <p>For this lesson, focus on one clear use: <b>plans → be going to</b>. We are not studying all future forms today.</p>
+ </details>
+ <h3>Build the sentence</h3>
+ <p class="small">Choose the correct form of <i>be</i>.</p>
+ <div class="question" data-answer="are"><b>1. You ___ going to read tonight.</b><div class="options"><button class="option" data-value="am">am</button><button class="option" data-value="is">is</button><button class="option" data-value="are">are</button></div><div class="feedback"></div></div>
+ <div class="question" data-answer="is"><b>2. She ___ going to make candles.</b><div class="options"><button class="option" data-value="am">am</button><button class="option" data-value="is">is</button><button class="option" data-value="are">are</button></div><div class="feedback"></div></div>
+ <div class="question" data-answer="am"><b>3. I ___ not going to work on Sunday.</b><div class="options"><button class="option" data-value="am">am</button><button class="option" data-value="is">is</button><button class="option" data-value="are">are</button></div><div class="feedback"></div></div>
+ <div class="actions"><button class="smallbtn" onclick="checkChoices(this)">Check answers</button><button class="secondary smallbtn" onclick="resetChoices(this)">Try again</button></div>
+</section>
+
+<section class="section" id="practice">
+ <div class="section-head"><div class="num">4</div><div><h2>Controlled practice · Make it yours</h2><p class="small">10 minutes · Complete the sentences. Use the verb in brackets.</p></div></div>
+ <div class="instruction">Remember: <b>am / is / are + going to + base verb</b>. The main verb does not change.</div>
+ <div class="question"><label for="p1">1. I __________ a book tonight. (read)</label><input id="p1" type="text" placeholder="I'm going to ..."></div>
+ <div class="question"><label for="p2">2. She __________ candles this weekend. (make)</label><input id="p2" type="text" placeholder="She's going to ..."></div>
+ <div class="question"><label for="p3">3. We __________ at home on Sunday. (not / work)</label><input id="p3" type="text" placeholder="We're not going to ..."></div>
+ <div class="question"><label for="p4">4. __________ you __________ a series tonight? (watch)</label><input id="p4" type="text" placeholder="Are you going to ...?"></div>
+ <div class="actions"><button onclick="checkPractice()">Check my sentences</button><button class="secondary" onclick="showPractice()">Show example answers</button></div>
+ <div id="practiceFeedback" class="feedback" aria-live="polite"></div>
+ <div id="practiceAnswers" class="reveal"><b>Possible answers:</b><ol><li>I'm going to read a book tonight.</li><li>She's going to make candles this weekend.</li><li>We're not going to work at home on Sunday.</li><li>Are you going to watch a series tonight?</li></ol><span class="small">Other grammatically correct answers are possible.</span></div>
+ <h3>Choose the correct sentence</h3>
+ <div class="question" data-answer="b"><b>Which sentence is correct?</b><div class="options"><button class="option" data-value="a">I going to read tonight.</button><button class="option" data-value="b">I'm going to read tonight.</button><button class="option" data-value="c">I am going read tonight.</button></div><div class="feedback"></div></div>
+ <div class="actions"><button class="smallbtn" onclick="checkChoices(this)">Check answer</button></div>
+</section>
+
+<section class="section" id="listening">
+ <div class="section-head"><div class="num">5</div><div><h2>Listening · A busy weekend</h2><p class="small">7 minutes · Listen for the main idea first. You do not need to understand every word.</p></div></div>
+ <details><summary>Listening script · Open after the first listen</summary>
+  <p>Hi! My name is Emma. This weekend, I'm going to be busy. On Saturday morning, I'm going to clean my home. Then I'm going to go shopping. In the afternoon, I'm going to meet my friend for coffee. On Sunday, I'm not going to work. I'm going to stay at home, read a book and watch my favourite series.</p>
+ </details>
+ <h3>Listen and choose</h3>
+ <div class="question" data-answer="a"><b>1. Is Emma going to be busy this weekend?</b><div class="options"><button class="option" data-value="a">Yes, she is.</button><button class="option" data-value="b">No, she isn't.</button></div><div class="feedback"></div></div>
+ <div class="question" data-answer="b"><b>2. What is she going to do on Saturday afternoon?</b><div class="options"><button class="option" data-value="a">Read a book</button><button class="option" data-value="b">Meet her friend</button><button class="option" data-value="c">Go to work</button></div><div class="feedback"></div></div>
+ <div class="question" data-answer="c"><b>3. What is she going to do on Sunday?</b><div class="options"><button class="option" data-value="a">Work all day</button><button class="option" data-value="b">Visit her family</button><button class="option" data-value="c">Stay at home</button></div><div class="feedback"></div></div>
+ <div class="actions"><button class="smallbtn" onclick="checkChoices(this)">Check answers</button><button class="secondary smallbtn" onclick="resetChoices(this)">Try again</button></div>
+</section>
+
+<section class="section" id="speaking">
+ <div class="section-head"><div class="num">6</div><div><h2>Guided speaking · My plans</h2><p class="small">8 minutes · Use the prompts. You can prepare before you speak.</p></div></div>
+ <p><b>Step 1.</b> Choose ideas. You can use your real plans or invent simple ones.</p>
+ <div class="grid">
+  <div class="card"><b>After work</b><div class="phrasebank"><span class="phrase">cook dinner</span><span class="phrase">relax</span><span class="phrase">read a book</span><span class="phrase">watch a series</span></div></div>
+  <div class="card"><b>This weekend</b><div class="phrasebank"><span class="phrase">make candles</span><span class="phrase">go shopping</span><span class="phrase">meet a friend</span><span class="phrase">stay at home</span></div></div>
+  <div class="card"><b>Next week</b><div class="phrasebank"><span class="phrase">work</span><span class="phrase">go for a walk</span><span class="phrase">read</span><span class="phrase">visit someone</span></div></div>
+  <div class="card"><b>Not in my plans</b><div class="phrasebank"><span class="phrase">not work</span><span class="phrase">not go shopping</span><span class="phrase">not cook</span><span class="phrase">not travel</span></div></div>
+ </div>
+ <p><b>Step 2.</b> Complete three or four sentences.</p>
+ <label for="s1">On Saturday, I'm going to ...</label><input id="s1" type="text" placeholder="On Saturday, I'm going to ...">
+ <label for="s2">In the evening, I'm going to ...</label><input id="s2" type="text" placeholder="In the evening, I'm going to ...">
+ <label for="s3">On Sunday, I'm not going to ...</label><input id="s3" type="text" placeholder="On Sunday, I'm not going to ...">
+ <label for="s4">Next week, I'm going to ...</label><input id="s4" type="text" placeholder="Next week, I'm going to ...">
+ <h3>Step 3. Ask and answer</h3>
+ <div class="card"><b>Question prompts</b><p>Are you going to work tomorrow?</p><p>Are you going to read this weekend?</p><p>What are you going to do on Sunday?</p><p>What are you going to do after work?</p></div>
+</section>
+
+<section class="section" id="feedback">
+ <div class="section-head"><div class="num">7</div><div><h2>Feedback · I can do it!</h2><p class="small">2 minutes · Notice what you can do now.</p></div></div>
+ <p>Tick the things you can do after this lesson.</p>
+ <label class="checkrow"><input type="checkbox" class="done"> I can say one thing about my future plans.</label>
+ <label class="checkrow"><input type="checkbox" class="done"> I can use am / is / are going to.</label>
+ <label class="checkrow"><input type="checkbox" class="done"> I can make a negative sentence.</label>
+ <label class="checkrow"><input type="checkbox" class="done"> I can ask a simple question about plans.</label>
+ <label class="checkrow"><input type="checkbox" class="done"> I can understand the main idea in a short text about plans.</label>
+ <div class="instruction"><b>One final question:</b> What is one sentence you remember from today?</div>
+ <p class="small">Remember: you do not have to speak perfectly. Every clear sentence is progress.</p>
+</section>
+<footer>Next Week · A1 · Adapted individual lesson</footer>
+</main>
+<script>
+function updateProgress(){
+ const sections=[...document.querySelectorAll('main .section')];
+ const count=sections.filter(s=>s.dataset.done==='1').length;
+ document.getElementById('progressBar').style.width=(count/sections.length*100)+'%';
+ document.getElementById('progressText').textContent=count+' / '+sections.length+' sections';
+}
+document.querySelectorAll('.section').forEach(section=>{
+ const observer=new MutationObserver(()=>{});
+ section.addEventListener('change',()=>{section.dataset.done='1';updateProgress()});
+ section.addEventListener('click',e=>{
+  if(e.target.matches('button') && !e.target.classList.contains('secondary')){section.dataset.done='1';updateProgress()}
+ });
+});
+document.querySelectorAll('.question .option').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+  const q=btn.closest('.question');
+  q.querySelectorAll('.option').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+ });
+});
+function checkChoices(button){
+ const section=button.closest('.section');
+ section.querySelectorAll('.question[data-answer]').forEach(q=>{
+  const chosen=q.querySelector('.option.selected'); const fb=q.querySelector('.feedback');
+  if(!chosen){fb.textContent='Choose an answer first.';fb.className='feedback';return}
+  if(chosen.dataset.value===q.dataset.answer){fb.textContent='Correct! Well done.';fb.className='feedback good'}
+  else{fb.textContent='Not quite. Try again — look at the text or the grammar pattern.';fb.className='feedback bad'}
+ });
+}
+function resetChoices(button){
+ const section=button.closest('.section');
+ section.querySelectorAll('.question[data-answer]').forEach(q=>{
+  q.querySelectorAll('.option').forEach(b=>b.classList.remove('selected'));
+  const fb=q.querySelector('.feedback');if(fb){fb.textContent='';fb.className='feedback'}
+ });
+}
+function checkPractice(){
+ const vals=[1,2,3,4].map(i=>document.getElementById('p'+i).value.trim());
+ const fb=document.getElementById('practiceFeedback');
+ const filled=vals.filter(Boolean).length;
+ if(filled<4){fb.textContent='Complete all four sentences first. You can use the hints in the boxes.';fb.className='feedback bad';return}
+ fb.textContent='Good effort! Check: am / is / are + going to + base verb. Open “Show example answers” and compare your sentences.';fb.className='feedback good';
+}
+function showPractice(){document.getElementById('practiceAnswers').classList.toggle('show')}
+</script>
+</body>
+</html>

@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Could You Do Me a Favor? — A1+ to A2 Speaking Lesson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FFF9EC; --paper:#FFFEF9; --ink:#232433; --muted:#757083;
+  --navy:#27407A; --navy-soft:#E1E8F7; --dark:#2B2D42;
+  --gold:#F2C14E; --gold-soft:#FCEFC7; --coral:#E4572E; --coral-soft:#FBE0D6; --teal:#2A9D8F;
+  --ok:#2F7D4F; --ok-soft:#DDF0E3; --bad:#C0432A; --bad-soft:#FBE0D6;
+  --line:#E9E2CF;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;font-size:17px;line-height:1.55}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;color:var(--dark);line-height:1.15;margin:0}
+.wrap{max-width:920px;margin:0 auto;padding:0 18px}
+button{font-family:inherit}
+
+/* hero */
+.hero{background:var(--navy);color:#fff;padding:36px 0 30px;position:relative}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;
+  background:repeating-linear-gradient(90deg,var(--gold) 0 40px,var(--coral) 40px 80px,var(--teal) 80px 120px)}
+.hero .tag{display:inline-block;background:var(--gold);color:var(--dark);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:99px}
+.hero h1{color:#fff;font-size:clamp(34px,6vw,54px);margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;max-width:640px;opacity:.93;font-size:18px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:99px;font-size:14px;font-weight:700}
+
+/* audio settings */
+.audiobar{background:var(--paper);border:1px solid var(--line);border-radius:16px;margin:20px 0 0;box-shadow:0 4px 16px rgba(43,45,66,.05)}
+.audiobar summary{cursor:pointer;padding:12px 18px;font-weight:800;color:var(--navy)}
+.audiobar .in{padding:4px 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+@media(max-width:640px){.audiobar .in{grid-template-columns:1fr}}
+.audiobar label{display:block;font-weight:800;font-size:14px;margin-bottom:4px;color:var(--dark)}
+.audiobar select{width:100%;padding:8px 10px;border:2px solid var(--line);border-radius:10px;font-family:inherit;font-size:15px;background:#fff}
+.audiobar .row{display:flex;gap:8px;align-items:center;margin-top:6px}
+.audiobar .full{grid-column:1/-1}
+.audiobar .tip{font-size:14px;color:var(--muted)}
+.audiobar input[type=range]{width:100%;accent-color:var(--navy)}
+
+/* nav */
+.line{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(43,45,66,.06);margin-top:20px}
+.line-inner{display:flex;align-items:center;gap:10px;padding:10px 18px;max-width:920px;margin:0 auto}
+.stops{flex:1;display:flex;justify-content:space-between;position:relative;overflow-x:auto;padding:4px 2px;scrollbar-width:none}
+.stops::-webkit-scrollbar{display:none}
+.stops:before{content:"";position:absolute;left:14px;right:14px;top:17px;height:3px;background:var(--line);z-index:0}
+.stops .fill{position:absolute;left:14px;top:17px;height:3px;background:var(--navy);z-index:0;width:0;transition:width .4s}
+.stop{position:relative;z-index:1;background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:58px;color:var(--muted);font-size:11px;font-weight:700}
+.stop i{width:28px;height:28px;border-radius:50%;background:var(--paper);border:3px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:12px;color:var(--muted);transition:.25s}
+.stop.on i{border-color:var(--navy);background:var(--navy);color:#fff;transform:scale(1.1)}
+.stop.done i{border-color:var(--navy);color:var(--navy)}
+.stop.on{color:var(--navy)}
+.ua-btn{border:2px solid var(--navy);background:var(--paper);color:var(--navy);font-weight:800;border-radius:99px;padding:6px 12px;cursor:pointer;font-size:13px;white-space:nowrap}
+body.ua-on .ua-btn{background:var(--navy);color:#fff}
+
+/* ukrainian */
+.ua{display:none;color:var(--navy);font-size:.88em;font-weight:600}
+body.ua-on .ua{display:block;margin-top:2px}
+body.ua-on .word .ua{display:inline;margin:0}
+.always-ua{display:block !important;color:var(--navy);font-weight:700}
+
+/* steps */
+.step{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:26px 24px;margin:26px 0;box-shadow:0 6px 22px rgba(43,45,66,.06)}
+.step-head{display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap}
+.num{width:42px;height:42px;border-radius:50%;background:var(--gold);color:var(--dark);display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:800;font-size:20px;flex:none}
+.step h2{font-size:clamp(24px,4vw,32px)}
+.time{margin-left:auto;background:var(--gold-soft);color:var(--dark);font-weight:800;font-size:13px;padding:4px 12px;border-radius:99px}
+.goal{color:var(--muted);margin:2px 0 14px}
+.task{background:var(--navy-soft);border-left:5px solid var(--navy);border-radius:10px;padding:10px 14px;margin:20px 0 12px;font-weight:700}
+.task small{display:block;font-weight:600;color:var(--muted)}
+.how{background:var(--gold-soft);border-radius:14px;padding:12px 16px;margin:10px 0;font-weight:700}
+.how ol{margin:6px 0 0 20px;padding:0}
+.how li{margin:3px 0}
+
+/* buttons */
+.btn{background:var(--navy);color:#fff;border:0;border-radius:99px;padding:10px 20px;font-weight:800;font-size:15px;cursor:pointer;transition:transform .12s,background .2s}
+.btn:hover{background:#1d3260;transform:translateY(-1px)}
+.btn.alt{background:var(--paper);color:var(--navy);border:2px solid var(--navy)}
+.btn.gold{background:var(--gold);color:var(--dark)}
+.btn.sm{padding:6px 14px;font-size:14px}
+.btn.on{background:var(--coral);border-color:var(--coral);color:#fff}
+.play{width:36px;height:36px;border-radius:50%;border:0;background:var(--navy);color:#fff;cursor:pointer;font-size:14px;flex:none;display:inline-grid;place-items:center}
+.play:hover{background:#1d3260}
+.play.on{background:var(--coral)}
+
+/* warm-up */
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.qcard{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-weight:700}
+.qcard b{font-family:'Fraunces',serif;color:var(--coral);margin-right:6px}
+
+/* flashcards */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.fcard{position:relative;background:var(--cream);border:2px solid var(--line);border-radius:16px;min-height:150px;padding:14px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transition:.2s}
+.fcard:hover{border-color:var(--navy)}
+.fcard .emo{font-size:34px;line-height:1}
+.fcard .en{font-family:'Fraunces',serif;font-weight:800;font-size:22px;color:var(--dark);margin-top:6px}
+.fcard .back{display:none;flex-direction:column;gap:4px}
+.fcard.flip{background:var(--navy-soft);border-color:var(--navy)}
+.fcard.flip .front{display:none}
+.fcard.flip .back{display:flex}
+.fcard .back .u{font-weight:800;color:var(--navy);font-size:19px}
+.fcard .back .ex{font-size:14px}
+.fcard .mini{position:absolute;right:8px;top:8px;width:28px;height:28px;font-size:11px}
+
+/* video */
+.video{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden;background:#000;margin:10px 0}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.credit{font-size:14px;color:var(--muted)}
+.credit a{color:var(--navy);font-weight:800}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.rchip{border:2px solid var(--line);background:#fff;border-radius:99px;padding:8px 16px;font-weight:800;cursor:pointer;font-size:16px;color:var(--ink)}
+.rchip.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.rchip.much{background:var(--coral-soft);border-color:var(--coral);color:var(--bad)}
+.legend{font-size:14px;color:var(--muted)}
+
+/* phrase cards */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.pcard{border:2px solid var(--line);border-radius:16px;padding:14px;background:#fff;display:flex;flex-direction:column;gap:8px}
+.pcard.fav{border-color:var(--gold);background:var(--gold-soft)}
+.pcard .sit{font-weight:700;color:var(--navy)}
+.pcard .eng{display:none;font-family:'Fraunces',serif;font-weight:800;font-size:19px;color:var(--dark)}
+.pcard.show .eng{display:block}
+.pcard .row{display:flex;gap:8px;align-items:center}
+.pcard .star{margin-left:auto;background:none;border:0;font-size:24px;cursor:pointer;color:#cdbf92}
+.pcard.fav .star{color:var(--gold)}
+.favcount{font-weight:800;color:var(--navy);margin:8px 0}
+.formula{background:var(--dark);color:#fff;border-radius:16px;padding:16px 20px;margin:14px 0;font-weight:700}
+.formula .f{font-family:'Fraunces',serif;font-size:clamp(18px,3.2vw,24px);margin:4px 0}
+.formula em{font-style:normal;color:var(--gold)}
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+@media(max-width:640px){.contrast{grid-template-columns:1fr}}
+.contrast div{border-radius:14px;padding:12px 16px;font-weight:700}
+.contrast .c1{background:var(--navy-soft);border:2px solid var(--navy)}
+.contrast .c2{background:var(--coral-soft);border:2px solid var(--coral)}
+.contrast b{display:block;font-family:'Fraunces',serif;font-size:19px;margin-bottom:4px}
+
+/* dialogue */
+.dialogue{background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+.dlg-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.dlg-bar .grow{flex:1;min-width:140px;font-weight:800;color:var(--dark)}
+.own{margin-top:10px;font-size:14px;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.own input{display:none}
+.script{display:none;margin-top:10px}
+.script.show{display:block}
+.line-row{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:12px;margin:4px 0}
+.line-row.active{background:var(--gold-soft)}
+.who{font-weight:800;font-size:13px;min-width:86px;color:var(--navy);padding-top:8px}
+.line-row .txt{flex:1}
+.script.cover .line-row[data-w="N"] .txt .en{filter:blur(7px);user-select:none}
+.speechnote{font-size:14px;color:var(--coral);font-weight:700;margin-top:8px}
+
+/* quiz */
+.qblock{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0;background:#fff}
+.qblock .q{font-weight:800;margin-bottom:8px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:2px solid var(--line);background:var(--paper);border-radius:12px;padding:8px 14px;font-weight:700;cursor:pointer;font-size:16px;color:var(--ink)}
+.opt:hover{border-color:var(--navy)}
+.opt.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.opt.locked{cursor:default}
+.score{margin-top:10px;font-weight:800;color:var(--navy)}
+.fb{font-weight:800;margin-top:8px;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--bad)}
+.check{display:flex;gap:10px;align-items:center;padding:8px 12px;border:2px solid var(--line);border-radius:12px;margin:6px 0;cursor:pointer;background:#fff;font-weight:700}
+.check input{width:20px;height:20px;accent-color:var(--navy)}
+.check.right{background:var(--ok-soft);border-color:var(--ok)}
+.check.wrong{background:var(--bad-soft);border-color:var(--bad)}
+
+/* talk + cards */
+.talk{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.talk .qcard{background:var(--gold-soft);border-color:var(--gold)}
+.scenario{background:var(--dark);color:#fff;border-radius:18px;padding:20px 24px;margin:12px 0;min-height:150px}
+.scenario .sc-tag{display:inline-block;background:var(--gold);color:var(--dark);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:99px}
+.scenario .sc-tag.no{background:var(--coral);color:#fff}
+.scenario .sc-title{font-family:'Fraunces',serif;font-size:26px;color:var(--gold);margin-top:8px}
+.scenario .sc-text{font-size:21px;font-weight:700;margin-top:6px}
+.scenario .ua{color:#F9DD9B}
+.scenario .play{margin-top:8px}
+.hints{display:none;margin-top:10px;background:rgba(255,255,255,.1);border-radius:10px;padding:10px 14px;font-weight:700}
+.hints.show{display:block}
+.timer{font-family:'Fraunces',serif;font-size:34px;color:var(--dark);min-width:100px}
+.timer.low{color:var(--coral)}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.modes{display:flex;gap:8px;flex-wrap:wrap}
+
+/* checklist */
+.ticks label{display:flex;gap:10px;align-items:center;padding:8px 0;font-weight:700;cursor:pointer}
+.ticks input{width:20px;height:20px;accent-color:var(--navy)}
+.card{background:var(--cream);border:2px dashed var(--navy);border-radius:16px;padding:16px 20px;font-size:19px;font-weight:700;line-height:2}
+.blank{display:inline-block;min-width:110px;border-bottom:3px dotted var(--navy);height:1.1em;vertical-align:baseline}
+
+/* notes */
+details.notes{margin-top:22px;border:1px dashed var(--muted);border-radius:12px;background:#FBF4E3}
+details.notes summary{cursor:pointer;padding:10px 16px;font-weight:800;color:var(--muted)}
+details.notes[open] summary{border-bottom:1px dashed var(--muted)}
+details.notes .body{padding:12px 18px 16px;font-size:15.5px}
+details.notes ul{margin:6px 0 6px 18px;padding:0}
+details.notes b{color:var(--dark)}
+
+/* finish */
+.finish{text-align:center;padding:30px 24px}
+.stamp{display:none;margin:20px auto;width:210px;height:210px;border-radius:50%;border:6px double var(--coral);color:var(--coral);place-items:center;text-align:center;transform:rotate(-8deg);font-family:'Fraunces',serif;font-weight:800;font-size:22px;line-height:1.1}
+.stamp.show{display:grid;animation:pop .6s cubic-bezier(.2,1.6,.4,1)}
+.stamp small{display:block;font-family:'Nunito',sans-serif;font-size:13px;letter-spacing:.1em;font-weight:800;margin-top:6px}
+@keyframes pop{0%{transform:scale(.2) rotate(-40deg);opacity:0}100%{transform:scale(1) rotate(-8deg);opacity:1}}
+.confetti{position:fixed;top:-20px;width:10px;height:14px;z-index:999;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.9}}
+footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 50px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">Speaking &amp; Listening · A1+ → A2</span>
+    <h1>Could You Do Me a Favor?</h1>
+    <p>Everyday problems and how to ask for help. After this lesson you can ask someone to help you, ask permission, and say yes or no politely.</p>
+    <div class="meta">
+      <span class="chip">50 minutes</span>
+      <span class="chip">video lesson</span>
+      <span class="chip">Could you…? Can I…?</span>
+      <span class="chip">Sure! / Sorry, I can't.</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <details class="audiobar" id="audiobar">
+    <summary>🔊 Audio settings — choose the best voices on this computer</summary>
+    <div class="in">
+      <div>
+        <label for="voiceA">Voice 1 (woman)</label>
+        <select id="voiceA"></select>
+        <div class="row"><button class="btn sm alt" id="testA" type="button">Test voice 1</button></div>
+      </div>
+      <div>
+        <label for="voiceB">Voice 2 (man)</label>
+        <select id="voiceB"></select>
+        <div class="row"><button class="btn sm alt" id="testB" type="button">Test voice 2</button></div>
+      </div>
+      <div class="full">
+        <label for="speed">Speed: <span id="speedVal">0.90</span></label>
+        <input type="range" id="speed" min="0.6" max="1.1" step="0.05" value="0.9">
+      </div>
+      <div class="full tip">
+        Default voices: <b>Google US English</b> (woman) and <b>Google UK English Male</b> (man). They appear in Chrome. If they are not on your computer, the lesson uses <b>Microsoft Mark</b> or the best voice it finds. The video needs the internet. The voices are used for phrases, request cards and the homework dialogue.
+      </div>
+    </div>
+  </details>
+</div>
+
+<nav class="line" aria-label="Lesson progress">
+  <div class="line-inner">
+    <div class="stops" id="stops"><div class="fill" id="fill"></div></div>
+    <button class="ua-btn" id="uaBtn" type="button">UA: off</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- 1. WARM-UP -->
+<section class="step" id="s1" data-label="Warm-up">
+  <div class="step-head"><div class="num">1</div><h2>Warm-up: Favors</h2><span class="time">4 min</span></div>
+  <p class="goal">A favor = a small help. Talk about favors and problems.</p>
+  <div class="qgrid">
+    <div class="qcard"><b>1</b>Do you often ask people for help?<span class="ua">Ти часто просиш людей про допомогу?</span></div>
+    <div class="qcard"><b>2</b>Who helps you when you have a problem?<span class="ua">Хто допомагає тобі, коли в тебе проблема?</span></div>
+    <div class="qcard"><b>3</b>What small favor did you do for someone last week?<span class="ua">Яку маленьку послугу ти зробила комусь минулого тижня?</span></div>
+    <div class="qcard"><b>4</b>What problems can happen when you travel?<span class="ua">Які проблеми можуть статися в подорожі?</span></div>
+    <div class="qcard"><b>5</b>Is it difficult for you to ask for help in English?<span class="ua">Тобі важко просити про допомогу англійською?</span></div>
+    <div class="qcard"><b>6</b>What was your last small problem? What did you do?<span class="ua">Яка в тебе була остання маленька проблема? Що ти зробила?</span></div>
+  </div>
+  </section>
+
+<!-- 2. PROBLEM WORDS -->
+<section class="step" id="s2" data-label="Problem words">
+  <div class="step-head"><div class="num">2</div><h2>Problem Words</h2><span class="time">7 min</span></div>
+  <p class="goal">Look at the picture and the word. Say what it means. Click the card to check. Click ▶ to hear it.</p>
+  <div class="fgrid" id="words"></div>
+
+  <div class="task">Which word?<span class="ua">Яке слово підходить?</span></div>
+  <div id="wordsQuiz"></div>
+
+  <div class="task">Your turn<span class="ua">Твоя черга</span>
+    <small>Which problem is the worst when you travel? Tell me about a time when you lost something or missed a train.</small></div>
+
+  </section>
+
+<!-- 3. VIDEO -->
+<section class="step" id="s3" data-label="Video">
+  <div class="step-head"><div class="num">3</div><h2>Video: Do Me a Favor?</h2><span class="time">12 min</span></div>
+  <p class="goal">Marie works in a travel agency. Her boss, Mr. Evans, has a problem. Watch and listen.</p>
+
+  <div class="task">Before you watch<span class="ua">Перед переглядом</span>
+    <small>Look at the title and the words: favor, spill, tie, suit, violin. What do you think happens?</small></div>
+
+  <div class="video">
+    <iframe src="https://www.youtube.com/embed/QdcsomFSA34" title="Do Me a Favor? — Top Notch TV" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+  <div class="credit">Video: Top Notch TV (Pearson), "Do Me a Favor?". If the video does not play, <a href="https://www.youtube.com/watch?v=QdcsomFSA34" target="_blank" rel="noopener">open it on YouTube</a>. Lesson page with transcript: <a href="https://www.listeninenglish.com/tn-013.php" target="_blank" rel="noopener">listeninenglish.com</a>.</div>
+
+  <div class="task">A. Watch 1. What is the story?<span class="ua">Перегляд 1. Про що історія?</span></div>
+  <div id="vA"></div>
+
+  <div class="task">B. Watch 2. True or False?<span class="ua">Перегляд 2. Правда чи ні?</span></div>
+  <div id="vB"></div>
+
+  <div class="task">C. Listen for the question words.<span class="ua">Прислухайся до фраз прохання.</span></div>
+  <div id="vC"></div>
+
+  <div class="task">D. What does Marie say? Tick all.<span class="ua">Що відповідає Марі? Познач усе.</span></div>
+  <div id="vD"></div>
+
+  <div class="task">E. Which favors are OK? Which are too much?<span class="ua">Які прохання нормальні? Які занадто?</span>
+    <small>Click a favor: once = OK, twice = too much, three times = clear. Then say why.</small></div>
+  <div class="chips" id="favors"></div>
+  <div class="legend">Say: "I think … is OK because…" / "I think … is too much because…"</div>
+
+  <div class="task">F. Talk about it.<span class="ua">Обговоримо.</span></div>
+  <div class="talk">
+    <div class="qcard"><b>1</b>Marie says "yes" to everything. Is that a good idea? Why? Why not?<span class="ua">Марі погоджується на все. Це добра ідея?</span></div>
+    <div class="qcard"><b>2</b>Would you say "yes" or "no" to Mr. Evans? What would you say?<span class="ua">Ти б сказала "так" чи "ні"? Що б ти сказала?</span></div>
+    <div class="qcard"><b>3</b>Is it OK to ask your boss for a favor? What kind of favor?<span class="ua">Чи нормально просити начальника про послугу?</span></div>
+  </div>
+
+  </section>
+
+<!-- 4. PHRASES -->
+<section class="step" id="s4" data-label="Phrases">
+  <div class="step-head"><div class="num">4</div><h2>Your 8 Phrases</h2><span class="time">7 min</span></div>
+  <p class="goal">Eight phrases. Only eight. They work at a station, in a café, in a hotel — everywhere.</p>
+
+  <div class="contrast">
+    <div class="c1"><b>Could you / Can you…?</b>You want someone to do something for you.<br>"Could you help me, please?"</div>
+    <div class="c2"><b>Can I / Could I…?</b>You want to do or take something.<br>"Can I borrow your charger?"</div>
+  </div>
+
+  <div class="how">How to work with these cards:
+    <ol>
+      <li>Read the situation in Ukrainian. Say the English phrase out loud.</li>
+      <li>Click "Check" to see the answer. Click ▶ to hear it. Say it again.</li>
+      <li>Click the star on the 4 phrases you want to remember most.</li>
+    </ol>
+  </div>
+  <div class="pgrid" id="pgrid"></div>
+  <div class="favcount" id="favcount">My favourite phrases: 0 / 4</div>
+
+  <div class="formula">
+    <div>The formula<span class="ua always-ua" style="color:#F9DD9B">Формула: проблема + прохання</span></div>
+    <div class="f"><em>Sorry,</em> + problem. + <em>Could you…? / Can I…?</em></div>
+    <div class="f" style="font-size:19px;opacity:.95">"Sorry, my phone is dead. Can I borrow your charger?"</div>
+  </div>
+
+  <div class="task">Could you / Can I? Choose the best request.<span class="ua">Вибери найкраще прохання.</span></div>
+  <div id="match"></div>
+
+  <div class="task">Someone asks you for help. What do you say?<span class="ua">Хтось просить тебе про допомогу. Що ти скажеш?</span></div>
+  <div id="answers"></div>
+
+  </section>
+
+<!-- 5. SPEAKING -->
+<section class="step" id="s5" data-label="Speaking">
+  <div class="step-head"><div class="num">5</div><h2>Your Turn: Ask and Answer</h2><span class="time">17 min</span></div>
+  <p class="goal">Two games. In one you answer a request. In the other you ask for help. No roleplay, just talk.</p>
+
+  <div class="how">How it works:
+    <ol>
+      <li><b>You answer:</b> the teacher reads the request. Natali answers "yes" or "no + reason", as the card says.</li>
+      <li><b>You ask:</b> Natali reads the situation and asks the teacher for help. The teacher says "yes" or "no".</li>
+      <li><b>Mixed:</b> the cards change by themselves.</li>
+    </ol>
+  </div>
+
+  <div class="controls modes">
+    <button class="btn" id="modeAnswer" type="button">You answer</button>
+    <button class="btn alt" id="modeAsk" type="button">You ask</button>
+    <button class="btn alt" id="modeMix" type="button">Mixed</button>
+  </div>
+  <div class="controls">
+    <button class="btn gold" id="nextCard" type="button">Next card</button>
+    <button class="btn alt" id="hintBtn" type="button">Show hints</button>
+  </div>
+  <div class="scenario" id="scenario">
+    <div class="sc-tag">Ready?</div>
+    <div class="sc-text">Choose a game and press "Next card".</div>
+  </div>
+  <div class="controls">
+    <div class="timer" id="timer">08:00</div>
+    <button class="btn sm gold" id="tStart" type="button">Start</button>
+    <button class="btn sm alt" id="tReset" type="button">Reset</button>
+  </div>
+
+  </section>
+
+<!-- 6. WRAP UP + HOMEWORK -->
+<section class="step" id="s6" data-label="Wrap-up">
+  <div class="step-head"><div class="num">6</div><h2>Wrap-up &amp; Homework</h2><span class="time">3 min</span></div>
+
+  <div class="task">My Favor Card. Say it out loud.<span class="ua">Моя картка прохань. Скажи вголос.</span></div>
+  <div class="card">
+    Sorry, <span class="blank"></span>. Could you <span class="blank"></span>, please?<br>
+    Can I <span class="blank"></span>?<br>
+    Sure, <span class="blank"></span>. / Sorry, I can't. <span class="blank"></span>.
+  </div>
+
+  <div class="task">Self-check<span class="ua">Самоперевірка</span></div>
+  <div class="ticks">
+    <label><input type="checkbox"> I know 5 new problem words.</label>
+    <label><input type="checkbox"> I can ask for help (Could you…? Can you…?).</label>
+    <label><input type="checkbox"> I can ask permission (Can I…? Could I…?).</label>
+    <label><input type="checkbox"> I can say yes or no politely.</label>
+    <label><input type="checkbox"> I understood the video.</label>
+  </div>
+
+  <div class="task">Homework<span class="ua">Домашнє завдання</span></div>
+  <ul>
+    <li><b>Listen:</b> "Trouble at the Station" below. Listen two times. Then do the tasks.</li>
+    <li><b>Speak:</b> record a voice message (1 minute). Tell me about a problem you can have on a trip. Ask me for help twice: use <i>Could you…?</i> and <i>Can I…?</i></li>
+  </ul>
+
+  <div class="dialogue" id="hwbox">
+    <div class="dlg-bar">
+      <span class="grow">Homework dialogue · Trouble at the Station</span>
+      <button class="btn sm" id="hwplay" type="button">▶ Play</button>
+      <button class="btn sm alt" id="hwslow" type="button">Slow: off</button>
+      <button class="btn sm alt" id="hwshow" type="button">Show script</button>
+      <button class="btn sm alt" id="hwcover" type="button">Cover Nina's lines</button>
+    </div>
+    <div class="own">
+      <label class="btn sm alt" for="hwfile">Use my own audio file</label>
+      <input type="file" id="hwfile" accept="audio/*">
+      <span id="hwown"></span>
+    </div>
+    <div class="script" id="hwscript"></div>
+    <div class="speechnote" id="speechnote"></div>
+  </div>
+
+  <div class="task">A. True or False?<span class="ua">Правда чи ні?</span></div>
+  <div id="hwA"></div>
+
+  <div class="task">B. What does the man say "no" to? What does he say "yes" to? Tick the "yes".<span class="ua">На що чоловік каже "так"? Познач.</span></div>
+  <div id="hwB"></div>
+
+  <div class="task">C. Complete the sentences.<span class="ua">Заверши речення.</span></div>
+  <div id="hwC"></div>
+
+  <div class="finish">
+    <div class="stamp" id="stamp"><div>FAVOR<br>DONE<small>WELL DONE, NATALI</small></div></div>
+    <button class="btn gold" id="finishBtn" type="button">Finish lesson</button>
+  </div>
+</section>
+
+</main>
+<footer>Could You Do Me a Favor? · A1+ → A2 · 1-to-1 speaking lesson</footer>
+
+<script>
+/* ---------- DATA ---------- */
+var WORDS = [
+ ["🤝","favor","послуга","Could you do me a favor?"],
+ ["🥤","spill","розлити","I spilled coffee on my shirt."],
+ ["👕","stain","пляма","There's a stain on my shirt."],
+ ["🔑","lose / lost","загубити / загублений","I lost my ticket."],
+ ["🤦","forget","забути","I forgot my umbrella."],
+ ["🧳","broken","зламаний","My suitcase is broken."],
+ ["🚆","miss (the train)","запізнитися на потяг","I missed my train."],
+ ["⏰","late","запізнитися, пізно","I'm late for work."],
+ ["🕒","delayed","затриманий (потяг, рейс)","My train is delayed."],
+ ["🚪","stuck","застряг, не відчиняється","The door is stuck."],
+ ["🔋","battery","батарея","My battery is dead."],
+ ["🔌","charger","зарядка","Can I borrow your charger?"]
+];
+var WORDQ = [
+ {q:"My phone is off. The ___ is dead.", o:["battery","stain","favor"], a:0},
+ {q:"I can't find my keys. I ___ them.", o:["lost","spilled","missed"], a:0},
+ {q:"The train is 30 minutes late. It's ___.", o:["stuck","delayed","broken"], a:1},
+ {q:"I spilled juice. Now there's a ___ on my shirt.", o:["stain","charger","favor"], a:0},
+ {q:"The train left at six. I ___ it.", o:["forgot","missed","spilled"], a:1},
+ {q:"The door won't open. It's ___.", o:["stuck","late","delayed"], a:0}
+];
+var VA = [
+ {q:"Where do Marie and Mr. Evans work?", o:["In a restaurant","In a travel agency","In a school"], a:1},
+ {q:"What is Mr. Evans' problem?", o:["He lost his keys","He spilled coffee on his tie","He is late for a train"], a:1}
+];
+var VB = [
+ {q:"Mr. Evans has lunch with a client.", o:["True","False"], a:0},
+ {q:"He asks Marie to buy a new tie.", o:["True","False"], a:0},
+ {q:"He asks Marie to buy a newspaper.", o:["True","False"], a:0},
+ {q:"Marie says no to the first request.", o:["True","False"], a:1},
+ {q:"He asks Marie to play the violin.", o:["True","False"], a:0},
+ {q:"At the end Mr. Evans thinks Marie did not hear him.", o:["True","False"], a:0}
+];
+var VC = [
+ {q:"Marie, ___ you do me a favor?", o:["could","do","are"], a:0},
+ {q:"And ___ you get a newspaper for me?", o:["can","did","have"], a:0},
+ {q:"___ you play the violin for me?", o:["Are","Can","Is"], a:1}
+];
+var VD = [["Sure.",true],["Of course.",true],["Certainly.",true],["Yes, sir.",true],["No way!",false],["Sorry, I can't.",false]];
+var FAVORS = ["buy a new tie","get a newspaper","buy a cup of coffee","buy a new shirt","buy a new suit","play the violin","fix my car"];
+
+var PHR = [
+ ["Ти хочеш попросити послугу.","Could you do me a favor?"],
+ ["Тобі потрібна допомога.","Could you help me, please?"],
+ ["Попроси потримати сумку.","Could you hold my bag for a minute?"],
+ ["Ти хочеш позичити зарядку.","Can I borrow your charger?"],
+ ["Хтось просить допомоги. Ти згодна.","Sure, no problem."],
+ ["Хтось просить. Ти не можеш.","Sorry, I can't. I'm in a hurry."],
+ ["Тобі допомогли.","Thanks a lot!"],
+ ["Тобі дякують за допомогу.","No worries."]
+];
+var MATCH = [
+ {q:"My phone is dead. I need a charger.", o:["Can I borrow your charger, please?","Can you borrow my charger?","Do you charge my phone?"], a:0},
+ {q:"I spilled coffee on my shirt. I need a napkin.", o:["Could I give you a napkin?","Could you give me a napkin, please?","I give napkin."], a:1},
+ {q:"My suitcase is very heavy.", o:["Could you help me with my suitcase?","Can I help you with my suitcase?","Are you my suitcase?"], a:0},
+ {q:"I want to sit here. Is the seat free?", o:["Could you sit here?","Can I sit here?","Do you sit here?"], a:1},
+ {q:"I missed my train. I need information.", o:["Could you tell me when the next train is?","Can I tell you the next train?","Do I know the next train?"], a:0},
+ {q:"I need a pen. You have one.", o:["Can I use your pen?","Can you use my pen?","I use a pen."], a:0}
+];
+var ANSWERS = [
+ {q:"Someone asks: \"Could you help me?\" You want to help.", o:["Sure, no problem.","No, thanks.","Please."], a:0},
+ {q:"Someone asks: \"Could you lend me ten euros?\" You can't.", o:["Sorry, I can't.","Sure, you're welcome.","Yes, I can't."], a:0},
+ {q:"You say: \"Thanks a lot!\" The person answers:", o:["No worries.","Please, sorry.","I'm in a hurry."], a:0}
+];
+var REQ = [
+ ["Could you hold my bag for a minute?","Чи могла б ти потримати мою сумку хвилинку?"],
+ ["Can I sit here?","Можна я тут сяду?"],
+ ["Could you close the window, please?","Чи могла б ти зачинити вікно?"],
+ ["Can you take a photo of me?","Можеш мене сфотографувати?"],
+ ["Could you lend me ten euros?","Чи могла б ти позичити мені десять євро?"],
+ ["Can I borrow your pen?","Можна позичити твою ручку?"],
+ ["Could you help me with my suitcase?","Допоможеш мені з валізою?"],
+ ["Could you call a taxi for me?","Чи могла б ти викликати мені таксі?"],
+ ["Can I use your phone? Mine is dead.","Можна скористатися твоїм телефоном? Мій сів."],
+ ["Could you open the door for me?","Чи могла б ти відчинити мені двері?"],
+ ["Can you wait for me here?","Зачекаєш на мене тут?"],
+ ["Could you give me your seat, please?","Чи могла б ти поступитися місцем?"]
+];
+var SIT = [
+ {t:"Dead phone", e:"You are at the station. Your phone is dead. You must call your mum.", u:"Ти на вокзалі. Телефон сів. Треба подзвонити мамі.", h:"Sorry, my phone is dead. · Can I use your phone, please? · Can I borrow your charger?"},
+ {t:"Spilled coffee", e:"You are in a café. You spilled coffee on your shirt.", u:"Ти в кафе. Пролила каву на сорочку.", h:"Sorry, I spilled my coffee. · Could you give me a napkin, please?"},
+ {t:"Missed the train", e:"You missed the last train in Brussels. You need help.", u:"Ти пропустила останній потяг у Брюсселі. Потрібна допомога.", h:"I missed my train. · Could you help me, please? · Could you call a taxi for me?"},
+ {t:"Heavy suitcase", e:"Your suitcase is very heavy. There are many stairs.", u:"Валіза дуже важка. Багато сходів.", h:"Could you help me with my suitcase, please? · It's very heavy."},
+ {t:"Lost ticket", e:"You lost your ticket at the station.", u:"Ти загубила квиток на вокзалі.", h:"I lost my ticket. · Could you help me, please? · Could you tell me what to do?"},
+ {t:"Forgot umbrella", e:"It's raining. You forgot your umbrella at a friend's house.", u:"Дощ. Ти забула парасольку в подруги.", h:"I forgot my umbrella. · Can I borrow your umbrella, please?"},
+ {t:"Stuck door", e:"The door of your hotel room is stuck. You are at reception.", u:"Двері номера не відчиняються. Ти на рецепції.", h:"The door is stuck. · Could you help me, please? · Could you send someone to my room?"},
+ {t:"Lost in Brugge", e:"You are lost in Brugge. You want to find the Christmas market.", u:"Ти загубилася в Брюгге. Шукаєш різдвяний ярмарок.", h:"Excuse me. · Could you help me? · Could you tell me where the market is?"},
+ {t:"Delayed train", e:"Your train is delayed. Your mum is waiting for you. You must tell her.", u:"Потяг затримується. Мама чекає. Треба їй повідомити.", h:"My train is delayed. · Can I use your phone, please? · Could you call my mum?"},
+ {t:"Cold room", e:"Your hotel room is very cold. You want another blanket.", u:"У номері дуже холодно. Потрібна ковдра.", h:"Sorry, it's too cold. · Could I have an extra blanket, please?"},
+ {t:"Fast menu", e:"The waiter speaks very fast. You don't understand.", u:"Офіціант говорить швидко. Ти не розумієш.", h:"Sorry, I don't understand. · Could you speak more slowly, please? · Could you repeat that?"},
+ {t:"A photo", e:"You are in front of a beautiful building. You want a photo.", u:"Ти перед гарною будівлею. Хочеш фото.", h:"Excuse me. · Could you take a photo of me, please?"}
+];
+var HW = [
+ {w:"N", t:"Excuse me, could you do me a favor?", u:"Перепрошую, чи могли б ви зробити мені послугу?"},
+ {w:"M", t:"Sure. What's up?", u:"Звісно. Що сталося?"},
+ {w:"N", t:"I missed my train, and my phone is dead. Could you tell me when the next train to Brugge is?", u:"Я пропустила потяг, і телефон сів. Чи могли б ви сказати, коли наступний потяг до Брюгге?"},
+ {w:"M", t:"Let me check... There's one at six fifteen. Platform four.", u:"Зараз гляну... Є один о шостій п'ятнадцять. Платформа чотири."},
+ {w:"N", t:"Perfect, thank you! Oh, and one more thing. Can I borrow your charger? Just for ten minutes.", u:"Чудово, дякую! І ще одне. Можна позичити вашу зарядку? Лише на десять хвилин."},
+ {w:"M", t:"Sorry, I can't. I don't have one with me. But there's a café over there. Maybe they can help.", u:"Вибачте, не можу. Зарядки з собою немає. Але там кафе. Може, вони допоможуть."},
+ {w:"N", t:"Good idea. Could you watch my suitcase for a minute?", u:"Гарна ідея. Чи могли б ви хвилинку приглянути за валізою?"},
+ {w:"M", t:"Sure, no problem.", u:"Звісно, без проблем."},
+ {w:"N", t:"Thanks a lot! You're very kind.", u:"Дуже дякую! Ви дуже добрі."},
+ {w:"M", t:"No worries. Good luck!", u:"Нема за що. Успіхів!"}
+];
+var HWA = [
+ {q:"Nina missed her train.", o:["True","False"], a:0},
+ {q:"Her phone is fine.", o:["True","False"], a:1},
+ {q:"The next train to Brugge is on platform four.", o:["True","False"], a:0},
+ {q:"The man gives Nina his charger.", o:["True","False"], a:1},
+ {q:"The man agrees to watch the suitcase.", o:["True","False"], a:0}
+];
+var HWB = [["tell her about the next train",true],["lend her a charger",false],["watch her suitcase",true],["give her a taxi",false]];
+var HWC = [
+ {q:"___ you tell me when the next train is?", o:["Could","Am","Did"], a:0},
+ {q:"___ I borrow your charger?", o:["Are","Can","Do"], a:1},
+ {q:"___, I can't. I don't have one.", o:["Sorry","Sure","Please"], a:0},
+ {q:"Thanks a lot! — No ___.", o:["worries","sorry","problem to"], a:0}
+];
+var NAMES = {N:"Nina", M:"Stranger"};
+var ROLE_VOICE = {N:"A", M:"B"};
+
+/* ---------- HELPERS ---------- */
+function $(id){return document.getElementById(id)}
+function el(tag, cls, html){var e=document.createElement(tag); if(cls)e.className=cls; if(html!==undefined)e.innerHTML=html; return e}
+$("uaBtn").onclick=function(){
+  var on=document.body.classList.toggle("ua-on");
+  this.textContent = on ? "UA: on" : "UA: off";
+};
+
+/* ---------- SPEECH ---------- */
+var VOICES=[], voiceA=null, voiceB=null, stopFlag=false, speedBase=0.9;
+var FEM=/female|samantha|karen|moira|zira|susan|serena|tessa|fiona|victoria|hazel|libby|maisie|sonia|jenny|aria|ava|emma|nova|joanna|kendra|salli|ivy/i;
+var MAL=/\bmale\b|daniel|alex|david|george|mark|oliver|ryan|thomas|guy|james|fred|davis|brian|eric|roger|arthur/i;
+var PREF_A=[/^Google US English$/i,/Google US English/i,/Google UK English Female/i];
+var PREF_B=[/^Google UK English Male$/i,/Google UK English Male/i,/Microsoft Mark/i,/\bMark\b/i];
+function vscore(v,wantFem){
+  var s=0, n=v.name, pref=wantFem?PREF_A:PREF_B;
+  for(var i=0;i<pref.length;i++){ if(pref[i].test(n)){ s+=100-i*10; break; } }
+  if(/natural|online/i.test(n)) s+=20;
+  if(/enhanced|premium/i.test(n)) s+=12;
+  if(/^en-GB/i.test(v.lang)) s+=3; else if(/^en-US/i.test(v.lang)) s+=2;
+  var isF=FEM.test(n) && !/\bmale\b/i.test(n.replace(/female/i,""));
+  var isM=MAL.test(n) && !isF;
+  if(wantFem && isF) s+=10; if(!wantFem && isM) s+=10;
+  if(wantFem && isM) s-=10; if(!wantFem && isF) s-=10;
+  return s;
+}
+function fillSelect(sel, wantFem, current){
+  sel.innerHTML="";
+  var sorted=VOICES.slice().sort(function(a,b){return vscore(b,wantFem)-vscore(a,wantFem)});
+  sorted.forEach(function(v){ var o=document.createElement("option"); o.value=v.voiceURI; o.textContent=v.name+" ("+v.lang+")"; sel.appendChild(o); });
+  if(current && sorted.some(function(v){return v.voiceURI===current})) sel.value=current;
+  else if(sorted[0]) sel.value=sorted[0].voiceURI;
+}
+function byURI(u){ return VOICES.find(function(v){return v.voiceURI===u}) || null; }
+function pickVoices(){
+  var all=(window.speechSynthesis && speechSynthesis.getVoices())||[];
+  VOICES=all.filter(function(v){return /^en/i.test(v.lang)});
+  var curA=$("voiceA").value, curB=$("voiceB").value;
+  fillSelect($("voiceA"),true,curA); fillSelect($("voiceB"),false,curB);
+  if(VOICES.length>1 && $("voiceA").value===$("voiceB").value){
+    var other=Array.prototype.find.call($("voiceB").options,function(o){return o.value!==$("voiceA").value});
+    if(other) $("voiceB").value=other.value;
+  }
+  voiceA=byURI($("voiceA").value); voiceB=byURI($("voiceB").value);
+  var note=$("speechnote");
+  if(!window.speechSynthesis) note.textContent="This browser cannot play speech. Use Chrome or Edge, or load your own audio.";
+  else if(!VOICES.length) note.textContent="Waiting for English voices… If nothing plays, try Chrome or load your own audio.";
+  else note.textContent="";
+}
+if(window.speechSynthesis){ pickVoices(); speechSynthesis.onvoiceschanged=pickVoices; }
+$("voiceA").onchange=function(){ voiceA=byURI(this.value); };
+$("voiceB").onchange=function(){ voiceB=byURI(this.value); };
+$("speed").oninput=function(){ speedBase=parseFloat(this.value); $("speedVal").textContent=speedBase.toFixed(2); };
+$("testA").onclick=function(){ stopSpeech(); stopFlag=false; speakOne("Hello! Could you do me a favor, please?","A",false); };
+$("testB").onclick=function(){ stopSpeech(); stopFlag=false; speakOne("Sure, no problem. What can I do for you?","B",false); };
+
+function speakOne(text, key, slow, done){
+  if(!window.speechSynthesis){ if(done)done(); return; }
+  var u=new SpeechSynthesisUtterance(text);
+  var v = key==="A" ? voiceA : voiceB;
+  if(v){u.voice=v; u.lang=v.lang;} else {u.lang="en-GB";}
+  u.rate = slow ? speedBase*0.75 : speedBase;
+  u.pitch = (!v || voiceA===voiceB) ? (key==="A"?1.2:0.8) : 1;
+  u.onend=function(){ if(done)done(); };
+  u.onerror=function(){ if(done)done(); };
+  speechSynthesis.speak(u);
+}
+var ownAudio={};
+function stopSpeech(){
+  stopFlag=true;
+  if(window.speechSynthesis) speechSynthesis.cancel();
+  Object.keys(ownAudio).forEach(function(k){ if(ownAudio[k]) ownAudio[k].pause(); });
+  document.querySelectorAll(".line-row.active").forEach(function(r){r.classList.remove("active")});
+  $("hwplay").textContent="▶ Play";
+  document.querySelectorAll(".play.on").forEach(function(b){b.classList.remove("on"); b.textContent="▶";});
+}
+function playBtn(btn, text, key){
+  btn.onclick=function(e){
+    if(e) e.stopPropagation();
+    var wasOn=btn.classList.contains("on");
+    stopSpeech(); if(wasOn) return;
+    stopFlag=false; btn.classList.add("on"); btn.textContent="■";
+    speakOne(text,key,false,function(){ btn.classList.remove("on"); btn.textContent="▶"; });
+  };
+}
+
+/* ---------- HOMEWORK DIALOGUE ---------- */
+var slow={hwplay:false};
+(function(){
+  var key="hw", data=HW, box=$("hwscript");
+  data.forEach(function(l,i){
+    var r=el("div","line-row"); r.id="hwscript-"+i; r.dataset.w=l.w;
+    r.innerHTML='<div class="who">'+NAMES[l.w]+'</div><div class="txt"><span class="en">'+l.t+'</span><span class="ua">'+l.u+'</span></div>';
+    var b=el("button","play","▶"); b.type="button"; playBtn(b,l.t,ROLE_VOICE[l.w]);
+    r.appendChild(b); box.appendChild(r);
+  });
+  $("hwshow").onclick=function(){ var s=box.classList.toggle("show"); this.textContent=s?"Hide script":"Show script"; };
+  $("hwcover").onclick=function(){
+    var c=box.classList.toggle("cover");
+    if(c) box.classList.add("show");
+    $("hwshow").textContent=box.classList.contains("show")?"Hide script":"Show script";
+    this.textContent=c?"Uncover Nina's lines":"Cover Nina's lines";
+  };
+  $("hwslow").onclick=function(){
+    slow.hwplay=!slow.hwplay; this.textContent="Slow: "+(slow.hwplay?"on":"off");
+    if(ownAudio[key]) ownAudio[key].playbackRate = slow.hwplay?0.75:1;
+  };
+  $("hwfile").onchange=function(){
+    var f=this.files[0]; if(!f) return;
+    stopSpeech();
+    if(ownAudio[key]) URL.revokeObjectURL(ownAudio[key].src);
+    var a=new Audio(URL.createObjectURL(f)); a.playbackRate=slow.hwplay?0.75:1;
+    a.onended=function(){ $("hwplay").textContent="▶ Play"; };
+    ownAudio[key]=a; $("hwown").textContent="Using: "+f.name;
+  };
+  $("hwplay").onclick=function(){
+    var btn=this;
+    if(btn.textContent.indexOf("Stop")>-1){ stopSpeech(); return; }
+    stopSpeech(); stopFlag=false;
+    if(ownAudio[key]){ ownAudio[key].currentTime=0; ownAudio[key].play(); btn.textContent="■ Stop"; return; }
+    btn.textContent="■ Stop";
+    var i=0;
+    (function next(){
+      if(stopFlag || i>=data.length){ document.querySelectorAll(".line-row.active").forEach(function(r){r.classList.remove("active")}); btn.textContent="▶ Play"; return; }
+      document.querySelectorAll(".line-row.active").forEach(function(r){r.classList.remove("active")});
+      var row=$("hwscript-"+i); if(box.classList.contains("show") && row) row.classList.add("active");
+      var l=data[i]; i++;
+      speakOne(l.t,ROLE_VOICE[l.w],slow.hwplay,function(){ setTimeout(next,450); });
+    })();
+  };
+})();
+
+/* ---------- QUIZ ---------- */
+function renderQuiz(id, items){
+  var box=$(id), count=0, ok=0, sc=el("div","score","");
+  items.forEach(function(it){
+    var blk=el("div","qblock"); blk.appendChild(el("div","q",it.q));
+    var opts=el("div","opts"), touched=false, done=false;
+    it.o.forEach(function(txt,idx){
+      var btn=el("button","opt",txt); btn.type="button";
+      btn.onclick=function(){
+        if(done) return;
+        if(idx===it.a){
+          done=true; btn.classList.add("right");
+          opts.querySelectorAll(".opt").forEach(function(x){x.classList.add("locked")});
+          count++; if(!touched) ok++;
+          if(count===items.length) sc.textContent="First try: "+ok+" / "+items.length+(ok===items.length?"  Perfect!":"  Good work!");
+        } else { touched=true; btn.classList.add("wrong"); }
+      };
+      opts.appendChild(btn);
+    });
+    blk.appendChild(opts); box.appendChild(blk);
+  });
+  box.appendChild(sc);
+}
+function renderMulti(id, list){
+  var box=$(id), rows=[];
+  list.forEach(function(it){
+    var l=el("label","check"); var c=el("input"); c.type="checkbox";
+    l.appendChild(c); l.appendChild(document.createTextNode(it[0])); box.appendChild(l); rows.push({l:l,c:c,a:it[1]});
+  });
+  var b=el("button","btn sm","Check"); b.type="button"; var f=el("div","fb");
+  b.onclick=function(){
+    var ok=0;
+    rows.forEach(function(r){
+      r.l.classList.remove("right","wrong");
+      if(r.c.checked===r.a){ r.l.classList.add("right"); ok++; } else r.l.classList.add("wrong");
+    });
+    f.className="fb "+(ok===rows.length?"ok":"no");
+    f.textContent= ok===rows.length ? "All correct!" : ok+" / "+rows.length+". Listen again and fix the red ones.";
+  };
+  box.appendChild(b); box.appendChild(f);
+}
+renderQuiz("wordsQuiz",WORDQ);
+renderQuiz("vA",VA);
+renderQuiz("vB",VB);
+renderQuiz("vC",VC);
+renderMulti("vD",VD);
+renderQuiz("match",MATCH);
+renderQuiz("answers",ANSWERS);
+renderQuiz("hwA",HWA);
+renderMulti("hwB",HWB);
+renderQuiz("hwC",HWC);
+
+/* ---------- WORD CARDS ---------- */
+(function(){
+  var g=$("words");
+  WORDS.forEach(function(w){
+    var c=el("div","fcard");
+    c.innerHTML='<div class="front"><div class="emo">'+w[0]+'</div><div class="en">'+w[1]+'</div></div>'+
+                '<div class="back"><div class="en" style="margin:0">'+w[1]+'</div><div class="u">'+w[2]+'</div><div class="ex">'+w[3]+'</div></div>';
+    var b=el("button","play mini","▶"); b.type="button"; playBtn(b,w[1].split(" / ")[0]+". "+w[3],"A");
+    c.appendChild(b);
+    c.onclick=function(){ c.classList.toggle("flip"); };
+    g.appendChild(c);
+  });
+})();
+
+/* ---------- FAVOR CHIPS ---------- */
+(function(){
+  var box=$("favors");
+  FAVORS.forEach(function(f){
+    var b=el("button","rchip",f); b.type="button"; var st=0;
+    b.onclick=function(){
+      st=(st+1)%3;
+      b.classList.remove("ok","much");
+      if(st===1){ b.classList.add("ok"); }
+      if(st===2){ b.classList.add("much"); }
+    };
+    box.appendChild(b);
+  });
+})();
+
+/* ---------- PHRASE CARDS ---------- */
+(function(){
+  var g=$("pgrid"), favs=0;
+  PHR.forEach(function(p){
+    var c=el("div","pcard");
+    c.appendChild(el("div","sit always-ua",p[0]));
+    c.appendChild(el("div","eng",p[1]));
+    var row=el("div","row");
+    var show=el("button","btn sm","Check"); show.type="button";
+    show.onclick=function(){ c.classList.toggle("show"); show.textContent=c.classList.contains("show")?"Hide":"Check"; };
+    var pl=el("button","play","▶"); pl.type="button"; pl.style.width="32px"; pl.style.height="32px"; playBtn(pl,p[1],"A");
+    var st=el("button","star","★"); st.type="button"; st.title="My favourite";
+    st.onclick=function(){
+      var f=c.classList.contains("fav");
+      if(!f && favs>=4){ $("favcount").textContent="Only 4 favourites! Un-star one first."; return; }
+      c.classList.toggle("fav"); favs+= f?-1:1;
+      $("favcount").textContent="My favourite phrases: "+favs+" / 4";
+    };
+    row.appendChild(show); row.appendChild(pl); row.appendChild(st);
+    c.appendChild(row); g.appendChild(c);
+  });
+})();
+
+/* ---------- SPEAKING CARDS ---------- */
+(function(){
+  var mode="answer", last="", hintOpen=false;
+  var decks={answer:[],ask:[]};
+  function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+  function draw(kind){
+    if(!decks[kind].length){
+      var n = kind==="answer" ? REQ.length : SIT.length;
+      decks[kind]=shuffle(Array.apply(null,Array(n)).map(function(_,i){return i}));
+    }
+    return decks[kind].pop();
+  }
+  function setMode(m){
+    mode=m;
+    ["modeAnswer","modeAsk","modeMix"].forEach(function(id){ $(id).className="btn alt"; });
+    $({answer:"modeAnswer",ask:"modeAsk",mixed:"modeMix"}[m]).className="btn";
+  }
+  $("modeAnswer").onclick=function(){ setMode("answer"); };
+  $("modeAsk").onclick=function(){ setMode("ask"); };
+  $("modeMix").onclick=function(){ setMode("mixed"); };
+  $("nextCard").onclick=function(){
+    stopSpeech();
+    var kind = mode==="mixed" ? (Math.random()<0.5?"answer":"ask") : mode;
+    var s=$("scenario");
+    if(kind==="answer"){
+      var r=REQ[draw("answer")], yes=Math.random()<0.6;
+      var tag = yes ? '<span class="sc-tag">You answer · say YES</span>' : '<span class="sc-tag no">You answer · say NO + a reason</span>';
+      var hints = yes ? "Sure, no problem.<br>Of course.<br>Yes, here you are." : "Sorry, I can't. I'm in a hurry.<br>Sorry, I don't have one.<br>Sorry, I'm busy right now.";
+      s.innerHTML=tag+'<div class="sc-text">'+r[0]+'</div><div class="ua">'+r[1]+'</div>'+
+        '<button class="play" id="reqPlay" type="button">▶</button><div class="hints" id="hints">'+hints+'</div>';
+      playBtn($("reqPlay"), r[0], "B");
+    } else {
+      var q=SIT[draw("ask")];
+      s.innerHTML='<span class="sc-tag">You ask for help</span><div class="sc-title">'+q.t+'</div><div class="sc-text">'+q.e+'</div><div class="ua">'+q.u+'</div>'+
+        '<div class="hints" id="hints">'+q.h.split(" · ").join("<br>")+'</div>';
+    }
+    hintOpen=false; $("hintBtn").textContent="Show hints";
+  };
+  $("hintBtn").onclick=function(){
+    var h=$("hints"); if(!h) return;
+    hintOpen=h.classList.toggle("show"); this.textContent=hintOpen?"Hide hints":"Show hints";
+  };
+  setMode("answer");
+
+  var secs=480, tid=null;
+  function show(){ var m=Math.floor(secs/60), s=secs%60; var t=$("timer"); t.textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s; t.className="timer"+(secs<=60?" low":""); }
+  $("tStart").onclick=function(){
+    if(tid){ clearInterval(tid); tid=null; this.textContent="Start"; return; }
+    this.textContent="Pause";
+    tid=setInterval(function(){ secs--; show(); if(secs<=0){ clearInterval(tid); tid=null; $("tStart").textContent="Start"; secs=0; show(); } },1000);
+  };
+  $("tReset").onclick=function(){ clearInterval(tid); tid=null; secs=480; show(); $("tStart").textContent="Start"; };
+  show();
+})();
+
+/* ---------- PROGRESS NAV ---------- */
+(function(){
+  var steps=[].slice.call(document.querySelectorAll(".step"));
+  var stops=$("stops"), btns=[];
+  steps.forEach(function(s,i){
+    var b=el("button","stop",'<i>'+(i+1)+'</i><span>'+s.dataset.label+'</span>'); b.type="button";
+    b.onclick=function(){ s.scrollIntoView({behavior:"smooth"}); };
+    stops.appendChild(b); btns.push(b);
+  });
+  function update(){
+    var current=0, mid=window.innerHeight*0.35;
+    steps.forEach(function(s,i){ if(s.getBoundingClientRect().top<mid) current=i; });
+    btns.forEach(function(b,i){ b.classList.toggle("on",i===current); b.classList.toggle("done",i<current); });
+    var w=btns.length>1 ? (current/(btns.length-1))*(stops.scrollWidth-28) : 0;
+    $("fill").style.width=w+"px";
+  }
+  window.addEventListener("scroll",update,{passive:true}); window.addEventListener("resize",update); update();
+})();
+
+/* ---------- FINISH ---------- */
+$("finishBtn").onclick=function(){
+  $("stamp").classList.add("show");
+  var colors=["#F2C14E","#E4572E","#27407A","#2A9D8F","#2B2D42"];
+  for(var i=0;i<90;i++){
+    var c=document.createElement("div"); c.className="confetti";
+    c.style.left=Math.random()*100+"vw"; c.style.background=colors[i%colors.length];
+    c.style.animationDuration=(2+Math.random()*2.5)+"s"; c.style.animationDelay=(Math.random()*0.8)+"s";
+    c.style.borderRadius=(i%3===0?"50%":"2px");
+    document.body.appendChild(c);
+    (function(n){setTimeout(function(){n.remove()},6000)})(c);
+  }
+  this.textContent="Lesson complete";
+};
+window.addEventListener("beforeunload",function(){ if(window.speechSynthesis) speechSynthesis.cancel(); });
+</script>
+</body>
+</html>

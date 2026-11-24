@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plans or Decisions? going to and will, A1+</title>
+<style>
+:root{
+  --cream:#FAF6EE; --paper:#FFFDF8; --line:#E2DACB;
+  --green:#3B5D45; --green-d:#2B4533; --green-t:#E3ECE5;
+  --terra:#C1663D; --terra-d:#9E4A28; --terra-t:#F7E4D9;
+  --gold-t:#F3E3B0; --ink:#2A2A26; --muted:#66625A; --ok:#2F6B3F; --no:#9B2F22;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;font-size:17px;line-height:1.55}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;color:var(--green-d);line-height:1.2;margin:0}
+h1{font-size:2.5rem;letter-spacing:-.01em}
+h2{font-size:1.65rem}
+h3{font-size:1.15rem;margin-bottom:.4rem}
+p{margin:.4rem 0}
+.wrap{max-width:940px;margin:0 auto;padding:0 20px}
+.ua{color:var(--muted);font-style:italic;font-size:.93em}
+:focus-visible{outline:3px solid var(--terra);outline-offset:2px;border-radius:6px}
+
+/* header */
+.top{padding:44px 0 26px}
+.top .sub{color:var(--muted);font-size:1.05rem;margin-top:.5rem}
+.outcomes{margin-top:1.2rem;background:var(--paper);border:1px solid var(--line);border-left:6px solid var(--green);border-radius:var(--r);padding:16px 22px}
+.outcomes ul{margin:.4rem 0 0;padding-left:1.2rem}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:.95rem}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.sw{width:16px;height:16px;border-radius:5px;display:inline-block}
+.sw.g{background:var(--green)} .sw.t{background:var(--terra)}
+
+/* nav */
+.stagenav{position:sticky;top:0;z-index:20;background:rgba(250,246,238,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(4px)}
+.stagenav ol{list-style:none;margin:0 auto;padding:8px 20px 6px;max-width:940px;display:flex;gap:6px;flex-wrap:wrap}
+.stagenav a{display:inline-block;padding:7px 12px;border-radius:999px;color:var(--green-d);text-decoration:none;font-size:.92rem;border:1px solid transparent;min-height:36px}
+.stagenav a:hover{background:var(--green-t)}
+.stagenav a[aria-current="true"]{background:var(--green);color:#fff}
+.stagenav a.seen:not([aria-current="true"]){border-color:var(--green);}
+.bar{height:5px;background:var(--line)}
+.bar div{height:100%;width:0;background:var(--terra);transition:width .4s}
+
+/* stages */
+.stage{padding:34px 0 10px;scroll-margin-top:84px}
+.stage-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.time{color:var(--muted);font-size:.95rem}
+.goal{color:var(--muted);margin-bottom:14px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin:14px 0}
+.panel.g{border-left:6px solid var(--green)} .panel.t{border-left:6px solid var(--terra)}
+.teacher-say{font-family:Georgia,serif;font-size:1.25rem;color:var(--green-d)}
+
+.btn{font:inherit;cursor:pointer;border-radius:10px;border:2px solid var(--green);background:var(--green);color:#fff;padding:9px 18px;min-height:44px}
+.btn:hover{background:var(--green-d)}
+.btn.alt{background:transparent;color:var(--green-d)}
+.btn.alt:hover{background:var(--green-t)}
+.btn.terra{background:var(--terra-d);border-color:var(--terra-d)}
+.btn.terra:hover{background:#85391d}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.chip{font:inherit;cursor:pointer;border:1.5px solid var(--green);background:var(--paper);color:var(--green-d);border-radius:999px;padding:6px 15px;min-height:40px}
+.chip:hover{background:var(--green-t)}
+.chip.t{border-color:var(--terra);color:var(--terra-d)} .chip.t:hover{background:var(--terra-t)}
+
+.frame{background:var(--green-t);border:2px dashed var(--green);border-radius:12px;padding:12px 18px;font-family:Georgia,serif;font-size:1.35rem;color:var(--green-d)}
+.frame.t{background:var(--terra-t);border-color:var(--terra);color:var(--terra-d)}
+.frame small{display:block;font-family:"Segoe UI",sans-serif;font-size:.85rem;color:var(--muted)}
+
+.gt{background:var(--green-t);color:var(--green-d);border-radius:5px;padding:0 4px;font-weight:600}
+.wl{background:var(--terra-t);color:var(--terra-d);border-radius:5px;padding:0 4px;font-weight:600}
+.slot{background:var(--gold-t);border-radius:5px;padding:0 4px;font-weight:600}
+.bad{color:var(--no);text-decoration:line-through}
+
+.fb{min-height:1.5em;margin-top:6px;font-weight:600}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--no)}
+
+/* timeline */
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.tl-col{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.tl-col h3{font-size:1rem;color:var(--muted);font-family:"Segoe UI",sans-serif;font-weight:600}
+.card{display:block;width:100%;text-align:left;font:inherit;cursor:pointer;background:var(--cream);border:2px solid var(--line);border-radius:12px;padding:14px;margin-top:8px;min-height:56px;color:var(--ink)}
+.card:hover{border-color:var(--green)}
+.card.used{background:var(--green-t);border-color:var(--green)}
+.card.current{border-color:var(--terra);box-shadow:0 0 0 3px var(--terra-t)}
+@media (max-width:700px){.timeline{grid-template-columns:1fr}h1{font-size:2rem}}
+
+.vocab{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.vocab span{background:var(--gold-t);border-radius:8px;padding:4px 12px;font-size:.95rem}
+
+/* tasks */
+.task-item{border-top:1px solid var(--line);padding:14px 0}
+.task-item:first-of-type{border-top:0}
+.task-title{font-weight:600;margin-bottom:6px}
+.bank,.line{display:flex;gap:8px;flex-wrap:wrap;min-height:48px;align-items:center}
+.line{border:2px dashed var(--line);border-radius:10px;padding:6px 8px;background:var(--cream);margin:8px 0}
+.piece{font:inherit;cursor:pointer;border:2px solid var(--green);background:var(--paper);color:var(--green-d);border-radius:9px;padding:6px 14px;min-height:44px}
+.piece:hover{background:var(--green-t)}
+.piece.aux{background:var(--gold-t)}
+.piece:disabled{opacity:.3;cursor:default}
+.piece.placed{background:var(--green-t)}
+.opt{font:inherit;cursor:pointer;border:2px solid var(--green);background:var(--paper);color:var(--green-d);border-radius:10px;padding:8px 16px;min-height:44px;text-align:left}
+.opt:hover:not(:disabled){background:var(--green-t)}
+.opt.right{background:var(--green);color:#fff}
+.opt.wrong{border-color:var(--no);color:var(--no)}
+.opt.plan{border-color:var(--green)} .opt.dec{border-color:var(--terra);color:var(--terra-d)}
+.opt.dec:hover:not(:disabled){background:var(--terra-t)}
+.opt.dec.right{background:var(--terra-d);color:#fff}
+.opts{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.ctx{color:var(--muted);font-size:.93rem}
+.dlg p{margin:.2rem 0}
+.gap{display:inline-block;min-width:90px;border-bottom:2px solid var(--ink);text-align:center}
+input[type=text],textarea{font:inherit;border:2px solid var(--line);border-radius:10px;padding:8px 12px;background:#fff;color:var(--ink);min-height:44px}
+input[type=text]{width:130px}
+textarea{width:100%;min-height:70px;resize:vertical}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin:8px 0}
+.match button{font:inherit;cursor:pointer;text-align:left;border:2px solid var(--line);background:var(--paper);border-radius:10px;padding:10px 14px;min-height:46px;color:var(--ink)}
+.match button:hover:not(:disabled){border-color:var(--green)}
+.match button.sel{border-color:var(--terra);background:var(--terra-t)}
+.match button.done{background:var(--green-t);border-color:var(--green);cursor:default}
+
+/* listening */
+.player{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.speed label{margin-right:12px;cursor:pointer}
+.status{color:var(--muted);font-size:.93rem}
+.notice{background:var(--gold-t);border-radius:10px;padding:10px 14px;margin:8px 0}
+.transcript{font-size:1.1rem;line-height:1.9}
+
+.big{font-family:Georgia,serif;font-size:1.3rem;color:var(--green-d)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:700px){.two{grid-template-columns:1fr}.match{grid-template-columns:1fr}}
+.cardbox{background:var(--paper);border:2px solid var(--line);border-radius:var(--r);padding:16px 18px;min-height:130px}
+.cardbox.g{border-color:var(--green)} .cardbox.t{border-color:var(--terra)}
+.cardbox ul{margin:.3rem 0 0;padding-left:1.2rem}
+.checks label{display:block;padding:6px 0;cursor:pointer}
+.checks input{width:20px;height:20px;margin-right:10px;vertical-align:-4px;accent-color:var(--green)}
+.big-q{font-family:Georgia,serif;font-size:1.5rem;color:var(--green-d);text-align:center;padding:26px 10px}
+.score{font-family:Georgia,serif;font-size:1.3rem}
+
+.extra{margin-top:46px;padding-top:6px;border-top:3px solid var(--terra)}
+details.notes{margin:46px 0 60px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:14px 22px}
+details.notes summary{cursor:pointer;font-family:Georgia,serif;font-size:1.25rem;color:var(--green-d);min-height:40px}
+details.notes h3{margin-top:1.2rem}
+details.notes ul,details.notes ol{padding-left:1.3rem}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+td,th{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:var(--green-t)}
+#teacherMode{display:none}label:has(#teacherMode){display:none}#vidUrl{display:none}#vidGo{display:none}.panel:has(#vidUrl){display:none}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <h1>Plans or Decisions?</h1>
+  <p class="sub">going to and will for quick decisions. Level A1+. 50 minutes.</p>
+  <div class="outcomes">
+    <strong>By the end of the lesson I can:</strong>
+    <ul>
+      <li>talk about my plans for Saturday or next week with <span class="gt">going to</span>, and ask questions;</li>
+      <li>make a quick decision with <span class="wl">will</span> when something changes;</li>
+      <li>choose between the two forms in short everyday situations.</li>
+    </ul>
+  </div>
+  <div class="legend" aria-label="Colour key">
+    <span><i class="sw g"></i> green = a plan (going to)</span>
+    <span><i class="sw t"></i> terracotta = a decision (will)</span>
+  </div>
+</div></header>
+
+<nav class="stagenav" aria-label="Lesson stages">
+  <ol id="navlist">
+    <li><a href="#s1">1 My Saturday</a></li>
+    <li><a href="#s2">2 going to</a></li>
+    <li><a href="#s3">3 Surprise!</a></li>
+    <li><a href="#s4">4 Contrast</a></li>
+    <li><a href="#s5">5 Listening</a></li>
+    <li><a href="#s6">6 Speaking</a></li>
+    <li><a href="#s7">7 Wrap-up</a></li>
+    <li><a href="#extra">Extra bank</a></li>
+  </ol>
+  <div class="bar" role="progressbar" aria-label="Lesson progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="barFill"></div></div>
+</nav>
+
+<main class="wrap">
+
+<!-- STAGE 1 -->
+<section class="stage" id="s1" data-stage="1" aria-labelledby="h-s1">
+  <div class="stage-head"><h2 id="h-s1">1. My Saturday</h2><span class="time">Warm-up, 5 min</span></div>
+  <p class="goal">Talk about Saturday. Use the frame.</p>
+  <div class="panel g">
+    <p class="teacher-say">What are you going to do on Saturday?</p>
+    <p class="ua">Натисни картку і скажи речення.</p>
+  </div>
+  <div class="frame" aria-live="polite">I'm going to <span id="w1">...</span></div>
+  <div class="timeline" id="timeline"></div>
+  <div class="row"><button class="btn alt" id="w1reset" type="button">Reset cards</button></div>
+  <div class="panel">
+    <h3>Teacher follow-up questions</h3>
+    <p class="ua">Натисни питання, щоб побачити фразу-підказку.</p>
+    <div class="row" id="followChips"></div>
+    <div class="frame" id="followFrame" style="font-size:1.1rem" aria-live="polite">Choose a question.</div>
+  </div>
+  <div class="panel">
+    <h3>Useful words</h3>
+    <div class="vocab">
+      <span><b>laundry</b> – прання</span>
+      <span><b>cancel</b> – скасувати</span>
+      <span><b>battery</b> – заряд батареї</span>
+      <span><b>closed</b> – зачинений</span>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 2 -->
+<section class="stage" id="s2" data-stage="2" aria-labelledby="h-s2">
+  <div class="stage-head"><h2 id="h-s2">2. Remember: going to</h2><span class="time">Retrieval, 7 min</span></div>
+  <p class="goal">First think, then check.</p>
+  <div class="panel g">
+    <p class="teacher-say">What do we use for plans?</p>
+    <p class="ua">Спочатку скажи сама. Потім натисни кнопку.</p>
+    <div class="row"><button class="btn" id="showForm" type="button" aria-expanded="false">Show the form</button></div>
+    <div id="formBox" hidden>
+      <div class="frame">
+        <span class="gt">I</span> <span class="slot">am</span> going to <span class="gt">cook</span> dinner.<br>
+        <span class="gt">She</span> <span class="slot">is</span> going to <span class="gt">call</span> Kate.<br>
+        <span class="gt">They</span> <span class="slot">are not</span> going to <span class="gt">watch</span> a series.
+        <small>subject + am / is / are + going to + verb. The yellow word never disappears.</small>
+      </div>
+      <p>Question: <b>What <span class="slot">are</span> you going to do?</b> <b><span class="slot">Are</span> you going to go out?</b></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Task A. Build the sentence</h3>
+    <p class="ua">Складіть речення. Жовті картки: am / is / are.</p>
+    <div id="builderA"></div>
+  </div>
+  <div class="panel">
+    <h3>Task B. Build the question</h3>
+    <p class="ua">Питання: слово-питання, am/is/are, підмет, going to, дієслово.</p>
+    <div id="builderB"></div>
+  </div>
+  <div class="panel">
+    <h3>Task C. Find the correct sentence</h3>
+    <p class="ua">Знайди правильне речення.</p>
+    <div id="choiceC"></div>
+  </div>
+</section>
+
+<!-- STAGE 3 -->
+<section class="stage" id="s3" data-stage="3" aria-labelledby="h-s3">
+  <div class="stage-head"><h2 id="h-s3">3. Surprise!</h2><span class="time">Discovery of will, 8 min</span></div>
+  <p class="goal">You have a plan. Then something changes. What will you do? Answer in speaking first.</p>
+  <div id="surprises"></div>
+  <div class="panel t" id="discovery" hidden>
+    <h3>What did you notice?</h3>
+    <div id="discQ"></div>
+    <div id="ruleBox" hidden>
+      <div class="frame t">
+        will = a decision <u>at the moment</u><br>
+        <span class="wl">I'll</span> / <span class="wl">we'll</span> + base verb
+        <small>no -s, no "to". I'll call. We'll meet. Not: I'll calls. Not: I'll to call.</small>
+      </div>
+      <p class="ua">will = рішення в момент мовлення.</p>
+      <p><b>Chunks to recognise:</b> What will you do? &nbsp; What if it rains? &nbsp; If it rains, I'll stay at home. &nbsp; I won't go out. (won't = will not)</p>
+    </div>
+  </div>
+  <p class="status" id="discHint">Discovery questions appear after you open the frame on 3 cards.</p>
+</section>
+
+<!-- STAGE 4 -->
+<section class="stage" id="s4" data-stage="4" aria-labelledby="h-s4">
+  <div class="stage-head"><h2 id="h-s4">4. Plan or decision?</h2><span class="time">Contrast practice, 7 min</span></div>
+  <p class="goal">Every item has one answer.</p>
+  <div class="panel">
+    <h3>Task A. Sort the sentences</h3>
+    <p class="ua">План чи рішення?</p>
+    <div id="sortA"></div>
+    <p class="score" id="sortAscore" aria-live="polite"></p>
+  </div>
+  <div class="panel">
+    <h3>Task B. Choose the form</h3>
+    <div id="dlgB"></div>
+  </div>
+  <div class="panel">
+    <h3>Task C. Fill the gap</h3>
+    <p class="ua">Один-два слова. Можна взяти підказку.</p>
+    <div id="gapC"></div>
+  </div>
+  <div class="panel">
+    <h3>Task D. Match the situation and the reaction</h3>
+    <p class="ua">Натисни ліву картку, потім праву.</p>
+    <div id="matchD"></div>
+    <div class="fb" id="matchDfb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- STAGE 5 -->
+<section class="stage" id="s5" data-stage="5" aria-labelledby="h-s5">
+  <div class="stage-head"><h2 id="h-s5">5. Emma's Saturday</h2><span class="time">Listening, 7 min</span></div>
+  <p class="goal">Emma is the same character as in the last lesson. Listen twice.</p>
+  <div class="panel g">
+    <div class="player">
+      <button class="btn" id="playBtn" type="button">Play</button>
+      <button class="btn alt" id="replayBtn" type="button">Replay</button>
+      <fieldset class="speed" style="border:0;padding:0;margin:0">
+        <legend class="status" style="padding:0">Speed</legend>
+        <label><input type="radio" name="spd" value="0.7" checked> Slow</label>
+        <label><input type="radio" name="spd" value="0.9"> Normal</label>
+      </fieldset>
+      <label><input type="checkbox" id="teacherMode"> Teacher reads aloud</label>
+    </div>
+    <p class="status" id="audioStatus" aria-live="polite"></p>
+    <div class="notice" id="audioNotice" hidden></div>
+  </div>
+  <div class="panel">
+    <h3>Listening 1. What is it about?</h3>
+    <div id="gist"></div>
+  </div>
+  <div class="panel">
+    <h3>Listening 2. What did Emma plan? What did she decide?</h3>
+    <p class="ua">Заплановано (going to) чи вирішила зараз (will)?</p>
+    <div id="sortL"></div>
+    <div class="row"><button class="btn terra" id="showTr" type="button" aria-expanded="false">Show the transcript</button></div>
+    <div id="trBox" hidden>
+      <p class="transcript">
+        Hi! This is Emma. Tomorrow is Saturday, and I have a plan. In the morning, <span class="gt">I'm going to do</span> the laundry. Then <span class="gt">I'm going to meet</span> my friend Kate in the park. <span class="gt">We're going to have</span> a coffee and take some photos. In the evening, <span class="gt">I'm going to cook</span> dinner. Oh, wait. I'm looking at the weather app. It says: rain tomorrow. OK, no problem. <span class="wl">I'll call</span> Kate. <span class="wl">We'll meet</span> in a cafe, not in the park. And after dinner, <span class="wl">I'll watch</span> a series at home.
+      </p>
+    </div>
+  </div>
+  <div class="panel">
+    <h3>Optional: a short video</h3>
+    <p class="ua">Teacher: paste a video link. It opens in a new tab. The lesson does not depend on it.</p>
+    <div class="row">
+      <input type="text" id="vidUrl" style="width:min(100%,420px)" placeholder="https://..." aria-label="Video URL">
+      <button class="btn alt" id="vidGo" type="button">Open in new tab</button>
+    </div>
+    <div class="fb" id="vidFb" aria-live="polite"></div>
+    <ol>
+      <li>Who is in the video?</li>
+      <li>What are they going to do?</li>
+      <li>What do they decide?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- STAGE 6 -->
+<section class="stage" id="s6" data-stage="6" aria-labelledby="h-s6">
+  <div class="stage-head"><h2 id="h-s6">6. Plan, problem, decision</h2><span class="time">Speaking task, 10 min</span></div>
+  <p class="goal">Plan a Saturday together. Say the plan. Meet the surprise. Make a decision. Ask the teacher the same questions.</p>
+  <div class="panel">
+    <div class="row">
+      <button class="btn" id="drawPlan" type="button">Draw a plan card</button>
+      <button class="btn terra" id="drawSurp" type="button" disabled>Draw a surprise card</button>
+      <button class="btn alt" id="swapRound" type="button">Round 2: swap roles</button>
+    </div>
+    <p class="status" id="roundLabel">Round 1. Natasha says the plan. The teacher asks the questions.</p>
+    <div class="two">
+      <div class="cardbox g" aria-live="polite"><h3>Plan</h3><div id="planBox" class="ctx">Press the button.</div></div>
+      <div class="cardbox t" aria-live="polite"><h3>Surprise</h3><div id="surpBox" class="ctx">First draw a plan.</div>
+        <div class="row" id="hintRow" hidden><button class="chip t" id="hintBtn" type="button">Need a hint?</button><span id="hintOut"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="two">
+    <div class="frame">
+      Plan:<br>I'm going to ...<br>Then I'm going to ...<br>After that, I'm going to ...
+    </div>
+    <div class="frame t">
+      Decision:<br>Oh no! ...<br>OK, I'll ...<br>We'll ...
+    </div>
+  </div>
+  <div class="panel">
+    <h3>Questions to ask each other</h3>
+    <ul>
+      <li>What are you going to do on Saturday?</li>
+      <li>Who are you going to meet?</li>
+      <li>What will you do if it rains?</li>
+      <li>What will you do if <span id="qSurp">there is a problem</span>?</li>
+    </ul>
+  </div>
+</section>
+
+<!-- STAGE 7 -->
+<section class="stage" id="s7" data-stage="7" aria-labelledby="h-s7">
+  <div class="stage-head"><h2 id="h-s7">7. Wrap-up</h2><span class="time">5 min</span></div>
+  <p class="goal">Look at your own sentences. Correct them yourself.</p>
+  <div class="panel">
+    <h3>My sentences</h3>
+    <p class="ua">Type 2-3 sentences from the speaking task.</p>
+    <div id="fixBoxes"></div>
+  </div>
+  <div class="panel checks">
+    <h3>I can...</h3>
+    <label><input type="checkbox"> say my plans with <b>I'm going to</b> + verb</label>
+    <label><input type="checkbox"> ask <b>What are you going to do?</b></label>
+    <label><input type="checkbox"> make a quick decision with <b>I'll</b> + verb</label>
+    <label><input type="checkbox"> choose between going to and will</label>
+    <label><input type="checkbox"> understand a short story about plans and changes</label>
+  </div>
+  <div class="panel t">
+    <h3>Remember</h3>
+    <p class="big"><span class="gt">going to</span> = my plan. <span class="wl">will</span> = my decision now.</p>
+  </div>
+  <div class="panel g">
+    <h3>Homework</h3>
+    <p>Send a 1-minute voice message: <b>What are you going to do next weekend? What will you do if the weather is bad?</b></p>
+    <p class="ua">Голосове повідомлення на 1 хвилину.</p>
+  </div>
+</section>
+
+<!-- EXTRA -->
+<section class="stage extra" id="extra" aria-labelledby="h-ex">
+  <div class="stage-head"><h2 id="h-ex">Extra bank</h2><span class="time">Not part of the 50 minutes. Use if there is time.</span></div>
+  <div class="panel"><h3>E1. Match the verb and the phrase</h3><div id="matchE"></div><div class="fb" id="matchEfb" aria-live="polite"></div></div>
+  <div class="panel">
+    <h3>E2. Tom's Saturday</h3>
+    <p>Tom is a teacher. On Saturday he is going to get up late. Then he is going to make pancakes for his two kids. His wife is going to cook dinner in the evening. In the afternoon they are going to go to the park. But the weather is bad, so Tom says: "OK, we'll go to the cinema."</p>
+    <div id="readE"></div>
+  </div>
+  <div class="panel">
+    <h3>E3. Question drill</h3>
+    <div class="big-q" id="drillQ" aria-live="polite">Press the button.</div>
+    <div class="row" style="justify-content:center"><button class="btn" id="drillBtn" type="button">New question</button></div>
+    <p class="ctx" style="text-align:center">Answer with a full sentence. Use the frame: I'm going to ... / I'll ...</p>
+  </div>
+  <div class="panel"><h3>E4. Build the sentence</h3><div id="builderE"></div></div>
+  <div class="panel">
+    <h3>E5. Speed round: plan or decision?</h3>
+    <div id="speed"></div>
+  </div>
+  <div class="panel"><h3>E6. Error correction</h3><div id="choiceE"></div></div>
+</section>
+
+<!-- TEACHER NOTES -->
+</main>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- helpers ---------- */
+function $(s,r){return (r||document).querySelector(s);}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!==undefined)e.innerHTML=html;return e;}
+function shuffle(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function setFb(node,msg,state){node.textContent=msg;node.className='fb'+(state===true?' ok':state===false?' no':'');}
+function norm(s){return String(s).toLowerCase().replace(/[\u2019\u2018`]/g,"'").replace(/[.!?]/g,'').replace(/\s+/g,' ').trim();}
+var OK=["Well done.","Yes, that's right.","Correct. Good.","Exactly."];
+var TRY=["Not quite. Try again.","Almost. Have another look.","Not this one. You can try again."];
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+
+/* ---------- generic engines ---------- */
+function renderBuilder(root,items){
+  items.forEach(function(it){
+    var card=el('div','task-item');
+    var target=it.chunks.join(' ');
+    var order=shuffle(it.chunks.map(function(c,i){return i;}));
+    var guard=0;
+    while(order.map(function(i){return it.chunks[i];}).join(' ')===target && guard++<30){order=shuffle(order);}
+    var placed=[],hint=0;
+    var bank=el('div','bank'),line=el('div','line'),fb=el('div','fb');
+    fb.setAttribute('aria-live','polite');
+    line.setAttribute('aria-label','Your sentence');
+    function draw(){
+      bank.innerHTML='';line.innerHTML='';
+      order.forEach(function(ci){
+        var b=el('button','piece'+(it.aux.indexOf(it.chunks[ci])>-1?' aux':''));
+        b.type='button';b.textContent=it.chunks[ci];
+        b.disabled=placed.indexOf(ci)>-1;
+        b.addEventListener('click',function(){placed.push(ci);setFb(fb,'');draw();});
+        bank.appendChild(b);
+      });
+      if(!placed.length){line.appendChild(el('span','ctx','Click the pieces in the right order.'));}
+      placed.forEach(function(ci,pos){
+        var b=el('button','piece placed');b.type='button';b.textContent=it.chunks[ci];
+        b.title='Click to remove';
+        b.addEventListener('click',function(){placed.splice(pos,1);draw();});
+        line.appendChild(b);
+      });
+    }
+    var row=el('div','row');
+    var chk=el('button','btn','Check');chk.type='button';
+    var und=el('button','btn alt','Undo');und.type='button';
+    var rst=el('button','btn alt','Start again');rst.type='button';
+    var hnt=el('button','btn alt','Need a hint?');hnt.type='button';
+    chk.addEventListener('click',function(){
+      if(placed.length<it.chunks.length){setFb(fb,'Use all the pieces.',false);return;}
+      var ans=placed.map(function(i){return it.chunks[i];}).join(' ');
+      if(ans===target){setFb(fb,pick(OK)+' '+target,true);}
+      else{setFb(fb,(it.tip||'Not quite.')+' Try again.',false);}
+    });
+    und.addEventListener('click',function(){placed.pop();setFb(fb,'');draw();});
+    rst.addEventListener('click',function(){placed=[];setFb(fb,'');draw();});
+    hnt.addEventListener('click',function(){
+      hint=Math.min(hint+1,it.chunks.length-1);
+      setFb(fb,'Start with: '+it.chunks.slice(0,hint).join(' ')+' ...');
+    });
+    [chk,und,rst,hnt].forEach(function(b){row.appendChild(b);});
+    card.appendChild(bank);card.appendChild(line);card.appendChild(row);card.appendChild(fb);
+    root.appendChild(card);draw();
+  });
+}
+
+function renderChoice(root,items,opts){
+  opts=opts||{};var solved=0;
+  items.forEach(function(it){
+    var card=el('div','task-item');
+    card.appendChild(el('div','task-title',it.q));
+    var box=el('div','opts');var fb=el('div','fb');fb.setAttribute('aria-live','polite');
+    var list=opts.noShuffle?it.options.slice():shuffle(it.options);
+    var done=false;
+    list.forEach(function(o){
+      var b=el('button','opt');b.type='button';b.textContent=o;
+      b.addEventListener('click',function(){
+        if(done)return;
+        if(o===it.answer){
+          done=true;b.classList.add('right');
+          Array.prototype.forEach.call(box.children,function(x){x.disabled=true;});
+          setFb(fb,pick(OK)+(it.explain?' '+it.explain:''),true);
+          solved++;if(solved===items.length&&opts.onDone)opts.onDone();
+        }else{b.classList.add('wrong');b.disabled=true;setFb(fb,pick(TRY),false);}
+      });
+      box.appendChild(b);
+    });
+    card.appendChild(box);card.appendChild(fb);root.appendChild(card);
+  });
+}
+
+function renderSorter(root,items,labels,scoreNode){
+  var solved=0;
+  items.forEach(function(it){
+    var card=el('div','task-item');
+    card.appendChild(el('div','task-title',it.text));
+    if(it.ctx)card.appendChild(el('div','ctx',it.ctx));
+    var box=el('div','opts');var fb=el('div','fb');fb.setAttribute('aria-live','polite');
+    var done=false;
+    labels.forEach(function(lab,k){
+      var b=el('button','opt '+(k===0?'plan':'dec'));b.type='button';b.textContent=lab;
+      b.addEventListener('click',function(){
+        if(done)return;
+        if(k===it.ans){
+          done=true;b.classList.add('right');
+          Array.prototype.forEach.call(box.children,function(x){x.disabled=true;});
+          setFb(fb,pick(OK)+(it.explain?' '+it.explain:''),true);
+          solved++;if(scoreNode)scoreNode.textContent=solved+' / '+items.length+(solved===items.length?'. All done.':'');
+        }else{
+          b.classList.add('wrong');b.disabled=true;
+          setFb(fb,'Not this one. Look at the form: going to or \'ll?',false);
+        }
+      });
+      box.appendChild(b);
+    });
+    card.appendChild(box);card.appendChild(fb);root.appendChild(card);
+  });
+}
+
+function renderMatcher(root,pairs,fbNode){
+  var left=pairs.map(function(p,i){return {t:p[0],i:i};});
+  var right=shuffle(pairs.map(function(p,i){return {t:p[1],i:i};}));
+  var grid=el('div','match');var selL=null,matched=0;
+  var lb=[],rb=[];
+  var lcol=el('div'),rcol=el('div');
+  lcol.style.display=rcol.style.display='grid';lcol.style.gap=rcol.style.gap='10px';
+  left.forEach(function(o){
+    var b=el('button');b.type='button';b.textContent=o.t;
+    b.addEventListener('click',function(){
+      if(b.classList.contains('done'))return;
+      lb.forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel');selL=o.i;setFb(fbNode,'');
+    });
+    lb.push(b);lcol.appendChild(b);
+  });
+  right.forEach(function(o){
+    var b=el('button');b.type='button';b.textContent=o.t;
+    b.addEventListener('click',function(){
+      if(b.classList.contains('done'))return;
+      if(selL===null){setFb(fbNode,'First choose a card on the left.');return;}
+      if(selL===o.i){
+        b.classList.add('done');lb[selL].classList.remove('sel');lb[selL].classList.add('done');
+        matched++;selL=null;
+        setFb(fbNode,matched===pairs.length?'All matched. Well done.':pick(OK),true);
+      }else{setFb(fbNode,'These two do not go together. Try again.',false);}
+    });
+    rb.push(b);rcol.appendChild(b);
+  });
+  grid.appendChild(lcol);grid.appendChild(rcol);root.appendChild(grid);
+}
+
+/* ---------- navigation and progress ---------- */
+(function(){
+  var links=Array.prototype.slice.call(document.querySelectorAll('#navlist a'));
+  var secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  var seen={};var fill=$('#barFill'),bar=$('.bar');
+  function update(activeId){
+    links.forEach(function(a){
+      var id=a.getAttribute('href').slice(1);
+      a.setAttribute('aria-current',id===activeId?'true':'false');
+      if(seen[id])a.classList.add('seen');
+    });
+    var main=Object.keys(seen).filter(function(k){return k!=='extra';}).length;
+    var pct=Math.round(main/7*100);
+    fill.style.width=pct+'%';bar.setAttribute('aria-valuenow',pct);
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){seen[e.target.id]=true;update(e.target.id);}});
+    },{rootMargin:'-30% 0px -60% 0px'});
+    secs.forEach(function(s){io.observe(s);});
+  }
+  links.forEach(function(a){a.addEventListener('click',function(){
+    var id=a.getAttribute('href').slice(1);seen[id]=true;update(id);});});
+  update('s1');
+})();
+
+/* ---------- stage 1 ---------- */
+(function(){
+  var cards=[
+    ['Morning','do the laundry'],['Morning','go shopping'],
+    ['Afternoon','meet a friend'],['Afternoon','go for a walk'],
+    ['Evening','cook dinner'],['Evening','watch a series']
+  ];
+  var tl=$('#timeline'),w1=$('#w1'),btns=[];
+  ['Morning','Afternoon','Evening'].forEach(function(part){
+    var col=el('div','tl-col');col.appendChild(el('h3','',part));
+    cards.filter(function(c){return c[0]===part;}).forEach(function(c){
+      var b=el('button','card');b.type='button';b.textContent=c[1];
+      b.addEventListener('click',function(){
+        btns.forEach(function(x){x.classList.remove('current');});
+        b.classList.add('current','used');w1.textContent=c[1]+'.';
+      });
+      btns.push(b);col.appendChild(b);
+    });
+    tl.appendChild(col);
+  });
+  $('#w1reset').addEventListener('click',function(){
+    btns.forEach(function(x){x.classList.remove('current','used');});w1.textContent='...';
+  });
+  var fu=[
+    ['Who with?','Who are you going to be with?','I\'m going to ... with my ...'],
+    ['Where?','Where are you going to go?','I\'m going to go to ... / I\'m going to stay at home.'],
+    ['What time?','What time are you going to start?','I\'m going to start at ... o\'clock.']
+  ];
+  var chips=$('#followChips'),ff=$('#followFrame');
+  fu.forEach(function(f){
+    var c=el('button','chip');c.type='button';c.textContent=f[0];
+    c.addEventListener('click',function(){ff.innerHTML='<b>'+f[1]+'</b><small>'+f[2]+'</small>';});
+    chips.appendChild(c);
+  });
+})();
+
+/* ---------- stage 2 ---------- */
+(function(){
+  var b=$('#showForm'),box=$('#formBox');
+  b.addEventListener('click',function(){
+    var open=box.hidden;box.hidden=!open;b.setAttribute('aria-expanded',open);
+    b.textContent=open?'Hide the form':'Show the form';
+  });
+  renderBuilder($('#builderA'),[
+    {chunks:['I','am','going to','bake','a pie.'],aux:['am'],tip:'Check the yellow piece: am / is / are.'},
+    {chunks:['We','are','going to','do','the grocery shopping.'],aux:['are'],tip:'Check the yellow piece: am / is / are.'},
+    {chunks:['He','is','going to','call','a friend.'],aux:['is'],tip:'Check the yellow piece: am / is / are.'},
+    {chunks:['She','is not','going to','cook','dinner.'],aux:['is not'],tip:'Negative: is not goes before going to.'}
+  ]);
+  renderBuilder($('#builderB'),[
+    {chunks:['What','are','you','going to','do?'],aux:['are'],tip:'Question word, then am/is/are, then the subject.'},
+    {chunks:['Where','is','she','going to','meet','Kate?'],aux:['is'],tip:'Question word, then am/is/are, then the subject.'},
+    {chunks:['Are','you','going to','go','to the gym?'],aux:['Are'],tip:'Start with am / is / are.'}
+  ]);
+  renderChoice($('#choiceC'),[
+    {q:'I going to clean the flat.',options:['I am going to clean the flat.','I going clean the flat.','I am going clean the flat.'],answer:'I am going to clean the flat.'},
+    {q:'She is going dinner tonight.',options:['She is going to cook dinner tonight.','She going to cook dinner tonight.','She is going to dinner cook tonight.'],answer:'She is going to cook dinner tonight.'},
+    {q:'What you are going to do?',options:['What are you going to do?','What you going to do?','What are going to you do?'],answer:'What are you going to do?'},
+    {q:'They are going to watching a series.',options:['They are going to watch a series.','They going to watch a series.','They are going watch a series.'],answer:'They are going to watch a series.'}
+  ]);
+})();
+
+/* ---------- stage 3 ---------- */
+(function(){
+  var data=[
+    {plan:"You're going to go to the park.",sur:'The weather app says: rain.',chips:['stay at home','go to a cafe','take an umbrella']},
+    {plan:"You're going to bake a pie.",sur:'There is no milk.',chips:['buy milk','go to the shop','cook something else']},
+    {plan:"You're going to meet a friend at six.",sur:'She calls: "Sorry, I\'m tired. I can\'t come."',chips:['meet her tomorrow','watch a series','go for a walk']},
+    {plan:"You're going to call your mum.",sur:'Your phone battery is very low.',chips:['charge the phone','use the laptop','call later']},
+    {plan:"You're going to do the grocery shopping.",sur:'The shop is closed.',chips:['go to another shop','go tomorrow','order food online']},
+    {plan:"You're going to go to the gym.",sur:"You're very tired.",chips:['stay at home','go for a walk','go to the gym tomorrow']}
+  ];
+  var root=$('#surprises'),opened=0,discShown=false;
+  data.forEach(function(d,n){
+    var card=el('div','panel');
+    card.innerHTML='<div class="two"><div><span class="gt">Plan</span> '+d.plan+'</div><div><span class="wl">Surprise</span> '+d.sur+'</div></div>'+
+      '<p class="teacher-say" style="margin-top:10px">What will you do?</p>';
+    var row=el('div','row');
+    var hb=el('button','btn alt','Need a hint?');hb.type='button';
+    var fbtn=el('button','btn terra','Show the frame');fbtn.type='button';
+    var chipRow=el('div','row');chipRow.hidden=true;
+    var frame=el('div','frame t');frame.hidden=true;frame.setAttribute('aria-live','polite');
+    frame.innerHTML='<span class="fr">I\'ll ...</span>';
+    var counted=false;
+    hb.addEventListener('click',function(){chipRow.hidden=!chipRow.hidden;});
+    d.chips.forEach(function(c){
+      var ch=el('button','chip t');ch.type='button';ch.textContent=c;
+      ch.addEventListener('click',function(){
+        frame.hidden=false;frame.querySelector('.fr').textContent="I'll "+c+'.';countOpen();
+      });
+      chipRow.appendChild(ch);
+    });
+    function countOpen(){
+      if(counted)return;counted=true;opened++;
+      if(opened>=3&&!discShown){discShown=true;$('#discovery').hidden=false;$('#discHint').hidden=true;buildDisc();}
+    }
+    fbtn.addEventListener('click',function(){frame.hidden=false;countOpen();});
+    row.appendChild(hb);row.appendChild(fbtn);
+    card.appendChild(row);card.appendChild(chipRow);card.appendChild(frame);
+    root.appendChild(card);
+  });
+  function buildDisc(){
+    renderChoice($('#discQ'),[
+      {q:'Which form did we use for the PLAN?',options:['going to','will'],answer:'going to',noShuffleDummy:1},
+      {q:'Which form did you use for the NEW DECISION?',options:['going to','will'],answer:'will'}
+    ],{noShuffle:true,onDone:function(){$('#ruleBox').hidden=false;}});
+  }
+})();
+
+/* ---------- stage 4 ---------- */
+(function(){
+  renderSorter($('#sortA'),[
+    {text:"Tomorrow I'm going to clean the flat.",ans:0},
+    {text:"Oh, the shop is closed! I'll go tomorrow.",ans:1},
+    {text:"We're going to meet at six. We planned it last week.",ans:0},
+    {text:"It's hot in here. I'll open the window.",ans:1},
+    {text:"She's going to bake a pie. She has all the things.",ans:0},
+    {text:"Oh no, there is no milk! I'll buy some.",ans:1}
+  ],['Plan (going to)','Decision (will)'],$('#sortAscore'));
+
+  var dl=[
+    {a:'What are you doing this weekend?',ctx:'(She bought the tickets yesterday.)',gt:"I'm going to",w:"I'll",rest:'visit my sister.',ans:'gt'},
+    {a:'The bus is not here.',ctx:'(She decides now.)',gt:"I'm going to",w:"I'll",rest:'take a taxi.',ans:'w'},
+    {a:'Why do you have flour and eggs?',ctx:'(She planned it this morning.)',gt:"I'm going to",w:"I'll",rest:'bake a pie.',ans:'gt'},
+    {a:'Look, it is raining!',ctx:'(He decides now.)',gt:"I'm going to",w:"I'll",rest:'take an umbrella.',ans:'w'},
+    {a:'What are your plans for tonight?',ctx:'(They decided this morning.)',gt:"We're going to",w:"We'll",rest:'watch a series.',ans:'gt'},
+    {a:'Is there any milk?',ctx:'(She decides now.)',gt:"No! OK, I'm going to",w:"No! OK, I'll",rest:'go to the shop now.',ans:'w'}
+  ];
+  var root=$('#dlgB');
+  dl.forEach(function(d){
+    var card=el('div','task-item dlg');
+    card.innerHTML='<p><b>A:</b> '+d.a+'</p>';
+    var bline=el('p');bline.innerHTML='<b>B:</b> <span class="gap">&nbsp;</span> '+d.rest+' <span class="ctx">'+d.ctx+'</span>';
+    card.appendChild(bline);
+    var box=el('div','opts'),fb=el('div','fb');fb.setAttribute('aria-live','polite');
+    var done=false;
+    [['gt',d.gt,'plan'],['w',d.w,'dec']].forEach(function(o){
+      var b=el('button','opt '+o[2]);b.type='button';b.textContent=o[1]+' ...';
+      b.addEventListener('click',function(){
+        if(done)return;
+        if(o[0]===d.ans){
+          done=true;b.classList.add('right');
+          Array.prototype.forEach.call(box.children,function(x){x.disabled=true;});
+          var g=bline.querySelector('.gap');g.textContent=o[1];g.className='gap '+(o[0]==='gt'?'gt':'wl');
+          setFb(fb,pick(OK),true);
+        }else{b.classList.add('wrong');b.disabled=true;setFb(fb,'Think: a plan from before, or a decision now?',false);}
+      });
+      box.appendChild(b);
+    });
+    card.appendChild(box);card.appendChild(fb);root.appendChild(card);
+  });
+
+  var gaps=[
+    {pre:"It's cold in here! I",post:'close the window.',answers:["'ll",'will','ll'],hint:'It is a decision now. Two letters or four.',full:"I'll close the window."},
+    {pre:'She',post:'going to bake a pie tonight.',answers:['is',"'s"],hint:'am / is / are. Who is "she"?',full:'She is going to bake a pie tonight.'}
+  ];
+  var gr=$('#gapC');
+  gaps.forEach(function(g){
+    var card=el('div','task-item');
+    var p=el('p');p.innerHTML=g.pre+' ';
+    var inp=el('input');inp.type='text';inp.setAttribute('aria-label','Your answer');inp.autocomplete='off';
+    p.appendChild(inp);p.appendChild(document.createTextNode(' '+g.post));
+    var row=el('div','row'),fb=el('div','fb');fb.setAttribute('aria-live','polite');
+    var cb=el('button','btn','Check');cb.type='button';
+    var hb=el('button','btn alt','Need a hint?');hb.type='button';
+    function check(){
+      var v=norm(inp.value);
+      if(!v){setFb(fb,'Write your answer first.');return;}
+      if(g.answers.map(norm).indexOf(v)>-1){setFb(fb,pick(OK)+' '+g.full,true);}
+      else{setFb(fb,'Not quite. Try again.',false);}
+    }
+    cb.addEventListener('click',check);
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter')check();});
+    hb.addEventListener('click',function(){setFb(fb,g.hint);});
+    row.appendChild(cb);row.appendChild(hb);
+    card.appendChild(p);card.appendChild(row);card.appendChild(fb);gr.appendChild(card);
+  });
+
+  renderMatcher($('#matchD'),[
+    ['The weather app says: rain.',"I'll take an umbrella."],
+    ['There is no milk.',"I'll buy some."],
+    ['Your phone battery is low.',"I'll charge it."],
+    ['Your friend is ill.',"We'll meet next week."]
+  ],$('#matchDfb'));
+})();
+
+/* ---------- stage 5: audio ---------- */
+(function(){
+  var S=["Hi!","This is Emma.","Tomorrow is Saturday, and I have a plan.","In the morning, I'm going to do the laundry.","Then I'm going to meet my friend Kate in the park.","We're going to have a coffee and take some photos.","In the evening, I'm going to cook dinner.","Oh, wait.","I'm looking at the weather app.","It says: rain tomorrow.","OK, no problem.","I'll call Kate.","We'll meet in a cafe, not in the park.","And after dinner, I'll watch a series at home."];
+  var supported=('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
+  var synth=supported?window.speechSynthesis:null;
+  var voice=null,idx=0,gen=0,state='idle',listens=0,rate=0.7;
+  var playBtn=$('#playBtn'),replayBtn=$('#replayBtn'),status=$('#audioStatus'),notice=$('#audioNotice'),tm=$('#teacherMode');
+
+  function pickVoice(){
+    if(!synth)return;
+    var vs=synth.getVoices()||[];
+    var en=vs.filter(function(v){return /^en[-_]/i.test(v.lang);});
+    voice=en.filter(function(v){return /en[-_]GB/i.test(v.lang);})[0]||en.filter(function(v){return /en[-_]US/i.test(v.lang);})[0]||en[0]||null;
+    if(!teacher()){
+      status.textContent=voice?('Voice: '+voice.name+' ('+voice.lang+'). Listened: '+listens+' time(s).'):'No English voice found. The browser will try its default voice. If it does not sound English, tick "Teacher reads aloud".';
+    }
+  }
+  function teacher(){return tm.checked;}
+  function ui(){
+    playBtn.textContent=state==='playing'?'Pause':(state==='paused'?'Resume':'Play');
+  }
+  function setTeacherUI(){
+    var t=teacher();
+    playBtn.disabled=t||!supported;replayBtn.disabled=t||!supported;
+    if(t){stop();notice.hidden=false;notice.textContent='Teacher reads the text aloud, slowly, two times. The transcript is in the Teacher notes at the bottom of the page.';status.textContent='';}
+    else if(!supported){notice.hidden=false;notice.textContent='Speech synthesis is not available in this browser. Use "Teacher reads aloud", or open the lesson in Chrome, Edge or Safari.';}
+    else{notice.hidden=true;pickVoice();}
+  }
+  function stop(){gen++;if(synth)synth.cancel();state='idle';idx=0;ui();}
+  function next(g){
+    if(g!==gen)return;
+    if(idx>=S.length){state='idle';idx=0;listens++;ui();status.textContent='Finished. Listened: '+listens+' time(s).';return;}
+    var u=new SpeechSynthesisUtterance(S[idx]);
+    u.lang=voice?voice.lang:'en-GB';if(voice)u.voice=voice;u.rate=rate;
+    u.onend=function(){
+      if(g!==gen||state!=='playing')return;
+      idx++;setTimeout(function(){next(g);},rate<0.8?450:300);
+    };
+    u.onerror=function(e){
+      if(g!==gen)return;
+      if(e&&(e.error==='canceled'||e.error==='interrupted'))return;
+      state='idle';ui();notice.hidden=false;notice.textContent='The audio could not play. Tick "Teacher reads aloud" and read the transcript from the Teacher notes.';
+    };
+    synth.speak(u);
+  }
+  function startFrom(i){
+    gen++;var g=gen;synth.cancel();state='playing';idx=i;ui();
+    status.textContent='Playing...';
+    setTimeout(function(){next(g);},80);
+  }
+  playBtn.addEventListener('click',function(){
+    if(!supported||teacher())return;
+    if(state==='playing'){gen++;synth.cancel();state='paused';ui();status.textContent='Paused.';}
+    else if(state==='paused'){startFrom(idx);}
+    else{startFrom(0);}
+  });
+  replayBtn.addEventListener('click',function(){if(!supported||teacher())return;startFrom(0);});
+  Array.prototype.forEach.call(document.querySelectorAll('input[name=spd]'),function(r){
+    r.addEventListener('change',function(){rate=parseFloat(r.value);});
+  });
+  tm.addEventListener('change',setTeacherUI);
+  if(supported){
+    if(synth.onvoiceschanged!==undefined){synth.onvoiceschanged=pickVoice;}
+    pickVoice();setTimeout(pickVoice,800);
+    window.addEventListener('beforeunload',function(){synth.cancel();});
+  }
+  setTeacherUI();
+
+  renderChoice($('#gist'),[
+    {q:'What day is tomorrow?',options:['Friday','Saturday','Sunday'],answer:'Saturday'},
+    {q:'What is the problem?',options:['Emma is ill.','Kate has no time.','The weather is bad.'],answer:'The weather is bad.'}
+  ],{noShuffle:true});
+  renderSorter($('#sortL'),[
+    {text:'do the laundry',ans:0},
+    {text:'meet Kate in the park',ans:0},
+    {text:'cook dinner',ans:0},
+    {text:'call Kate',ans:1},
+    {text:'meet in a cafe',ans:1},
+    {text:'watch a series at home',ans:1}
+  ],['Planned (going to)','Decided (will)']);
+  var sb=$('#showTr'),tb=$('#trBox');
+  sb.addEventListener('click',function(){
+    var open=tb.hidden;tb.hidden=!open;sb.setAttribute('aria-expanded',open);
+    sb.textContent=open?'Hide the transcript':'Show the transcript';
+  });
+  $('#vidGo').addEventListener('click',function(){
+    var v=$('#vidUrl').value.trim(),f=$('#vidFb');
+    if(!/^https?:\/\/\S+$/i.test(v)){setFb(f,'Paste a full link that starts with http:// or https://',false);return;}
+    window.open(v,'_blank','noopener');setFb(f,'Opened in a new tab.',true);
+  });
+})();
+
+/* ---------- stage 6 ---------- */
+(function(){
+  var plans=['do the laundry','cook dinner','go shopping','do the grocery shopping','clean up','meet a friend','go for a walk','bake a pie','watch a series','go to the gym','call a friend','buy milk'];
+  var surps=[
+    {t:"It's raining.",q:'it rains',h:['stay at home','take an umbrella','go to a cafe']},
+    {t:'Your friend cancels.',q:'your friend cancels',h:['call another friend','watch a series','go for a walk']},
+    {t:'There is no milk.',q:'there is no milk',h:['buy milk','go to the shop','cook something else']},
+    {t:'Your phone battery is low.',q:'your phone battery is low',h:['charge the phone','take the charger','call later']},
+    {t:'The shop is closed.',q:'the shop is closed',h:['go to another shop','go tomorrow','order food online']},
+    {t:"You're tired.",q:"you're tired",h:['stay at home','watch a series','go to bed early']}
+  ];
+  var planBox=$('#planBox'),surpBox=$('#surpBox'),ds=$('#drawSurp'),hr=$('#hintRow'),ho=$('#hintOut'),hb=$('#hintBtn'),qs=$('#qSurp');
+  var cur=null,hi=0,round=1;
+  $('#drawPlan').addEventListener('click',function(){
+    var p=shuffle(plans).slice(0,3);
+    planBox.innerHTML='<ul>'+p.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+    ds.disabled=false;surpBox.textContent='Press "Draw a surprise card".';hr.hidden=true;cur=null;qs.textContent='there is a problem';
+  });
+  ds.addEventListener('click',function(){
+    var s=surps[Math.floor(Math.random()*surps.length)];
+    if(cur){var tries=0;while(s===cur&&tries++<10){s=surps[Math.floor(Math.random()*surps.length)];}}
+    cur=s;hi=0;ho.textContent='';
+    surpBox.innerHTML='<p class="big" style="margin:0">'+s.t+'</p>';
+    hr.hidden=false;hb.textContent='Need a hint?';qs.textContent=s.q;
+  });
+  hb.addEventListener('click',function(){
+    if(!cur)return;
+    if(hi<cur.h.length){ho.textContent=(ho.textContent?ho.textContent+' / ':'')+"I'll "+cur.h[hi]+'.';hi++;hb.textContent=hi<cur.h.length?'Another hint?':'No more hints';}
+  });
+  $('#swapRound').addEventListener('click',function(){
+    round=round===1?2:1;
+    $('#roundLabel').textContent=round===1?'Round 1. Natasha says the plan. The teacher asks the questions.':'Round 2. Roles are swapped: the teacher says the plan, Natasha asks the questions.';
+    this.textContent=round===1?'Round 2: swap roles':'Back to round 1';
+  });
+})();
+
+/* ---------- stage 7 ---------- */
+(function(){
+  var root=$('#fixBoxes');
+  for(var i=1;i<=3;i++){
+    var d=el('div','task-item');
+    d.innerHTML='<label for="fx'+i+'"><b>Sentence '+i+'</b> (teacher types)</label>'+
+      '<textarea id="fx'+i+'" rows="2" placeholder="Type a sentence from the lesson..."></textarea>'+
+      '<label for="fy'+i+'" style="display:block;margin-top:8px"><b>My correction</b></label>'+
+      '<textarea id="fy'+i+'" rows="2" placeholder="Write the correct sentence..."></textarea>';
+    root.appendChild(d);
+  }
+})();
+
+/* ---------- extra bank ---------- */
+(function(){
+  renderMatcher($('#matchE'),[
+    ['do','the laundry'],['go','for a walk'],['bake','a pie'],['meet','a friend'],['charge','the phone'],['watch','a series']
+  ],$('#matchEfb'));
+
+  renderChoice($('#readE'),[
+    {q:'Tom is going to get up early.',options:['True','False'],answer:'False',explain:'He is going to get up late.'},
+    {q:'Tom is going to make pancakes.',options:['True','False'],answer:'True'},
+    {q:'Tom is going to cook dinner.',options:['True','False'],answer:'False',explain:'His wife is going to cook it.'},
+    {q:'Tom decides to go to the cinema.',options:['True','False'],answer:'True',explain:'The weather is bad, so he says: we\'ll go to the cinema.'}
+  ],{noShuffle:true});
+
+  var qs=['What are you going to do on Saturday?','Who are you going to meet?','Where are you going to go?','What are you going to cook tonight?','What time are you going to get up?','Are you going to watch a series tonight?','What will you do if it rains?','What will you do if you are tired?','What will you do if there is no milk?','What will you do if your phone battery is low?','What will you do if your friend cancels?','What are you going to do next weekend?'];
+  var last=-1,dq=$('#drillQ');
+  $('#drillBtn').addEventListener('click',function(){
+    var n;do{n=Math.floor(Math.random()*qs.length);}while(n===last);
+    last=n;dq.textContent=qs[n];
+  });
+
+  renderBuilder($('#builderE'),[
+    {chunks:["I'll",'call','Kate','later.'],aux:["I'll"],tip:"After I'll comes the base verb."},
+    {chunks:["We'll",'take','an umbrella.'],aux:["We'll"],tip:"After We'll comes the base verb."},
+    {chunks:['She','is','going to','bake','a pie','tonight.'],aux:['is'],tip:'Check the yellow piece: am / is / are.'},
+    {chunks:['What','will','you','do?'],aux:['will'],tip:'Question word, will, subject, base verb.'}
+  ]);
+
+  var sp=[
+    ["Tomorrow I'm going to clean the flat.",0],
+    ["Oh, the shop is closed! I'll go tomorrow.",1],
+    ["We're going to meet at six. We planned it last week.",0],
+    ["It's hot. I'll open the window.",1],
+    ["She's going to bake a pie. She has all the things.",0],
+    ["Oh no, no milk! I'll buy some.",1],
+    ["They're going to watch a series tonight.",0],
+    ["My phone is dead! I'll charge it.",1]
+  ];
+  var root=$('#speed');
+  function runSpeed(){
+    root.innerHTML='';
+    var order=shuffle(sp),n=0,score=0,t0=Date.now();
+    var box=el('div','big-q'),opts=el('div','opts');opts.style.justifyContent='center';
+    var fb=el('div','fb');fb.style.textAlign='center';fb.setAttribute('aria-live','polite');
+    var nx=el('button','btn alt','Next');nx.type='button';nx.hidden=true;
+    var nr=el('div','row');nr.style.justifyContent='center';nr.appendChild(nx);
+    var bp=el('button','opt plan','Plan (going to)'),bd=el('button','opt dec','Decision (will)');
+    bp.type=bd.type='button';opts.appendChild(bp);opts.appendChild(bd);
+    root.appendChild(box);root.appendChild(opts);root.appendChild(fb);root.appendChild(nr);
+    var answered=false;
+    function show(){
+      if(n>=order.length){
+        var secs=Math.round((Date.now()-t0)/1000);
+        root.innerHTML='';
+        var r=el('p','score','Score: '+score+' / '+order.length+'. Time: '+secs+' seconds.');
+        var again=el('button','btn','Play again');again.type='button';again.addEventListener('click',runSpeed);
+        root.appendChild(r);root.appendChild(again);return;
+      }
+      box.textContent=order[n][0];answered=false;nx.hidden=true;
+      bp.disabled=bd.disabled=false;bp.classList.remove('right','wrong');bd.classList.remove('right','wrong');
+      setFb(fb,(n+1)+' / '+order.length);
+    }
+    function ans(k,b){
+      if(answered)return;answered=true;
+      bp.disabled=bd.disabled=true;
+      if(k===order[n][1]){score++;b.classList.add('right');setFb(fb,'Correct.',true);}
+      else{b.classList.add('wrong');setFb(fb,'Not this time: '+(order[n][1]===0?'a plan (going to).':'a decision (will).'),false);}
+      nx.hidden=false;nx.textContent=(n+1>=order.length)?'See the score':'Next';
+    }
+    bp.addEventListener('click',function(){ans(0,bp);});
+    bd.addEventListener('click',function(){ans(1,bd);});
+    nx.addEventListener('click',function(){n++;show();});
+    show();
+  }
+  runSpeed();
+
+  renderChoice($('#choiceE'),[
+    {q:"I'll buys some milk now.",options:["I'll buy some milk now.","I'll buying some milk now.","I buy some milk now."],answer:"I'll buy some milk now."},
+    {q:'I will to call Kate.',options:["I'll call Kate.","I'll to call Kate.","I'll calling Kate."],answer:"I'll call Kate."},
+    {q:'We going to meet at six.',options:['We are going to meet at six.','We going meet at six.','We are going meet at six.'],answer:'We are going to meet at six.'},
+    {q:'Where you are going to go?',options:['Where are you going to go?','Where you going to go?','Where are going you to go?'],answer:'Where are you going to go?'},
+    {q:'What you will do?',options:['What will you do?','What you will to do?','What will you to do?'],answer:'What will you do?'}
+  ]);
+})();
+
+})();
+</script>
+</body>
+</html>
