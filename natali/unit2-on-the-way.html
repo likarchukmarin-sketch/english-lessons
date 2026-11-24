@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Excuse Me, How Do I Get There? — A1+ to A2 Speaking Lesson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F5EE; --card:#FFFEFA; --ink:#1F2A37; --muted:#6B7280;
+  --dark:#1F2A37; --red:#D7263D; --red-soft:#FCE3E6; --yellow:#F4B942; --yellow-soft:#FDF0D0;
+  --mint:#3AAFA9; --mint-soft:#DDF3F1; --line:#E5E0D0; --ok:#2F7D4F; --ok-soft:#DDF0E3; --bad:#C0392B; --bad-soft:#FBE0DC;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;font-size:17px;line-height:1.55}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;color:var(--dark);line-height:1.15;margin:0}
+.wrap{max-width:940px;margin:0 auto;padding:0 18px}
+button{font-family:inherit}
+
+.hero{background:var(--dark);color:#fff;padding:36px 0 30px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:repeating-linear-gradient(90deg,var(--red) 0 40px,var(--yellow) 40px 80px,var(--mint) 80px 120px)}
+.hero .tag{display:inline-block;background:var(--yellow);color:var(--dark);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:99px}
+.hero h1{color:#fff;font-size:clamp(32px,6vw,52px);margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;max-width:650px;opacity:.93;font-size:18px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);padding:5px 12px;border-radius:99px;font-size:14px;font-weight:700}
+.hero .sign{position:absolute;right:22px;top:22px;font-size:46px;opacity:.9}
+@media(max-width:600px){.hero .sign{display:none}}
+
+.audiobar{background:var(--card);border:1px solid var(--line);border-radius:16px;margin:20px 0 0}
+.audiobar summary{cursor:pointer;padding:12px 18px;font-weight:800;color:var(--dark)}
+.audiobar .in{padding:4px 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+@media(max-width:640px){.audiobar .in{grid-template-columns:1fr}}
+.audiobar label{display:block;font-weight:800;font-size:14px;margin-bottom:4px}
+.audiobar select{width:100%;padding:8px 10px;border:2px solid var(--line);border-radius:10px;font-family:inherit;font-size:15px;background:#fff}
+.audiobar .row{display:flex;gap:8px;align-items:center;margin-top:6px}
+.audiobar .full{grid-column:1/-1}
+.audiobar .tip{font-size:14px;color:var(--muted)}
+.audiobar input[type=range]{width:100%;accent-color:var(--red)}
+
+.line{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(31,42,55,.06);margin-top:20px}
+.line-inner{display:flex;align-items:center;gap:10px;padding:10px 18px;max-width:940px;margin:0 auto}
+.stops{flex:1;display:flex;justify-content:space-between;position:relative;overflow-x:auto;padding:4px 2px;scrollbar-width:none}
+.stops::-webkit-scrollbar{display:none}
+.stops:before{content:"";position:absolute;left:14px;right:14px;top:17px;height:3px;background:var(--line);z-index:0}
+.stops .fill{position:absolute;left:14px;top:17px;height:3px;background:var(--red);z-index:0;width:0;transition:width .4s}
+.stop{position:relative;z-index:1;background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:56px;color:var(--muted);font-size:11px;font-weight:700}
+.stop i{width:28px;height:28px;border-radius:50%;background:var(--card);border:3px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:12px;color:var(--muted);transition:.25s}
+.stop.on i{border-color:var(--red);background:var(--red);color:#fff;transform:scale(1.1)}
+.stop.done i{border-color:var(--red);color:var(--red)}
+.stop.on{color:var(--red)}
+.ua-btn{border:2px solid var(--dark);background:var(--card);color:var(--dark);font-weight:800;border-radius:99px;padding:6px 12px;cursor:pointer;font-size:13px;white-space:nowrap}
+body.ua-on .ua-btn{background:var(--dark);color:#fff}
+
+.ua{display:none;color:#0F6E69;font-size:.88em;font-weight:600}
+body.ua-on .ua{display:block;margin-top:2px}
+.always-ua{display:block !important;color:#0F6E69;font-weight:700}
+
+.step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px 24px;margin:26px 0;box-shadow:0 6px 22px rgba(31,42,55,.06)}
+.step-head{display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap}
+.num{width:42px;height:42px;border-radius:50%;background:var(--yellow);color:var(--dark);display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:800;font-size:20px;flex:none}
+.step h2{font-size:clamp(24px,4vw,32px)}
+.time{margin-left:auto;background:var(--yellow-soft);color:var(--dark);font-weight:800;font-size:13px;padding:4px 12px;border-radius:99px}
+.goal{color:var(--muted);margin:2px 0 14px}
+.task{background:var(--mint-soft);border-left:5px solid var(--mint);border-radius:10px;padding:10px 14px;margin:20px 0 12px;font-weight:700}
+.task small{display:block;font-weight:600;color:var(--muted)}
+.how{background:var(--yellow-soft);border-radius:14px;padding:12px 16px;margin:10px 0;font-weight:700}
+.how ol{margin:6px 0 0 20px;padding:0}
+.how li{margin:3px 0}
+
+.btn{background:var(--dark);color:#fff;border:0;border-radius:99px;padding:10px 20px;font-weight:800;font-size:15px;cursor:pointer;transition:transform .12s,background .2s;text-decoration:none;display:inline-block}
+.btn:hover{background:#111827;transform:translateY(-1px)}
+.btn.alt{background:var(--card);color:var(--dark);border:2px solid var(--dark)}
+.btn.red{background:var(--red)}
+.btn.gold{background:var(--yellow);color:var(--dark)}
+.btn.sm{padding:6px 14px;font-size:14px}
+.play{width:36px;height:36px;border-radius:50%;border:0;background:var(--dark);color:#fff;cursor:pointer;font-size:14px;flex:none;display:inline-grid;place-items:center}
+.play:hover{background:#111827}
+.play.on{background:var(--red)}
+
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.qcard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-weight:700}
+.qcard b{font-family:'Fraunces',serif;color:var(--red);margin-right:6px}
+.qcard.y{background:var(--yellow-soft);border-color:var(--yellow)}
+
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.fcard{position:relative;background:var(--paper);border:2px solid var(--line);border-radius:16px;min-height:150px;padding:14px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transition:.2s}
+.fcard:hover{border-color:var(--dark)}
+.fcard .emo{font-size:34px;line-height:1}
+.fcard .en{font-family:'Fraunces',serif;font-weight:800;font-size:21px;color:var(--dark);margin-top:6px}
+.fcard .back{display:none;flex-direction:column;gap:4px}
+.fcard.flip{background:var(--mint-soft);border-color:var(--mint)}
+.fcard.flip .front{display:none}
+.fcard.flip .back{display:flex}
+.fcard .back .u{font-weight:800;color:#0F6E69;font-size:18px}
+.fcard .back .ex{font-size:14px}
+.fcard .mini{position:absolute;right:8px;top:8px;width:28px;height:28px;font-size:11px}
+
+.audiobox{background:var(--paper);border:2px dashed var(--dark);border-radius:16px;padding:16px;margin:12px 0}
+.audiobox .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:6px 0}
+.audiobox audio{width:100%;margin-top:8px}
+.audiobox .note{font-size:14px;color:var(--muted)}
+.own{margin-top:10px;font-size:14px;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.own input{display:none}
+
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.pcard{border:2px solid var(--line);border-radius:16px;padding:14px;background:#fff;display:flex;flex-direction:column;gap:8px}
+.pcard.fav{border-color:var(--yellow);background:var(--yellow-soft)}
+.pcard .sit{font-weight:700;color:#0F6E69}
+.pcard .eng{display:none;font-family:'Fraunces',serif;font-weight:800;font-size:19px;color:var(--dark)}
+.pcard.show .eng{display:block}
+.pcard .row{display:flex;gap:8px;align-items:center}
+.pcard .star{margin-left:auto;background:none;border:0;font-size:24px;cursor:pointer;color:#cdbf92}
+.pcard.fav .star{color:var(--yellow)}
+.favcount{font-weight:800;color:var(--dark);margin:8px 0}
+.formula{background:var(--dark);color:#fff;border-radius:16px;padding:16px 20px;margin:14px 0;font-weight:700}
+.formula .f{font-family:'Fraunces',serif;font-size:clamp(18px,3.2vw,23px);margin:4px 0}
+.formula em{font-style:normal;color:var(--yellow)}
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+@media(max-width:640px){.contrast{grid-template-columns:1fr}}
+.contrast div{border-radius:14px;padding:12px 16px;font-weight:700}
+.contrast .c1{background:var(--mint-soft);border:2px solid var(--mint)}
+.contrast .c2{background:var(--red-soft);border:2px solid var(--red)}
+.contrast b{display:block;font-family:'Fraunces',serif;font-size:19px;margin-bottom:4px}
+
+.dialogue{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+.dlg-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.dlg-bar .grow{flex:1;min-width:140px;font-weight:800;color:var(--dark)}
+.script{display:none;margin-top:10px}
+.script.show{display:block}
+.line-row{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:12px;margin:4px 0}
+.line-row.active{background:var(--yellow-soft)}
+.who{font-weight:800;font-size:13px;min-width:90px;color:var(--red);padding-top:8px}
+.line-row .txt{flex:1}
+.script.cover .line-row[data-w="N"] .txt .en{filter:blur(7px);user-select:none}
+.speechnote{font-size:14px;color:var(--red);font-weight:700;margin-top:8px}
+
+.qblock{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0;background:#fff}
+.qblock .q{font-weight:800;margin-bottom:8px;display:flex;gap:10px;align-items:center}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:2px solid var(--line);background:var(--card);border-radius:12px;padding:8px 14px;font-weight:700;cursor:pointer;font-size:16px;color:var(--ink);text-align:left}
+.opt:hover{border-color:var(--dark)}
+.opt.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.opt.locked{cursor:default}
+.score{margin-top:10px;font-weight:800;color:var(--dark)}
+.fb{font-weight:800;margin-top:8px;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--bad)}
+.order{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.ochip{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;font-weight:700;cursor:pointer;font-size:16px}
+.ochip.used{opacity:.35;pointer-events:none}
+.answerline{min-height:46px;border:2px dashed var(--line);border-radius:12px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+.answerline .ochip{background:var(--mint-soft);border-color:var(--mint)}
+
+.scenario{background:var(--dark);color:#fff;border-radius:18px;padding:18px 22px;margin:12px 0;min-height:130px}
+.scenario .sc-tag{display:inline-block;background:var(--yellow);color:var(--dark);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:99px}
+.scenario .sc-tag.no{background:var(--red);color:#fff}
+.scenario .sc-title{font-family:'Fraunces',serif;font-size:24px;color:var(--yellow);margin-top:8px}
+.scenario .sc-text{font-size:20px;font-weight:700;margin-top:6px}
+.scenario .ua{color:#BFEDEA}
+.scenario .play{margin-top:8px;margin-right:6px}
+.hints{display:none;margin-top:10px;background:rgba(255,255,255,.1);border-radius:10px;padding:10px 14px;font-weight:700}
+.hints.show{display:block}
+.sc-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.sc-fb{font-weight:800;margin-top:8px;color:var(--yellow)}
+.timer{font-family:'Fraunces',serif;font-size:34px;color:var(--dark);min-width:110px}
+.timer.low{color:var(--red)}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.modes{display:flex;gap:8px;flex-wrap:wrap}
+
+.mapbox{border:3px solid var(--dark);border-radius:18px;overflow:hidden;background:#EFEBDD;margin:10px 0}
+.mapbox svg{display:block;width:100%;height:auto}
+.bld{cursor:pointer}
+.bld rect{fill:#fff;stroke:var(--dark);stroke-width:2.5}
+.bld:hover rect{fill:var(--yellow-soft)}
+.bld.start rect{fill:var(--mint-soft);stroke:var(--mint);stroke-width:5}
+.bld.dest rect{fill:var(--red-soft);stroke:var(--red);stroke-width:5}
+.bld.good rect{fill:var(--ok-soft);stroke:var(--ok);stroke-width:5}
+.bld.bad rect{fill:var(--bad-soft);stroke:var(--bad);stroke-width:5}
+.bld text{pointer-events:none;font-family:'Nunito',sans-serif;font-weight:800}
+.mini-map svg{width:100%;height:auto;display:block}
+.mvbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 4px}
+.mvbar .btn{font-size:17px;padding:12px 20px}
+.mvmsg{min-height:1.5em;font-weight:800;color:var(--red);margin:4px 0 2px}
+.mvmsg.ok{color:var(--ok)}
+
+.ticks label{display:flex;gap:10px;align-items:center;padding:8px 0;font-weight:700;cursor:pointer}
+.ticks input{width:20px;height:20px;accent-color:var(--red)}
+.card{background:var(--paper);border:2px dashed var(--dark);border-radius:16px;padding:16px 20px;font-size:19px;font-weight:700;line-height:2}
+.blank{display:inline-block;min-width:110px;border-bottom:3px dotted var(--dark);height:1.1em;vertical-align:baseline}
+
+details.notes{margin-top:22px;border:1px dashed var(--muted);border-radius:12px;background:#FAF4E1}
+details.notes summary{cursor:pointer;padding:10px 16px;font-weight:800;color:var(--muted)}
+details.notes[open] summary{border-bottom:1px dashed var(--muted)}
+details.notes .body{padding:12px 18px 16px;font-size:15.5px}
+details.notes ul{margin:6px 0 6px 18px;padding:0}
+
+.finish{text-align:center;padding:30px 24px}
+.stamp{display:none;margin:20px auto;width:210px;height:210px;border-radius:50%;border:6px double var(--red);color:var(--red);place-items:center;text-align:center;transform:rotate(-8deg);font-family:'Fraunces',serif;font-weight:800;font-size:22px;line-height:1.1}
+.stamp.show{display:grid;animation:pop .6s cubic-bezier(.2,1.6,.4,1)}
+.stamp small{display:block;font-family:'Nunito',sans-serif;font-size:13px;letter-spacing:.1em;font-weight:800;margin-top:6px}
+@keyframes pop{0%{transform:scale(.2) rotate(-40deg);opacity:0}100%{transform:scale(1) rotate(-8deg);opacity:1}}
+.confetti{position:fixed;top:-20px;width:10px;height:14px;z-index:999;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.9}}
+footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 50px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="sign">🚏</div>
+  <div class="wrap">
+    <span class="tag">Speaking &amp; Listening · A1+ → A2</span>
+    <h1>Excuse Me, How Do I Get There?</h1>
+    <p>Ask for directions, understand the answer and give directions yourself. A lesson for walking around a new city, for example in Belgium.</p>
+    <div class="meta">
+      <span class="chip">50 minutes</span>
+      <span class="chip">audio + city map</span>
+      <span class="chip">Could you tell me…?</span>
+      <span class="chip">Turn left · Go straight</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <details class="audiobar" id="audiobar">
+    <summary>🔊 Audio settings — choose the best voices on this computer</summary>
+    <div class="in">
+      <div>
+        <label for="voiceA">Voice 1 (woman)</label>
+        <select id="voiceA"></select>
+        <div class="row"><button class="btn sm alt" id="testA" type="button">Test voice 1</button></div>
+      </div>
+      <div>
+        <label for="voiceB">Voice 2 (man)</label>
+        <select id="voiceB"></select>
+        <div class="row"><button class="btn sm alt" id="testB" type="button">Test voice 2</button></div>
+      </div>
+      <div class="full">
+        <label for="speed">Speed: <span id="speedVal">0.90</span></label>
+        <input type="range" id="speed" min="0.6" max="1.1" step="0.05" value="0.9">
+      </div>
+      <div class="full tip">
+        Default voices: <b>Google US English</b> (woman) and <b>Google UK English Male</b> (man), in Chrome. If they are not there, the lesson uses <b>Microsoft Mark</b> or the best voice it can find. The voices read the phrases, the map directions and the homework dialogue.
+      </div>
+    </div>
+  </details>
+</div>
+
+<nav class="line" aria-label="Lesson progress">
+  <div class="line-inner">
+    <div class="stops" id="stops"><div class="fill" id="fill"></div></div>
+    <button class="ua-btn" id="uaBtn" type="button">UA: off</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- 1 WARM-UP -->
+<section class="step" id="s1" data-label="Warm-up">
+  <div class="step-head"><div class="num">1</div><h2>Warm-up: Chat</h2><span class="time">3 min</span></div>
+  <p class="goal">A short chat. Natali talks, the teacher listens.</p>
+  <div class="qgrid">
+    <div class="qcard y"><b>1</b>How are you today?<span class="ua">Як ти сьогодні?</span></div>
+    <div class="qcard y"><b>2</b>How was your week?<span class="ua">Як минув твій тиждень?</span></div>
+    <div class="qcard y"><b>3</b>What was the best thing this week?<span class="ua">Що було найкращим цього тижня?</span></div>
+    <div class="qcard y"><b>4</b>What are you doing this weekend?<span class="ua">Що ти робиш на вихідних?</span></div>
+    <div class="qcard y"><b>5</b>Are you going to Belgium soon?<span class="ua">Ти скоро їдеш до Бельгії?</span></div>
+  </div>
+  </section>
+
+<!-- 2 REVIEW -->
+<section class="step" id="s2" data-label="Review">
+  <div class="step-head"><div class="num">2</div><h2>Review: Ask for Help</h2><span class="time">6 min</span></div>
+  <p class="goal">Last lesson: favors and problems. Two quick games before the new topic.</p>
+  <div class="how">How it works:
+    <ol>
+      <li><b>You answer:</b> the teacher reads a request. Natali says "yes" or "no + reason".</li>
+      <li><b>You ask:</b> Natali has a problem and asks the teacher for help.</li>
+    </ol>
+  </div>
+  <div class="controls modes">
+    <button class="btn" id="rvAnswer" type="button">You answer</button>
+    <button class="btn alt" id="rvAsk" type="button">You ask</button>
+    <button class="btn alt" id="rvMix" type="button">Mixed</button>
+    <button class="btn gold" id="rvNext" type="button">Next card</button>
+    <button class="btn alt" id="rvHint" type="button">Show hints</button>
+  </div>
+  <div class="scenario" id="rvCard">
+    <div class="sc-tag">Ready?</div>
+    <div class="sc-text">Choose a game and press "Next card".</div>
+  </div>
+  </section>
+
+<!-- 3 WORDS -->
+<section class="step" id="s3" data-label="Words">
+  <div class="step-head"><div class="num">3</div><h2>Lead-in and Words</h2><span class="time">10 min</span></div>
+  <p class="goal">First talk. Then learn the words you need in the street.</p>
+
+  <div class="task">Lead-in: talk<span class="ua">Розмова</span></div>
+  <div class="qgrid">
+    <div class="qcard"><b>1</b>Do you find your way easily in a new city?<span class="ua">Ти легко знаходиш дорогу в новому місті?</span></div>
+    <div class="qcard"><b>2</b>Do you ask people in the street? Or do you use a map on your phone?<span class="ua">Ти питаєш людей чи користуєшся картою в телефоні?</span></div>
+    <div class="qcard"><b>3</b>What can you do when your phone is dead and you are lost?<span class="ua">Що робити, коли телефон сів і ти загубилася?</span></div>
+  </div>
+
+  <div class="task">Street words. Click the card to check. Click ▶ to listen.<span class="ua">Слова для вулиці</span></div>
+  <div class="fgrid" id="words"></div>
+
+  <div class="task">Practice 1: Look at the street<span class="ua">Практика 1: подивись на вулицю</span></div>
+  <div class="mini-map" id="miniMap"></div>
+  <div id="miniQuiz"></div>
+
+  <div class="task">Practice 2: Choose the word<span class="ua">Практика 2: вибери слово</span></div>
+  <div id="gapQuiz"></div>
+
+  <div class="task">Practice 3: Say it<span class="ua">Практика 3: скажи вголос</span>
+    <small>Look at the street map above. Use: next to, opposite, between.</small></div>
+  <div class="qgrid">
+    <div class="qcard"><b>1</b>Where is the pharmacy?<span class="ua">Де аптека?</span></div>
+    <div class="qcard"><b>2</b>Where is the hotel?<span class="ua">Де готель?</span></div>
+    <div class="qcard"><b>3</b>What is opposite the café?<span class="ua">Що навпроти кафе?</span></div>
+    <div class="qcard"><b>4</b>Describe a place near your home.<span class="ua">Опиши місце біля твого дому.</span></div>
+  </div>
+
+  </section>
+
+<!-- 4 AUDIO -->
+<section class="step" id="s4" data-label="Listening">
+  <div class="step-head"><div class="num">4</div><h2>Listening: Four Short Dialogues</h2><span class="time">10 min</span></div>
+  <p class="goal">Charlie is a tourist. He asks people for directions. Listen and do the tasks.</p>
+
+  <div class="audiobox">
+    <div class="row">
+      <a class="btn red" href="https://www.linguahouse.com/esl-lesson-plans/general-english/asking-for-directions" target="_blank" rel="noopener">▶ Open the audio on Lingua House</a>
+      <span class="note">Scroll to "Multimedia → Audio" (58 seconds, 4 dialogues). Audio: Lingua House, "Asking for directions".</span>
+    </div>
+    <div class="own">
+      <label class="btn sm alt" for="listenFile">Use my own audio file here</label>
+      <input type="file" id="listenFile" accept="audio/*">
+      <span id="listenName"></span>
+    </div>
+    <audio id="listenAudio" controls style="display:none"></audio>
+    <div class="row" id="listenSpeed" style="display:none">
+      <button class="btn sm alt" data-r="0.75" type="button">0.75×</button>
+      <button class="btn sm alt" data-r="1" type="button">1×</button>
+    </div>
+  </div>
+
+  <div class="task">Before you listen<span class="ua">Перед слуханням</span>
+    <small>Charlie is looking for four places. What places can a tourist look for? Guess.</small></div>
+
+  <div class="task">A. Listen 1. What is Charlie looking for?<span class="ua">Слухання 1: що шукає Charlie?</span></div>
+  <div id="lA"></div>
+
+  <div class="task">B. Listen 2. Dialogue 2: put the directions in order.<span class="ua">Слухання 2: постав маршрут по порядку</span></div>
+  <div id="lB"></div>
+
+  <div class="task">C. Listen 3. True or False?<span class="ua">Слухання 3: правда чи ні?</span></div>
+  <div id="lC"></div>
+
+  <div class="task">D. Listen for the questions.<span class="ua">Слухання 4: фрази-питання</span></div>
+  <div id="lD"></div>
+
+  <div class="task">E. Talk about it.<span class="ua">Обговоримо</span></div>
+  <div class="talk qgrid">
+    <div class="qcard y"><b>1</b>Dialogue 4: the person does not know the way. What can Charlie do now?<span class="ua">Людина не знає дороги. Що тепер робити Charlie?</span></div>
+    <div class="qcard y"><b>2</b>Which dialogue was the easiest? Why?<span class="ua">Який діалог був найлегшим? Чому?</span></div>
+    <div class="qcard y"><b>3</b>Which sentence do you want to remember?<span class="ua">Яке речення хочеш запам'ятати?</span></div>
+  </div>
+
+  </section>
+
+<!-- 5 PHRASES -->
+<section class="step" id="s5" data-label="Phrases">
+  <div class="step-head"><div class="num">5</div><h2>Your 8 Phrases</h2><span class="time">6 min</span></div>
+  <p class="goal">Eight phrases for the street. Learn them as pieces. Use them anywhere.</p>
+
+  <div class="contrast">
+    <div class="c1"><b>Is there a… around here?</b>Is there a place near me?<br>"Is there a pharmacy around here?"</div>
+    <div class="c2"><b>Could you tell me how to get to…?</b>I know the place. I need the way.<br>"Could you tell me how to get to the station?"</div>
+  </div>
+
+  <div class="how">How to work with these cards:
+    <ol>
+      <li>Read the situation in Ukrainian. Say the English phrase out loud.</li>
+      <li>Click "Check", then ▶. Say it again.</li>
+      <li>Star the 4 phrases you want to remember most.</li>
+    </ol>
+  </div>
+  <div class="pgrid" id="pgrid"></div>
+  <div class="favcount" id="favcount">My favourite phrases: 0 / 4</div>
+
+  <div class="formula">
+    <div>The formula<span class="ua always-ua" style="color:#BFEDEA">Формула: Вибач + питання</span></div>
+    <div class="f"><em>Excuse me,</em> + <em>is there a…?</em> / <em>could you tell me how to get to…?</em></div>
+    <div class="f" style="font-size:19px;opacity:.95">Then: "Thanks a lot!" / "No problem."</div>
+  </div>
+
+  <div class="task">Choose the best question or answer.<span class="ua">Вибери найкраще</span></div>
+  <div id="pQuiz"></div>
+
+  <div class="task">Listen and choose. Click ▶.<span class="ua">Послухай і вибери</span></div>
+  <div id="pListen"></div>
+
+  </section>
+
+<!-- 6 MAP -->
+<section class="step" id="s6" data-label="City map">
+  <div class="step-head"><div class="num">6</div><h2>Speaking: The City Map</h2><span class="time">13 min</span></div>
+  <p class="goal">One map. Three games. No roleplay: just ask, answer and listen.</p>
+
+  <div class="how">Three games:
+    <ol>
+      <li><b>You ask:</b> Natali is at the start. She asks the teacher the way to the place. The teacher answers.</li>
+      <li><b>You explain:</b> The teacher asks the way. Natali explains the way on the map.</li>
+      <li><b>Listen and click:</b> Natali listens to directions (▶) and clicks the place on the map.</li>
+    </ol>
+    <div style="margin-top:6px">🚶 In every game you can <b>walk on the map</b>: use "Go straight" (one block), "Turn left" and "Turn right" under the card. Then press "I'm here!" to check.</div>
+  </div>
+
+  <div class="controls modes">
+    <button class="btn" id="mpAsk" type="button">You ask</button>
+    <button class="btn alt" id="mpExplain" type="button">You explain</button>
+    <button class="btn alt" id="mpListen" type="button">Listen and click</button>
+    <button class="btn alt" id="mpMix" type="button">Mixed</button>
+    <button class="btn gold" id="mpNext" type="button">Next card</button>
+  </div>
+
+  <div class="scenario" id="mpCard">
+    <div class="sc-tag">Ready?</div>
+    <div class="sc-text">Choose a game and press "Next card".</div>
+  </div>
+
+  <div class="mvbar">
+    <button class="btn" id="mvFwd" type="button">⬆ Go straight</button>
+    <button class="btn" id="mvLeft" type="button">↰ Turn left</button>
+    <button class="btn" id="mvRight" type="button">↱ Turn right</button>
+    <button class="btn gold" id="mvHere" type="button">✔ I'm here!</button>
+    <button class="btn alt" id="mvReset" type="button">↺ Back to start</button>
+  </div>
+  <div class="mvmsg" id="mvMsg"></div>
+
+  <div class="mapbox"><svg id="cityMap" viewBox="0 0 760 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="City map"></svg></div>
+
+  <div class="controls">
+    <div class="timer" id="timer">13:00</div>
+    <button class="btn sm gold" id="tStart" type="button">Start</button>
+    <button class="btn sm alt" id="tReset" type="button">Reset</button>
+  </div>
+
+  </section>
+
+<!-- 7 WRAP-UP -->
+<section class="step" id="s7" data-label="Wrap-up">
+  <div class="step-head"><div class="num">7</div><h2>Wrap-up &amp; Homework</h2><span class="time">3 min</span></div>
+
+  <div class="task">My Direction Card. Say it out loud.<span class="ua">Моя картка. Скажи вголос</span></div>
+  <div class="card">
+    Excuse me, is there a <span class="blank"></span> around here?<br>
+    Could you tell me how to get to <span class="blank"></span>?<br>
+    Go <span class="blank"></span>. Turn <span class="blank"></span> at <span class="blank"></span>.<br>
+    It's on your <span class="blank"></span>. / Sorry, I'm not from here.
+  </div>
+
+  <div class="task">Self-check<span class="ua">Самоперевірка</span></div>
+  <div class="ticks">
+    <label><input type="checkbox"> I know 6 new street words (for example: block, corner, opposite).</label>
+    <label><input type="checkbox"> I can ask for directions.</label>
+    <label><input type="checkbox"> I understand: go straight, turn left, turn right.</label>
+    <label><input type="checkbox"> I can say where a place is (next to, opposite, between).</label>
+    <label><input type="checkbox"> I can say "Sorry, could you say that again?"</label>
+  </div>
+
+  <div class="task">Homework<span class="ua">Домашнє завдання</span></div>
+  <ul>
+    <li><b>Listen:</b> "Where is the Grand Place?" below. Listen two times and do the tasks.</li>
+    <li><b>Extra listening:</b> "Trouble at the Station" (from the last lesson), one time.</li>
+    <li><b>Speak:</b> record a voice message (1 minute). Tell me the way from your home to the supermarket or your work. Use: go straight, turn left / right, next to, opposite.</li>
+  </ul>
+
+  <div class="dialogue" id="hw1"></div>
+
+  <div class="task">A. True or False?<span class="ua">Правда чи ні?</span></div>
+  <div id="hwA"></div>
+
+  <div class="task">B. Choose the best answer.<span class="ua">Вибери відповідь</span></div>
+  <div id="hwB"></div>
+
+  <div class="task">Extra listening<span class="ua">Додаткове слухання</span></div>
+  <div class="dialogue" id="hw2"></div>
+
+  <div class="finish">
+    <div class="stamp" id="stamp"><div>NICE<br>ROUTE<small>WELL DONE, NATALI</small></div></div>
+    <button class="btn gold" id="finishBtn" type="button">Finish lesson</button>
+  </div>
+</section>
+
+</main>
+<footer>Excuse Me, How Do I Get There? · A1+ → A2 · 1-to-1 speaking lesson</footer>
+
+<script>
+/* ---------- DATA ---------- */
+var WORDS = [
+ ["📍","corner","кут","The bank is on the corner."],
+ ["🚦","traffic lights","світлофор","Turn left at the traffic lights."],
+ ["⬆️","go straight","йти прямо","Go straight for two minutes."],
+ ["⬅️","turn left","повернути ліворуч","Turn left at the bank."],
+ ["➡️","turn right","повернути праворуч","Turn right, then go straight."],
+ ["🏘️","next to","поруч з","The café is next to the bank."],
+ ["↔️","opposite","навпроти","The hotel is opposite the station."],
+ ["🔀","between","між","The pharmacy is between the bank and the café."],
+ ["🛣️","street","вулиця","Take the second street on the left."],
+ ["🚶","a five-minute walk","п'ять хвилин пішки","It's a five-minute walk."],
+ ["📏","far","далеко","Is it far? — No, it's close."],
+ ["🏠","near / close","близько","Is there a bank near here?"],
+ ["🏃","go past","пройти повз","Go past the cinema."],
+ ["🧱","block","квартал","Go straight for two blocks."],
+ ["🚉","platform","платформа","Which platform is it?"]
+];
+var MINI_TOP=[["🏦","Bank"],["☕","Café"],["💊","Pharmacy"],["🎬","Cinema"]];
+var MINI_BOT=[["🏨","Hotel"],["🛒","Supermarket"],["🏛️","Museum"],["🚉","Station"]];
+var MINIQ = [
+ {q:"What is between the café and the cinema?", o:["Bank","Pharmacy","Hotel"], a:1},
+ {q:"What is opposite the hotel?", o:["Bank","Café","Museum"], a:0},
+ {q:"What is next to the hotel?", o:["Supermarket","Museum","Bank"], a:0},
+ {q:"What is opposite the cinema?", o:["Museum","Pharmacy","Station"], a:2},
+ {q:"Where is the museum?", o:["Between the supermarket and the station.","Next to the bank.","Opposite the hotel."], a:0}
+];
+var GAPQ = [
+ {q:"Excuse me, is there a bank ___ here?", o:["around","between","opposite"], a:0},
+ {q:"Go ___ and turn left.", o:["straight","corner","far"], a:0},
+ {q:"The pharmacy is ___ the bank and the café.", o:["between","opposite","at"], a:0},
+ {q:"Turn right at the traffic ___.", o:["lights","corner","street"], a:0},
+ {q:"It's not far. It's ___.", o:["close","between","left"], a:0}
+];
+var LA = [
+ {q:"Dialogue 1: What is Charlie looking for?", o:["A bank","A post office","A pharmacy"], a:0},
+ {q:"Dialogue 2: What is Charlie looking for?", o:["A supermarket","A cinema","A station"], a:0},
+ {q:"Dialogue 3: What is Charlie looking for?", o:["A hotel","A museum","A café"], a:1},
+ {q:"Dialogue 4: What is Charlie looking for?", o:["The station","The market","The town square"], a:2}
+];
+var LB = ["Go straight ahead","Pass the cinema","Turn left at the traffic lights","The supermarket is on your left"];
+var LC = [
+ {q:"Dialogue 1: The bank is far away.", o:["True","False"], a:1},
+ {q:"Dialogue 3: The museum is about a five-minute walk.", o:["True","False"], a:0},
+ {q:"Dialogue 4: The person knows the way.", o:["True","False"], a:1},
+ {q:"Dialogue 2: The supermarket is on the right.", o:["True","False"], a:1}
+];
+var LD = [
+ {q:"Could you ___ me how to get there?", o:["tell","say","ask"], a:0},
+ {q:"Is there a supermarket ___ here?", o:["around","for","to"], a:0},
+ {q:"Sorry, I'm not ___ this area.", o:["from","in","at"], a:0},
+ {q:"Thanks a lot. — No ___.", o:["problem","thanks","worries to"], a:0}
+];
+var PHR = [
+ ["Ти шукаєш аптеку. Не знаєш, чи вона є.","Excuse me, is there a pharmacy around here?"],
+ ["Ти знаєш місце. Треба дорогу.","Could you tell me how to get to the station?"],
+ ["Ти пояснюєш маршрут.","Go straight, then turn left."],
+ ["Ти кажеш, де місце.","It's on your right, next to the bank."],
+ ["Ти питаєш, чи далеко.","Is it far?"],
+ ["Ти відповідаєш: близько.","It's a five-minute walk."],
+ ["Ти не знаєш дороги.","Sorry, I'm not from here."],
+ ["Ти не зрозуміла. Просиш повторити.","Could you say that again, please?"]
+];
+var PQ = [
+ {q:"You want a pharmacy. You don't know if there is one.", o:["Excuse me, is there a pharmacy around here?","Excuse me, I am pharmacy.","Where pharmacy go?"], a:0},
+ {q:"You know the place. You need the way to the station.", o:["Could you tell me how to get to the station?","Station, please, you go?","I am station."], a:0},
+ {q:"A person says: \"Sorry, I'm not from here.\" You say:", o:["No problem. Thank you!","Sorry, I'm not.","You're welcome."], a:0},
+ {q:"You didn't understand the directions.", o:["Could you say that again, please?","Go straight, please.","Sorry, I'm not from here."], a:0},
+ {q:"Someone asks the way to the bank. It's close.", o:["It's next to the café. It's a two-minute walk.","I'm hungry.","Sorry, I can't. I'm in a hurry."], a:0}
+];
+var PL = [
+ {say:"Turn left at the traffic lights.", q:"Which way?", o:["Left","Right","Straight"], a:0},
+ {say:"It's on your right, next to the bank.", q:"Where is it?", o:["On the left","On the right","Opposite the bank"], a:1},
+ {say:"It's a five-minute walk.", q:"Is it far?", o:["No, it's close.","Yes, very far."], a:0},
+ {say:"Go straight, then take the second street on the left.", q:"Which street?", o:["The first on the right","The second on the left","The second on the right"], a:1}
+];
+var REQ = [
+ ["Could you hold my bag for a minute?","Чи могла б ти потримати мою сумку?"],
+ ["Can I sit here?","Можна я тут сяду?"],
+ ["Could you take a photo of me?","Чи могла б ти мене сфотографувати?"],
+ ["Could you lend me ten euros?","Чи могла б ти позичити десять євро?"],
+ ["Can I borrow your pen?","Можна позичити твою ручку?"],
+ ["Could you help me with my suitcase?","Допоможеш з валізою?"],
+ ["Could you call a taxi for me?","Викличеш мені таксі?"],
+ ["Can I use your phone? Mine is dead.","Можна твій телефон? Мій сів."]
+];
+var SIT = [
+ {t:"Dead phone", e:"You are at the station. Your phone is dead. You must call your mum.", u:"Телефон сів. Треба подзвонити мамі.", h:"Sorry, my phone is dead. · Can I borrow your charger? · Can I use your phone, please?"},
+ {t:"Spilled coffee", e:"You are in a café. You spilled coffee on your shirt.", u:"Ти пролила каву.", h:"Sorry, I spilled my coffee. · Could you give me a napkin, please?"},
+ {t:"Missed the train", e:"You missed the last train in Brussels.", u:"Ти пропустила останній потяг.", h:"I missed my train. · Could you help me, please? · Could you call a taxi for me?"},
+ {t:"Heavy suitcase", e:"Your suitcase is very heavy. There are many stairs.", u:"Валіза важка. Багато сходів.", h:"Could you help me with my suitcase, please?"},
+ {t:"Lost ticket", e:"You lost your ticket at the station.", u:"Ти загубила квиток.", h:"I lost my ticket. · Could you help me, please?"},
+ {t:"Cold room", e:"Your hotel room is very cold. You want a blanket.", u:"Холодно в номері. Потрібна ковдра.", h:"Sorry, it's too cold. · Could I have an extra blanket, please?"},
+ {t:"Fast waiter", e:"The waiter speaks very fast. You don't understand.", u:"Офіціант говорить швидко.", h:"Could you speak more slowly, please? · Could you repeat that?"},
+ {t:"A photo", e:"You are in front of a beautiful building. You want a photo.", u:"Хочеш фото біля будівлі.", h:"Excuse me. · Could you take a photo of me, please?"}
+];
+var HW1 = [
+ {w:"N", t:"Excuse me, could you tell me how to get to the Grand Place?", u:"Перепрошую, чи не підкажете, як дійти до Гранд-Плас?"},
+ {w:"M", t:"Sure. Go straight along this street, then turn left at the traffic lights.", u:"Звісно. Ідіть прямо цією вулицею, потім поверніть ліворуч на світлофорі."},
+ {w:"N", t:"Sorry, could you say that again, please? A bit slower?", u:"Вибачте, чи могли б ви повторити? Трохи повільніше?"},
+ {w:"M", t:"Of course. Go straight. Then turn left at the traffic lights.", u:"Звісно. Прямо. Потім ліворуч на світлофорі."},
+ {w:"N", t:"OK, thank you. Is it far?", u:"Добре, дякую. Це далеко?"},
+ {w:"M", t:"No, it's about a ten-minute walk. You'll see the square on your right.", u:"Ні, приблизно десять хвилин пішки. Площа буде праворуч."},
+ {w:"N", t:"Thanks a lot!", u:"Дуже дякую!"},
+ {w:"M", t:"No problem. Enjoy Brussels!", u:"Нема за що. Гарного вам у Брюсселі!"},
+ {w:"N", t:"Excuse me, is there a pharmacy around here?", u:"Перепрошую, чи є тут десь аптека?"},
+ {w:"X", t:"Sorry, I'm not from this area.", u:"Вибачте, я не звідси."},
+ {w:"N", t:"No problem. Thank you anyway!", u:"Нічого. Все одно дякую!"}
+];
+var HW2 = [
+ {w:"N", t:"Excuse me, could you do me a favor?", u:"Перепрошую, чи могли б ви зробити мені послугу?"},
+ {w:"X", t:"Sure. What's up?", u:"Звісно. Що сталося?"},
+ {w:"N", t:"I missed my train, and my phone is dead. Could you tell me when the next train to Brugge is?", u:"Я пропустила потяг, і телефон сів. Коли наступний потяг до Брюгге?"},
+ {w:"X", t:"Let me check... There's one at six fifteen. Platform four.", u:"Зараз гляну... О шостій п'ятнадцять. Платформа чотири."},
+ {w:"N", t:"Perfect, thank you! Oh, and one more thing. Can I borrow your charger? Just for ten minutes.", u:"Чудово, дякую! Можна позичити вашу зарядку на десять хвилин?"},
+ {w:"X", t:"Sorry, I can't. I don't have one with me. But there's a café over there. Maybe they can help.", u:"Вибачте, не можу. Зарядки немає. Але там кафе. Може, вони допоможуть."},
+ {w:"N", t:"Good idea. Could you watch my suitcase for a minute?", u:"Гарна ідея. Чи могли б ви приглянути за валізою?"},
+ {w:"X", t:"Sure, no problem.", u:"Звісно, без проблем."},
+ {w:"N", t:"Thanks a lot! You're very kind.", u:"Дуже дякую! Ви дуже добрі."},
+ {w:"X", t:"No worries. Good luck!", u:"Нема за що. Успіхів!"}
+];
+var HWA = [
+ {q:"Nina wants to go to the Grand Place.", o:["True","False"], a:0},
+ {q:"The man says: turn right at the traffic lights.", o:["True","False"], a:1},
+ {q:"Nina understands everything the first time.", o:["True","False"], a:1},
+ {q:"The Grand Place is about a ten-minute walk.", o:["True","False"], a:0},
+ {q:"The second man shows Nina the pharmacy.", o:["True","False"], a:1}
+];
+var HWB = [
+ {q:"Nina does not understand. What does she say?", o:["Could you say that again, please?","I am not from here.","Go straight."], a:0},
+ {q:"Which question asks for the way?", o:["Could you tell me how to get to the Grand Place?","Is there a pharmacy?","Is it far?"], a:0},
+ {q:"The second man does not know the area. What does he say?", o:["Sorry, I'm not from this area.","Turn left.","It's a ten-minute walk."], a:0}
+];
+var NAMES1 = {N:"Nina", M:"Man", X:"Another man"};
+var NAMES2 = {N:"Nina", X:"Stranger"};
+var ROLE_VOICE = {N:"A", M:"B", X:"B"};
+
+/* ---------- HELPERS ---------- */
+function $(id){return document.getElementById(id)}
+function el(tag, cls, html){var e=document.createElement(tag); if(cls)e.className=cls; if(html!==undefined)e.innerHTML=html; return e}
+function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+$("uaBtn").onclick=function(){ var on=document.body.classList.toggle("ua-on"); this.textContent = on ? "UA: on" : "UA: off"; };
+
+/* ---------- SPEECH ---------- */
+var VOICES=[], voiceA=null, voiceB=null, stopFlag=false, speedBase=0.9;
+var FEM=/female|samantha|karen|moira|zira|susan|serena|tessa|fiona|victoria|hazel|libby|maisie|sonia|jenny|aria|ava|emma|nova|joanna|kendra|salli|ivy/i;
+var MAL=/\bmale\b|daniel|alex|david|george|mark|oliver|ryan|thomas|guy|james|fred|davis|brian|eric|roger|arthur/i;
+var PREF_A=[/^Google US English$/i,/Google US English/i,/Google UK English Female/i];
+var PREF_B=[/^Google UK English Male$/i,/Google UK English Male/i,/Microsoft Mark/i,/\bMark\b/i];
+function vscore(v,wantFem){
+  var s=0, n=v.name, pref=wantFem?PREF_A:PREF_B;
+  for(var i=0;i<pref.length;i++){ if(pref[i].test(n)){ s+=100-i*10; break; } }
+  if(/natural|online/i.test(n)) s+=20;
+  if(/enhanced|premium/i.test(n)) s+=12;
+  if(/^en-GB/i.test(v.lang)) s+=3; else if(/^en-US/i.test(v.lang)) s+=2;
+  var isF=FEM.test(n) && !/\bmale\b/i.test(n.replace(/female/i,""));
+  var isM=MAL.test(n) && !isF;
+  if(wantFem && isF) s+=10; if(!wantFem && isM) s+=10;
+  if(wantFem && isM) s-=10; if(!wantFem && isF) s-=10;
+  return s;
+}
+function fillSelect(sel, wantFem, current){
+  sel.innerHTML="";
+  var sorted=VOICES.slice().sort(function(a,b){return vscore(b,wantFem)-vscore(a,wantFem)});
+  sorted.forEach(function(v){ var o=document.createElement("option"); o.value=v.voiceURI; o.textContent=v.name+" ("+v.lang+")"; sel.appendChild(o); });
+  if(current && sorted.some(function(v){return v.voiceURI===current})) sel.value=current;
+  else if(sorted[0]) sel.value=sorted[0].voiceURI;
+}
+function byURI(u){ return VOICES.find(function(v){return v.voiceURI===u}) || null; }
+function pickVoices(){
+  var all=(window.speechSynthesis && speechSynthesis.getVoices())||[];
+  VOICES=all.filter(function(v){return /^en/i.test(v.lang)});
+  var curA=$("voiceA").value, curB=$("voiceB").value;
+  fillSelect($("voiceA"),true,curA); fillSelect($("voiceB"),false,curB);
+  if(VOICES.length>1 && $("voiceA").value===$("voiceB").value){
+    var other=Array.prototype.find.call($("voiceB").options,function(o){return o.value!==$("voiceA").value});
+    if(other) $("voiceB").value=other.value;
+  }
+  voiceA=byURI($("voiceA").value); voiceB=byURI($("voiceB").value);
+}
+if(window.speechSynthesis){ pickVoices(); speechSynthesis.onvoiceschanged=pickVoices; }
+$("voiceA").onchange=function(){ voiceA=byURI(this.value); };
+$("voiceB").onchange=function(){ voiceB=byURI(this.value); };
+$("speed").oninput=function(){ speedBase=parseFloat(this.value); $("speedVal").textContent=speedBase.toFixed(2); };
+$("testA").onclick=function(){ stopSpeech(); stopFlag=false; speakOne("Excuse me, could you tell me how to get to the station?","A",false); };
+$("testB").onclick=function(){ stopSpeech(); stopFlag=false; speakOne("Go straight, then turn left at the traffic lights.","B",false); };
+
+function speakOne(text, key, slow, done){
+  if(!window.speechSynthesis){ if(done)done(); return; }
+  var u=new SpeechSynthesisUtterance(text);
+  var v = key==="A" ? voiceA : voiceB;
+  if(v){u.voice=v; u.lang=v.lang;} else {u.lang="en-GB";}
+  u.rate = slow ? speedBase*0.75 : speedBase;
+  u.pitch = (!v || voiceA===voiceB) ? (key==="A"?1.2:0.8) : 1;
+  u.onend=function(){ if(done)done(); };
+  u.onerror=function(){ if(done)done(); };
+  speechSynthesis.speak(u);
+}
+var ownAudio={};
+function stopSpeech(){
+  stopFlag=true;
+  if(window.speechSynthesis) speechSynthesis.cancel();
+  Object.keys(ownAudio).forEach(function(k){ if(ownAudio[k]) ownAudio[k].pause(); });
+  document.querySelectorAll(".line-row.active").forEach(function(r){r.classList.remove("active")});
+  document.querySelectorAll("[data-dlgplay]").forEach(function(b){b.textContent="▶ Play"});
+  document.querySelectorAll(".play.on").forEach(function(b){b.classList.remove("on"); b.textContent="▶";});
+}
+function playBtn(btn, text, key){
+  btn.onclick=function(e){
+    if(e) e.stopPropagation();
+    var wasOn=btn.classList.contains("on");
+    stopSpeech(); if(wasOn) return;
+    stopFlag=false; btn.classList.add("on"); btn.textContent="■";
+    var t = typeof text==="function" ? text() : text;
+    speakOne(t,key,false,function(){ btn.classList.remove("on"); btn.textContent="▶"; });
+  };
+}
+
+/* ---------- DIALOGUE BUILDER ---------- */
+function buildDialogue(boxId, title, data, names){
+  var box=$(boxId), p=boxId;
+  box.innerHTML='<div class="dlg-bar"><span class="grow">'+title+'</span>'+
+    '<button class="btn sm" data-dlgplay="1" id="'+p+'play" type="button">▶ Play</button>'+
+    '<button class="btn sm alt" id="'+p+'slow" type="button">Slow: off</button>'+
+    '<button class="btn sm alt" id="'+p+'show" type="button">Show script</button>'+
+    '<button class="btn sm alt" id="'+p+'cover" type="button">Cover Nina\'s lines</button></div>'+
+    '<div class="own"><label class="btn sm alt" for="'+p+'file">Use my own audio file</label><input type="file" id="'+p+'file" accept="audio/*"><span id="'+p+'own"></span></div>'+
+    '<div class="script" id="'+p+'script"></div>';
+  var sc=$(p+"script"), slow=false;
+  data.forEach(function(l,i){
+    var r=el("div","line-row"); r.id=p+"row"+i; r.dataset.w=l.w;
+    r.innerHTML='<div class="who">'+names[l.w]+'</div><div class="txt"><span class="en">'+l.t+'</span><span class="ua">'+l.u+'</span></div>';
+    var b=el("button","play","▶"); b.type="button"; playBtn(b,l.t,ROLE_VOICE[l.w]);
+    r.appendChild(b); sc.appendChild(r);
+  });
+  $(p+"show").onclick=function(){ var s=sc.classList.toggle("show"); this.textContent=s?"Hide script":"Show script"; };
+  $(p+"cover").onclick=function(){
+    var c=sc.classList.toggle("cover"); if(c) sc.classList.add("show");
+    $(p+"show").textContent=sc.classList.contains("show")?"Hide script":"Show script";
+    this.textContent=c?"Uncover Nina's lines":"Cover Nina's lines";
+  };
+  $(p+"slow").onclick=function(){
+    slow=!slow; this.textContent="Slow: "+(slow?"on":"off");
+    if(ownAudio[p]) ownAudio[p].playbackRate = slow?0.75:1;
+  };
+  $(p+"file").onchange=function(){
+    var f=this.files[0]; if(!f) return; stopSpeech();
+    if(ownAudio[p]) URL.revokeObjectURL(ownAudio[p].src);
+    var a=new Audio(URL.createObjectURL(f)); a.playbackRate=slow?0.75:1;
+    a.onended=function(){ $(p+"play").textContent="▶ Play"; };
+    ownAudio[p]=a; $(p+"own").textContent="Using: "+f.name;
+  };
+  $(p+"play").onclick=function(){
+    var btn=this;
+    if(btn.textContent.indexOf("Stop")>-1){ stopSpeech(); return; }
+    stopSpeech(); stopFlag=false;
+    if(ownAudio[p]){ ownAudio[p].currentTime=0; ownAudio[p].play(); btn.textContent="■ Stop"; return; }
+    btn.textContent="■ Stop";
+    var i=0;
+    (function next(){
+      if(stopFlag || i>=data.length){ document.querySelectorAll(".line-row.active").forEach(function(r){r.classList.remove("active")}); btn.textContent="▶ Play"; return; }
+      document.querySelectorAll(".line-row.active").forEach(function(r){r.classList.remove("active")});
+      var row=$(p+"row"+i); if(sc.classList.contains("show") && row) row.classList.add("active");
+      var l=data[i]; i++;
+      speakOne(l.t,ROLE_VOICE[l.w],slow,function(){ setTimeout(next,450); });
+    })();
+  };
+}
+buildDialogue("hw1","Homework dialogue · Where is the Grand Place?",HW1,NAMES1);
+buildDialogue("hw2","Extra listening · Trouble at the Station",HW2,NAMES2);
+
+/* ---------- QUIZ ---------- */
+function renderQuiz(id, items){
+  var box=$(id), count=0, ok=0, sc=el("div","score","");
+  items.forEach(function(it){
+    var blk=el("div","qblock"); var q=el("div","q"); q.appendChild(document.createTextNode(it.q));
+    if(it.say){ var pb=el("button","play","▶"); pb.type="button"; playBtn(pb,it.say,"B"); q.insertBefore(pb,q.firstChild); }
+    blk.appendChild(q);
+    var opts=el("div","opts"), touched=false, done=false;
+    it.o.forEach(function(txt,idx){
+      var btn=el("button","opt",txt); btn.type="button";
+      btn.onclick=function(){
+        if(done) return;
+        if(idx===it.a){
+          done=true; btn.classList.add("right");
+          opts.querySelectorAll(".opt").forEach(function(x){x.classList.add("locked")});
+          count++; if(!touched) ok++;
+          if(count===items.length) sc.textContent="First try: "+ok+" / "+items.length+(ok===items.length?"  Perfect!":"  Good work!");
+        } else { touched=true; btn.classList.add("wrong"); }
+      };
+      opts.appendChild(btn);
+    });
+    blk.appendChild(opts); box.appendChild(blk);
+  });
+  box.appendChild(sc);
+}
+function renderOrder(id, correct){
+  var box=$(id), picked=[];
+  var line=el("div","answerline"); var pool=el("div","order"); var fb=el("div","fb");
+  var chips=shuffle(correct.slice());
+  function redraw(){
+    line.innerHTML=""; pool.innerHTML="";
+    picked.forEach(function(t){ line.appendChild(el("span","ochip",t)); });
+    if(!picked.length) line.appendChild(el("span","","Click the steps in order…"));
+    chips.forEach(function(t){
+      var c=el("button","ochip"+(picked.indexOf(t)>-1?" used":""),t); c.type="button";
+      c.onclick=function(){ picked.push(t); fb.textContent=""; redraw(); };
+      pool.appendChild(c);
+    });
+  }
+  var chk=el("button","btn sm","Check"); chk.type="button";
+  var rst=el("button","btn sm alt","Reset"); rst.type="button"; rst.style.marginLeft="8px";
+  chk.onclick=function(){
+    if(picked.length<correct.length){ fb.className="fb no"; fb.textContent="Choose all the steps."; return; }
+    var ok=picked.every(function(t,i){return t===correct[i]});
+    fb.className="fb "+(ok?"ok":"no"); fb.textContent= ok ? "Correct!" : "Not yet. Listen again and try again.";
+  };
+  rst.onclick=function(){ picked=[]; fb.textContent=""; redraw(); };
+  box.appendChild(line); box.appendChild(pool); box.appendChild(chk); box.appendChild(rst); box.appendChild(fb);
+  redraw();
+}
+renderQuiz("miniQuiz",MINIQ);
+renderQuiz("gapQuiz",GAPQ);
+renderQuiz("lA",LA); renderOrder("lB",LB); renderQuiz("lC",LC); renderQuiz("lD",LD);
+renderQuiz("pQuiz",PQ); renderQuiz("pListen",PL);
+renderQuiz("hwA",HWA); renderQuiz("hwB",HWB);
+
+/* ---------- WORD CARDS ---------- */
+(function(){
+  var g=$("words");
+  WORDS.forEach(function(w){
+    var c=el("div","fcard");
+    c.innerHTML='<div class="front"><div class="emo">'+w[0]+'</div><div class="en">'+w[1]+'</div></div>'+
+      '<div class="back"><div class="en" style="margin:0">'+w[1]+'</div><div class="u">'+w[2]+'</div><div class="ex">'+w[3]+'</div></div>';
+    var b=el("button","play mini","▶"); b.type="button"; playBtn(b,w[1].split(" / ")[0]+". "+w[3],"A");
+    c.appendChild(b);
+    c.onclick=function(){ c.classList.toggle("flip"); };
+    g.appendChild(c);
+  });
+})();
+
+/* ---------- MINI STREET MAP ---------- */
+(function(){
+  var s='<svg viewBox="0 0 720 230" xmlns="http://www.w3.org/2000/svg"><rect width="720" height="230" rx="16" fill="#EFEBDD"/>';
+  s+='<rect x="0" y="92" width="720" height="46" fill="#CFCBBE"/><line x1="0" y1="115" x2="720" y2="115" stroke="#fff" stroke-width="3" stroke-dasharray="14 12"/>';
+  function row(arr,y){
+    arr.forEach(function(b,i){
+      var x=20+i*175;
+      s+='<g><rect x="'+x+'" y="'+y+'" width="160" height="66" rx="10" fill="#fff" stroke="#1F2A37" stroke-width="2.5"/>'+
+         '<text x="'+(x+80)+'" y="'+(y+30)+'" font-size="26" text-anchor="middle">'+b[0]+'</text>'+
+         '<text x="'+(x+80)+'" y="'+(y+54)+'" font-size="15" font-weight="800" text-anchor="middle" font-family="Nunito,sans-serif" fill="#1F2A37">'+b[1]+'</text></g>';
+    });
+  }
+  row(MINI_TOP,14); row(MINI_BOT,150);
+  s+='</svg>';
+  $("miniMap").innerHTML=s;
+})();
+
+/* ---------- PHRASE CARDS ---------- */
+(function(){
+  var g=$("pgrid"), favs=0;
+  PHR.forEach(function(p){
+    var c=el("div","pcard");
+    c.appendChild(el("div","sit always-ua",p[0]));
+    c.appendChild(el("div","eng",p[1]));
+    var row=el("div","row");
+    var show=el("button","btn sm","Check"); show.type="button";
+    show.onclick=function(){ c.classList.toggle("show"); show.textContent=c.classList.contains("show")?"Hide":"Check"; };
+    var pl=el("button","play","▶"); pl.type="button"; pl.style.width="32px"; pl.style.height="32px"; playBtn(pl,p[1],"A");
+    var st=el("button","star","★"); st.type="button"; st.title="My favourite";
+    st.onclick=function(){
+      var f=c.classList.contains("fav");
+      if(!f && favs>=4){ $("favcount").textContent="Only 4 favourites! Un-star one first."; return; }
+      c.classList.toggle("fav"); favs+= f?-1:1;
+      $("favcount").textContent="My favourite phrases: "+favs+" / 4";
+    };
+    row.appendChild(show); row.appendChild(pl); row.appendChild(st);
+    c.appendChild(row); g.appendChild(c);
+  });
+})();
+
+/* ---------- REVIEW CARDS (favor lesson) ---------- */
+(function(){
+  var mode="answer", decks={answer:[],ask:[]};
+  function draw(kind){
+    if(!decks[kind].length){
+      var n = kind==="answer" ? REQ.length : SIT.length;
+      decks[kind]=shuffle(Array.apply(null,Array(n)).map(function(_,i){return i}));
+    }
+    return decks[kind].pop();
+  }
+  function setMode(m){
+    mode=m;
+    ["rvAnswer","rvAsk","rvMix"].forEach(function(id){ $(id).className="btn alt"; });
+    $({answer:"rvAnswer",ask:"rvAsk",mixed:"rvMix"}[m]).className="btn";
+  }
+  $("rvAnswer").onclick=function(){ setMode("answer"); };
+  $("rvAsk").onclick=function(){ setMode("ask"); };
+  $("rvMix").onclick=function(){ setMode("mixed"); };
+  $("rvNext").onclick=function(){
+    stopSpeech();
+    var kind = mode==="mixed" ? (Math.random()<0.5?"answer":"ask") : mode;
+    var s=$("rvCard");
+    if(kind==="answer"){
+      var r=REQ[draw("answer")], yes=Math.random()<0.6;
+      var tag = yes ? '<span class="sc-tag">You answer · say YES</span>' : '<span class="sc-tag no">You answer · say NO + a reason</span>';
+      var hints = yes ? "Sure, no problem.<br>Of course." : "Sorry, I can't. I'm in a hurry.<br>Sorry, I'm busy right now.";
+      s.innerHTML=tag+'<div class="sc-text">'+r[0]+'</div><div class="ua">'+r[1]+'</div>'+
+        '<button class="play" id="rvPlay" type="button">▶</button><div class="hints" id="rvHints">'+hints+'</div>';
+      playBtn($("rvPlay"), r[0], "B");
+    } else {
+      var q=SIT[draw("ask")];
+      s.innerHTML='<span class="sc-tag">You ask for help</span><div class="sc-title">'+q.t+'</div><div class="sc-text">'+q.e+'</div><div class="ua">'+q.u+'</div>'+
+        '<div class="hints" id="rvHints">'+q.h.split(" · ").join("<br>")+'</div>';
+    }
+    $("rvHint").textContent="Show hints";
+  };
+  $("rvHint").onclick=function(){
+    var h=$("rvHints"); if(!h) return;
+    var o=h.classList.toggle("show"); this.textContent=o?"Hide hints":"Show hints";
+  };
+  setMode("answer");
+})();
+
+/* ---------- CITY MAP ---------- */
+var G={cols:5,rows:4,ox:90,oy:70,sx:145,sy:125};
+var PLACES=[
+ {id:"station",name:"Station",emoji:"🚉",cell:[0,0],corner:"bl"},
+ {id:"cafe",name:"Café",emoji:"☕",cell:[1,0],corner:"tr"},
+ {id:"bank",name:"Bank",emoji:"🏦",cell:[2,0],corner:"bl"},
+ {id:"cinema",name:"Cinema",emoji:"🎬",cell:[3,0],corner:"br"},
+ {id:"pharmacy",name:"Pharmacy",emoji:"💊",cell:[0,1],corner:"tr"},
+ {id:"supermarket",name:"Supermarket",emoji:"🛒",cell:[2,1],corner:"br"},
+ {id:"museum",name:"Museum",emoji:"🏛️",cell:[3,1],corner:"tl"},
+ {id:"hotel",name:"Hotel",emoji:"🏨",cell:[0,2],corner:"tr"},
+ {id:"post",name:"Post office",emoji:"📮",cell:[1,2],corner:"bl"},
+ {id:"market",name:"Market",emoji:"🧺",cell:[2,2],corner:"tl"},
+ {id:"townhall",name:"Town hall",emoji:"🏢",cell:[3,2],corner:"br"}
+];
+PLACES.forEach(function(p){
+  var r=p.corner.indexOf("r")>-1, b=p.corner.indexOf("b")>-1;
+  p.node=[p.cell[0]+(r?1:0), p.cell[1]+(b?1:0)];
+  p.off=[r?-1:1, b?-1:1];
+});
+var LIGHTS=["1,1","2,1","3,1","2,2","3,2"];
+var ORD=["first","second","third","fourth"];
+function NP(n){ return [G.ox+n[0]*G.sx, G.oy+n[1]*G.sy]; }
+function placeById(id){ return PLACES.filter(function(p){return p.id===id})[0]; }
+
+function drawMap(){
+  var svg=$("cityMap"), s='';
+  s+='<rect width="760" height="540" fill="#EFEBDD"/>';
+  s+='<rect x="'+(G.ox+G.sx+14)+'" y="'+(G.oy+G.sy+14)+'" width="'+(G.sx-28)+'" height="'+(G.sy-28)+'" rx="14" fill="#BFE3C0"/>';
+  s+='<text x="'+(G.ox+G.sx*1.5)+'" y="'+(G.oy+G.sy*1.5+10)+'" font-size="34" text-anchor="middle">🌳</text>';
+  var x0=G.ox-30, x1=G.ox+(G.cols-1)*G.sx+30, y0=G.oy-30, y1=G.oy+(G.rows-1)*G.sy+30;
+  for(var r=0;r<G.rows;r++){ var y=G.oy+r*G.sy; s+='<line x1="'+x0+'" y1="'+y+'" x2="'+x1+'" y2="'+y+'" stroke="#CFCBBE" stroke-width="18" stroke-linecap="round"/><line x1="'+x0+'" y1="'+y+'" x2="'+x1+'" y2="'+y+'" stroke="#fff" stroke-width="2" stroke-dasharray="10 10" opacity=".8"/>'; }
+  for(var c=0;c<G.cols;c++){ var x=G.ox+c*G.sx; s+='<line x1="'+x+'" y1="'+y0+'" x2="'+x+'" y2="'+y1+'" stroke="#CFCBBE" stroke-width="18" stroke-linecap="round"/><line x1="'+x+'" y1="'+y0+'" x2="'+x+'" y2="'+y1+'" stroke="#fff" stroke-width="2" stroke-dasharray="10 10" opacity=".8"/>'; }
+  LIGHTS.forEach(function(k){ var a=k.split(",").map(Number), p=NP(a); s+='<text x="'+p[0]+'" y="'+(p[1]+6)+'" font-size="18" text-anchor="middle">🚦</text>'; });
+  s+='<g id="routeLayer"></g>';
+  PLACES.forEach(function(p){
+    var n=NP(p.node), cx=n[0]+p.off[0]*52, cy=n[1]+p.off[1]*45;
+    s+='<g class="bld" id="b_'+p.id+'" data-id="'+p.id+'"><rect x="'+(cx-40)+'" y="'+(cy-24)+'" width="80" height="48" rx="9"/>'+
+       '<text x="'+cx+'" y="'+(cy-3)+'" font-size="20" text-anchor="middle">'+p.emoji+'</text>'+
+       '<text x="'+cx+'" y="'+(cy+16)+'" font-size="11.5" text-anchor="middle" fill="#1F2A37">'+p.name+'</text></g>';
+  });
+  s+='<g id="avatarLayer"></g>';
+  svg.innerHTML=s;
+}
+drawMap();
+
+function inGrid(x,y){ return x>=0&&x<G.cols&&y>=0&&y<G.rows; }
+function allPaths(a,b){
+  var res=[], dx=Math.sign(b[0]-a[0]), dy=Math.sign(b[1]-a[1]);
+  (function rec(x,y,path){
+    if(x===b[0]&&y===b[1]){ res.push(path.slice()); return; }
+    if(x!==b[0]){ path.push([x+dx,y]); rec(x+dx,y,path); path.pop(); }
+    if(y!==b[1]){ path.push([x,y+dy]); rec(x,y+dy,path); path.pop(); }
+  })(a[0],a[1],[a.slice()]);
+  return res;
+}
+function turns(path){
+  var t=0;
+  for(var i=2;i<path.length;i++){
+    var h1=[path[i-1][0]-path[i-2][0],path[i-1][1]-path[i-2][1]], h2=[path[i][0]-path[i-1][0],path[i][1]-path[i-1][1]];
+    if(h1[0]!==h2[0]||h1[1]!==h2[1]) t++;
+  }
+  return t;
+}
+function makeRoute(from,to){
+  var ps=allPaths(from.node,to.node), good=ps.filter(function(p){return turns(p)<=2});
+  if(!good.length) good=ps;
+  var path=good[Math.floor(Math.random()*good.length)];
+  var heads=[];
+  for(var i=1;i<path.length;i++) heads.push([path[i][0]-path[i-1][0],path[i][1]-path[i-1][1]]);
+  var sents=[], segStart=0, NUMW=["zero","one","two","three","four","five","six"], nTurns=0;
+  for(var k=1;k<heads.length;k++){
+    var h0=heads[k-1], h1=heads[k];
+    if(h0[0]!==h1[0]||h0[1]!==h1[1]){
+      var cr=h0[0]*h1[1]-h0[1]*h1[0], right=cr>0, dir=right?"right":"left";
+      var tv= right ? [-h0[1],h0[0]] : [h0[1],-h0[0]];
+      var count=0, lc=0;
+      for(var i2=segStart+1;i2<=k;i2++){
+        var q=path[i2];
+        if(inGrid(q[0]+tv[0],q[1]+tv[1])) count++;
+        if(LIGHTS.indexOf(q[0]+","+q[1])>-1) lc++;
+      }
+      var node=path[k], isLight=LIGHTS.indexOf(node[0]+","+node[1])>-1;
+      if(nTurns===0) sents.push("Go straight.");
+      if(isLight && lc===1) sents.push("Then turn "+dir+" at the traffic lights.");
+      else if(count>=1&&count<=4) sents.push("Then take the "+ORD[count-1]+" street on the "+dir+".");
+      else sents.push("Then turn "+dir+" at the corner.");
+      nTurns++; segStart=k;
+    }
+  }
+  var lastLen=heads.length-segStart;
+  sents.push("Go straight for "+NUMW[lastLen]+(lastLen===1?" block.":" blocks."));
+  var hl=heads[heads.length-1], crs=hl[0]*to.off[1]-hl[1]*to.off[0];
+  sents.push("The "+to.name.toLowerCase()+" is on your "+(crs>0?"right":"left")+".");
+  return {path:path,heads:heads,text:sents.join(" "),sents:sents};
+}
+
+var mp={mode:"ask",cur:null,deck:[],tm:null};
+function clearMapMarks(){
+  document.querySelectorAll(".bld").forEach(function(b){ b.classList.remove("start","dest","good","bad"); });
+  $("routeLayer").innerHTML=""; $("avatarLayer").innerHTML="";
+}
+var av={x:0,y:0,ang:0,on:false};
+function headFromAng(a){ var r=((Math.round(a/90)%4)+4)%4; return [[1,0],[0,1],[-1,0],[0,-1]][r]; }
+function renderAv(){
+  var g=$("avG"); if(!g) return;
+  var p=NP([av.x,av.y]);
+  g.style.transform="translate("+p[0]+"px,"+p[1]+"px)";
+  $("avR").style.transform="rotate("+av.ang+"deg)";
+}
+function resetAvatar(route){
+  av.x=route.path[0][0]; av.y=route.path[0][1]; av.on=true;
+  av.ang=Math.atan2(route.heads[0][1],route.heads[0][0])*180/Math.PI;
+  $("avatarLayer").innerHTML='<g id="avG" style="transition:transform .4s ease"><circle r="17" fill="#D7263D" stroke="#fff" stroke-width="3"/>'+
+    '<g id="avR" style="transition:transform .4s ease"><path d="M-6,-7 L9,0 L-6,7 Z" fill="#fff"/></g>'+
+    '<text y="-24" font-size="13" font-weight="800" text-anchor="middle" fill="#D7263D" font-family="Nunito,sans-serif">YOU</text></g>';
+  var g=$("avG"), p=NP([av.x,av.y]);
+  g.style.transition="none"; $("avR").style.transition="none";
+  renderAv();
+  void g.getBoundingClientRect();
+  g.style.transition="transform .4s ease"; $("avR").style.transition="transform .4s ease";
+  setMv("",false);
+}
+function setMv(t,ok){ var m=$("mvMsg"); m.textContent=t; m.className="mvmsg"+(ok?" ok":""); }
+function nodeInfo(){
+  var k=av.x+","+av.y;
+  if(LIGHTS.indexOf(k)>-1) return "🚦 You are at the traffic lights.";
+  return "";
+}
+$("mvFwd").onclick=function(){
+  if(!mp.cur||!av.on){ setMv("Press \"Next card\" first.",false); return; }
+  var h=headFromAng(av.ang), nx=av.x+h[0], ny=av.y+h[1];
+  if(!inGrid(nx,ny)){ setMv("This is the end of the map. Turn left or right.",false); return; }
+  av.x=nx; av.y=ny; renderAv(); setMv(nodeInfo(),false);
+};
+$("mvLeft").onclick=function(){ if(!mp.cur||!av.on){ setMv("Press \"Next card\" first.",false); return; } av.ang-=90; renderAv(); setMv("",false); };
+$("mvRight").onclick=function(){ if(!mp.cur||!av.on){ setMv("Press \"Next card\" first.",false); return; } av.ang+=90; renderAv(); setMv("",false); };
+$("mvReset").onclick=function(){ if(!mp.cur) return; resetAvatar(mp.cur.route); };
+$("mvHere").onclick=function(){
+  var c=mp.cur; if(!c||!av.on){ setMv("Press \"Next card\" first.",false); return; }
+  if(av.x===c.to.node[0] && av.y===c.to.node[1]){
+    var b=$("b_"+c.to.id); b.classList.remove("dest","bad"); b.classList.add("good");
+    setMv("Yes! You are at the "+c.to.name.toLowerCase()+". 🎉",true);
+    if(c.kind==="listen") c.solved=true;
+  } else { setMv("Not yet. Try again, or go back to start.",false); }
+};
+function drawRoute(route, walk){
+  var pts=route.path.map(function(n){var p=NP(n);return p[0]+","+p[1]}).join(" ");
+  var d="M"+route.path.map(function(n){var p=NP(n);return p[0]+" "+p[1]}).join(" L");
+  var h='<polyline points="'+pts+'" fill="none" stroke="#D7263D" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 12" opacity=".95"/>';
+  if(walk) h+='<circle r="9" fill="#F4B942" stroke="#1F2A37" stroke-width="3"><animateMotion dur="'+Math.max(3,route.path.length*0.9)+'s" repeatCount="1" fill="freeze" path="'+d+'"/></circle>';
+  $("routeLayer").innerHTML=h;
+}
+function newPair(){
+  if(!mp.deck.length){
+    var pairs=[];
+    PLACES.forEach(function(a){ PLACES.forEach(function(b){
+      var dist=Math.abs(a.node[0]-b.node[0])+Math.abs(a.node[1]-b.node[1]);
+      if(a!==b && dist>=2 && dist<=6) pairs.push([a,b]);
+    });});
+    mp.deck=shuffle(pairs);
+  }
+  return mp.deck.pop();
+}
+function setMpMode(m){
+  mp.mode=m;
+  ["mpAsk","mpExplain","mpListen","mpMix"].forEach(function(id){ $(id).className="btn alt"; });
+  $({ask:"mpAsk",explain:"mpExplain",listen:"mpListen",mixed:"mpMix"}[m]).className="btn";
+}
+$("mpAsk").onclick=function(){ setMpMode("ask"); };
+$("mpExplain").onclick=function(){ setMpMode("explain"); };
+$("mpListen").onclick=function(){ setMpMode("listen"); };
+$("mpMix").onclick=function(){ setMpMode("mixed"); };
+setMpMode("ask");
+
+$("mpNext").onclick=function(){
+  stopSpeech(); clearMapMarks();
+  var kind = mp.mode==="mixed" ? ["ask","explain","listen"][Math.floor(Math.random()*3)] : mp.mode;
+  var pr=newPair(), from=pr[0], to=pr[1], route=makeRoute(from,to);
+  mp.cur={kind:kind,from:from,to:to,route:route,notFrom:(kind==="ask"&&Math.random()<0.18),solved:false};
+  $("b_"+from.id).classList.add("start"); resetAvatar(route);
+  var card=$("mpCard"), c=mp.cur;
+  if(kind==="ask"){
+    $("b_"+to.id).classList.add("dest");
+    card.innerHTML='<span class="sc-tag">You ask</span><div class="sc-title">'+from.emoji+' '+from.name+' → '+to.emoji+' '+to.name+'</div>'+
+      '<div class="sc-text">You are at the '+from.name.toLowerCase()+'. You want to go to the '+to.name.toLowerCase()+'. Ask the teacher.</div>'+
+      '<div class="ua">Ти біля місця "'+from.name+'". Спитай, як дістатися до "'+to.name+'".</div>'+
+      '<div class="sc-actions"><button class="play" id="mpQ" type="button" title="Model question">▶</button>'+
+      '<button class="btn sm gold" id="mpT" type="button">Show directions</button>'+
+      '<button class="btn sm alt" id="mpW" type="button" style="color:#fff;border-color:#fff;background:transparent">Walk</button></div>'+
+      '<div class="hints" id="mpAns"></div>';
+    playBtn($("mpQ"),"Excuse me, could you tell me how to get to the "+to.name.toLowerCase()+"?","A");
+    $("mpT").onclick=function(){
+      var a=$("mpAns"); a.classList.add("show");
+      if(c.notFrom){ a.innerHTML='Teacher says: <b>"Sorry, I\'m not from this area."</b><br>Natali: "No problem. Thank you!" Then press Next card.<br><button class="play" id="mpAP" type="button">▶</button>'; playBtn($("mpAP"),"Sorry, I'm not from this area.","B"); }
+      else { a.innerHTML='"'+c.route.text+'"<br><button class="play" id="mpAP" type="button">▶</button>'; playBtn($("mpAP"),c.route.text,"B"); }
+    };
+    $("mpW").onclick=function(){ if(c.notFrom){ $("mpT").click(); return; } drawRoute(c.route,true); };
+  } else if(kind==="explain"){
+    $("b_"+to.id).classList.add("dest");
+    card.innerHTML='<span class="sc-tag">You explain</span><div class="sc-title">'+from.emoji+' '+from.name+' → '+to.emoji+' '+to.name+'</div>'+
+      '<div class="sc-text">A tourist is at the '+from.name.toLowerCase()+'. She asks: "How do I get to the '+to.name.toLowerCase()+'?" Explain the way.</div>'+
+      '<div class="ua">Туристка біля "'+from.name+'". Поясни дорогу до "'+to.name+'".</div>'+
+      '<div class="sc-actions"><button class="btn sm gold" id="mpR" type="button">Show route</button>'+
+      '<button class="btn sm alt" id="mpT" type="button" style="color:#fff;border-color:#fff;background:transparent">Show model answer</button></div>'+
+      '<div class="hints" id="mpAns"></div>';
+    $("mpR").onclick=function(){ drawRoute(c.route,true); };
+    $("mpT").onclick=function(){ var a=$("mpAns"); a.classList.add("show"); a.innerHTML='"'+c.route.text+'"<br><button class="play" id="mpAP" type="button">▶</button>'; playBtn($("mpAP"),c.route.text,"B"); };
+  } else {
+    card.innerHTML='<span class="sc-tag">Listen and click</span><div class="sc-title">Start: '+from.emoji+' '+from.name+'</div>'+
+      '<div class="sc-text">Listen to the directions. Walk on the map with the buttons, or click the place.</div>'+
+      '<div class="ua">Послухай маршрут і натисни на потрібне місце на карті.</div>'+
+      '<div class="sc-actions"><button class="play" id="mpL" type="button">▶</button>'+
+      '<button class="btn sm alt" id="mpS" type="button" style="color:#fff;border-color:#fff;background:transparent">Show text</button></div>'+
+      '<div class="hints" id="mpAns"></div><div class="sc-fb" id="mpFB"></div>';
+    var hidden=c.route.text.replace(/The [a-z ]+ is on your/i,"It's on your");
+    playBtn($("mpL"),hidden,"B");
+    $("mpS").onclick=function(){ var a=$("mpAns"); a.classList.toggle("show"); a.innerHTML=hidden; };
+  }
+};
+$("cityMap").addEventListener("click",function(e){
+  var g=e.target.closest ? e.target.closest(".bld") : null;
+  var c=mp.cur; if(!g||!c||c.kind!=="listen"||c.solved) return;
+  var id=g.dataset.id;
+  if(id===c.to.id){
+    c.solved=true; g.classList.remove("bad"); g.classList.add("good");
+    $("mpFB").textContent="Yes! The "+c.to.name.toLowerCase()+".";
+    drawRoute(c.route,true);
+  } else {
+    g.classList.add("bad"); $("mpFB").textContent="Not this one. Listen again.";
+  }
+});
+
+/* timer */
+(function(){
+  var secs=780, tid=null;
+  function show(){ var m=Math.floor(secs/60), s=secs%60; var t=$("timer"); t.textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s; t.className="timer"+(secs<=60?" low":""); }
+  $("tStart").onclick=function(){
+    if(tid){ clearInterval(tid); tid=null; this.textContent="Start"; return; }
+    this.textContent="Pause";
+    tid=setInterval(function(){ secs--; show(); if(secs<=0){ clearInterval(tid); tid=null; $("tStart").textContent="Start"; secs=0; show(); } },1000);
+  };
+  $("tReset").onclick=function(){ clearInterval(tid); tid=null; secs=780; show(); $("tStart").textContent="Start"; };
+  show();
+})();
+
+/* ---------- LISTENING: own audio ---------- */
+(function(){
+  var f=$("listenFile"), a=$("listenAudio");
+  f.onchange=function(){
+    var file=f.files[0]; if(!file) return;
+    if(a.src) URL.revokeObjectURL(a.src);
+    a.src=URL.createObjectURL(file); a.style.display="block"; $("listenSpeed").style.display="flex";
+    $("listenName").textContent="Using: "+file.name;
+  };
+  $("listenSpeed").querySelectorAll("button").forEach(function(b){ b.onclick=function(){ a.playbackRate=parseFloat(b.dataset.r); }; });
+})();
+
+/* ---------- PROGRESS NAV ---------- */
+(function(){
+  var steps=[].slice.call(document.querySelectorAll(".step"));
+  var stops=$("stops"), btns=[];
+  steps.forEach(function(s,i){
+    var b=el("button","stop",'<i>'+(i+1)+'</i><span>'+s.dataset.label+'</span>'); b.type="button";
+    b.onclick=function(){ s.scrollIntoView({behavior:"smooth"}); };
+    stops.appendChild(b); btns.push(b);
+  });
+  function update(){
+    var current=0, mid=window.innerHeight*0.35;
+    steps.forEach(function(s,i){ if(s.getBoundingClientRect().top<mid) current=i; });
+    btns.forEach(function(b,i){ b.classList.toggle("on",i===current); b.classList.toggle("done",i<current); });
+    var w=btns.length>1 ? (current/(btns.length-1))*(stops.scrollWidth-28) : 0;
+    $("fill").style.width=w+"px";
+  }
+  window.addEventListener("scroll",update,{passive:true}); window.addEventListener("resize",update); update();
+})();
+
+/* ---------- FINISH ---------- */
+$("finishBtn").onclick=function(){
+  $("stamp").classList.add("show");
+  var colors=["#D7263D","#F4B942","#3AAFA9","#1F2A37","#fff"];
+  for(var i=0;i<90;i++){
+    var c=document.createElement("div"); c.className="confetti";
+    c.style.left=Math.random()*100+"vw"; c.style.background=colors[i%colors.length];
+    c.style.animationDuration=(2+Math.random()*2.5)+"s"; c.style.animationDelay=(Math.random()*0.8)+"s";
+    c.style.borderRadius=(i%3===0?"50%":"2px");
+    document.body.appendChild(c);
+    (function(n){setTimeout(function(){n.remove()},6000)})(c);
+  }
+  this.textContent="Lesson complete";
+};
+window.addEventListener("beforeunload",function(){ if(window.speechSynthesis) speechSynthesis.cancel(); });
+</script>
+</body>
+</html>
