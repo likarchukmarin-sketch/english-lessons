@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Books, Films & Everything in Between — Part 2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+:root{--forest:#29483d;--forest2:#3e6253;--sage:#dce7dc;--sage2:#edf2eb;--cream:#f6f2e9;--paper:#fffefa;--ink:#26352f;--muted:#68766e;--line:#dce2d8;--gold:#c49b60;--shadow:0 12px 32px rgba(35,58,47,.07)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:'Montserrat','PT Sans',Arial,sans-serif;font-size:15px;line-height:1.75}
+button,input{font:inherit}.shell{max-width:1120px;margin:auto;padding:26px 28px 70px}.hero{background:var(--forest);color:#fff;border-radius:22px;padding:42px 46px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero:after{content:"";position:absolute;width:280px;height:280px;border:1px solid rgba(255,255,255,.16);border-radius:50%;right:-75px;top:-105px;box-shadow:0 0 0 32px rgba(255,255,255,.035),0 0 0 68px rgba(255,255,255,.025)}
+.eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#c8d8ca;font-weight:700}.hero h1{font:600 clamp(30px,5vw,48px)/1.15 'Lora',Georgia,serif;max-width:760px;margin:15px 0 14px;letter-spacing:-.03em}.hero p{color:#e1e9e1;max-width:600px;margin:0}.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.pill{border:1px solid rgba(255,255,255,.25);border-radius:30px;padding:6px 12px;font-size:11px;color:#f2f5ef}
+.progress-wrap{margin:22px 0 25px;background:var(--paper);padding:15px 18px;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;gap:16px}.progress-copy{min-width:130px;font-size:11px;font-weight:700;color:var(--forest)}.progress-track{height:7px;background:#e8ece5;border-radius:10px;flex:1;overflow:hidden}.progress-fill{height:100%;width:0;background:var(--forest2);border-radius:10px;transition:width .2s}.progress-count{font-size:11px;color:var(--muted);white-space:nowrap}
+.layout{display:block}.side{display:none}.side-title{display:none}.nav a{display:none}.nav a:hover,.nav a.active{background:var(--sage2);color:var(--forest)}.nav-num{display:none}.content{min-width:0}.section{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:30px;margin-bottom:20px;box-shadow:0 5px 18px rgba(35,58,47,.035);scroll-margin-top:18px}.section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;margin-bottom:20px}.section-kicker{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--forest2);font-weight:700}.section h2{font:600 27px/1.25 'Lora',Georgia,serif;color:var(--forest);margin:5px 0 0}.section h3{font:600 18px 'Lora',Georgia,serif;color:var(--forest);margin:24px 0 10px}.section p{margin:9px 0}.done{display:flex;align-items:center;gap:7px;white-space:nowrap;font-size:10px;color:var(--muted);font-weight:600}.done input{accent-color:var(--forest);width:15px;height:15px}.lead{font:500 17px/1.5 'Lora',Georgia,serif;color:var(--forest);background:var(--sage2);border-left:3px solid var(--forest2);padding:15px 18px;border-radius:0 10px 10px 0;margin:16px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.feedback{background:#f4f6f1;border:1px solid var(--line);border-radius:12px;padding:15px}.feedback h4{margin:0 0 8px;color:var(--forest);font-size:12px}.feedback ul{padding-left:18px;margin:0}.feedback li{margin:5px 0;font-size:12px}.table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12px}.table th{text-align:left;background:var(--sage2);color:var(--forest);font-size:10px;text-transform:uppercase;letter-spacing:.08em}.table th,.table td{padding:11px 13px;border:1px solid var(--line);vertical-align:top}.table td:last-child{color:var(--forest2);font-weight:600}.question-list{display:grid;gap:9px;margin-top:12px}.question{background:#fbfaf5;border:1px solid var(--line);padding:12px 14px;border-radius:10px;font-size:13px}.question b{color:var(--gold);margin-right:8px}
+.flash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.flash{min-height:85px;border:1px solid var(--line);background:#fbfaf6;border-radius:12px;padding:13px;text-align:left;cursor:pointer;color:var(--ink);transition:.18s}.flash:hover{border-color:#9db29f;transform:translateY(-1px)}.flash .word{display:block;font-weight:700;color:var(--forest);font-size:12px}.flash .hint{display:block;color:var(--muted);font-size:10px;margin-top:8px}.flash .translation{display:none;color:#6b795f;font-size:11px;margin-top:7px}.flash.revealed{background:var(--sage2);border-color:#bdcdbd}.flash.revealed .translation{display:block}.flash.revealed .hint{display:none}
+.expression-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.expression{background:#f5f6f1;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:12px}.expression button{background:none;border:0;padding:0;color:var(--forest);font-weight:600;cursor:pointer;text-align:left;width:100%}.expression .translation{display:none;color:var(--muted);font-size:11px;margin-top:5px}.expression.revealed .translation{display:block}
+.task{background:#f7f8f3;border:1px solid var(--line);border-radius:13px;padding:17px;margin:14px 0}.task-title{font-size:12px;font-weight:700;color:var(--forest);margin-bottom:10px}.gap-row{display:grid;grid-template-columns:1fr minmax(170px,230px);gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid #e5e9e1;font-size:12px}.gap-row:last-of-type{border:0}.gap-row select{width:100%;border:1px solid #cfd8cd;background:#fff;border-radius:8px;padding:8px;color:var(--ink);font-size:11px}.check-btn{border:0;background:var(--forest);color:#fff;padding:9px 15px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;margin-top:12px}.check-btn:hover{background:var(--forest2)}.feedback-msg{font-size:11px;font-weight:600;margin-left:10px}.correct{color:#3d7650}.incorrect{color:#a15a45}details{border:1px solid var(--line);border-radius:10px;margin-top:12px;background:#fffefa}summary{cursor:pointer;padding:11px 14px;color:var(--forest);font-size:11px;font-weight:700}details .answers{padding:0 15px 13px;font-size:12px;color:#56645b}
+.reading{font:400 14px/1.95 'PT Sans',Arial,sans-serif;color:#38463e}.reading p{margin:0 0 16px}.reading p:last-child{margin-bottom:0}.reading-card{background:#fcfbf7;border:1px solid var(--line);border-radius:13px;padding:22px 24px;margin:18px 0}.read-title{font:600 23px 'Lora',Georgia,serif;color:var(--forest);margin:0}.subtitle{font:italic 12px 'Lora',Georgia,serif;color:var(--muted);margin-top:3px}.comprehension{display:grid;gap:10px}.comp-item{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fbfaf6}.comp-item p{font-size:12px;font-weight:600;margin:0 0 7px}.comp-item textarea{width:100%;min-height:54px;border:1px solid #d8dfd5;border-radius:8px;padding:8px;font:12px 'Montserrat',sans-serif;resize:vertical}
+.language-box{display:flex;flex-wrap:wrap;gap:8px;background:var(--sage2);padding:13px;border-radius:10px;margin-top:15px}.language-box span{font-size:11px;color:var(--forest);background:#fffefa;border:1px solid #dce5d9;border-radius:20px;padding:5px 10px}
+.adapt-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.adapt{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fcfbf7}.adapt-top{display:flex;justify-content:space-between;gap:8px}.adapt h4{font:600 15px 'Lora',Georgia,serif;color:var(--forest);margin:0}.genre{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#7a897e;margin-top:4px}.author{font-size:10px;color:var(--muted);margin:5px 0 10px}.adapt-q{font-size:11px;line-height:1.55;margin:0;color:#47564d}.adapt-note{font-size:10px;color:#8b704a;background:#f6f0e5;padding:8px 10px;border-radius:8px;margin-top:10px}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.choice{display:flex;gap:10px;align-items:flex-start;background:#fbfaf6;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:12px;cursor:pointer}.choice input{accent-color:var(--forest);margin-top:3px}.choice:has(input:checked){background:var(--sage2);border-color:#9db49f}.counter{font:600 20px 'Lora',serif;color:var(--forest);margin:10px 0}.counter small{font:500 11px 'Montserrat',sans-serif;color:var(--muted)}.limit{font-size:11px;color:var(--muted)}
+.final-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.final-card{min-height:118px;background:var(--forest);color:#fff;border-radius:12px;padding:16px;display:flex;gap:12px;align-items:flex-start}.final-card .n{font:600 23px 'Lora',serif;color:#d8c19a}.final-card p{font:500 13px/1.55 'Lora',serif;margin:2px 0 0}
+.homework{background:#edf1e9;border:1px solid #d2ddcf;border-radius:16px;padding:24px}.homework .section-kicker{color:#8a6c3e}.homework h2{margin-top:5px}.homework-list{counter-reset:item;display:grid;gap:8px;margin:13px 0}.homework-list li{list-style:none;counter-increment:item;position:relative;padding-left:30px;font-size:12px}.homework-list li:before{content:counter(item,decimal-leading-zero);position:absolute;left:0;color:#9b8054;font-weight:700;font-size:10px}.footer{text-align:center;color:#879188;font-size:10px;padding:25px 0 0}
+@media(max-width:850px){.layout{display:block}.shell{padding:18px 16px 45px}}
+@media(max-width:560px){.shell{padding:12px 10px 35px}.hero{padding:30px 23px}.section{padding:21px 17px}.section h2{font-size:23px}.grid2,.flash-grid,.expression-list,.adapt-grid,.choice-grid,.final-grid{grid-template-columns:1fr}.gap-row{grid-template-columns:1fr;gap:5px}.progress-wrap{gap:9px;padding:12px}.progress-copy{min-width:auto}.progress-count{font-size:10px}.nav{grid-template-columns:1fr 1fr}.reading-card{padding:17px}.table{font-size:11px}.table th,.table td{padding:8px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="hero">
+  <div class="eyebrow">Speaking lesson · Part 02</div>
+  <h1>Books, Films &amp; Everything in Between</h1>
+  <p>Stories we love, worlds we imagine, and the magic of bringing a book to the big screen.</p>
+  <div class="hero-meta"><span class="pill">A2+–B1</span><span class="pill">40–50 minutes</span><span class="pill">Speaking · Reading · Vocabulary</span></div>
+</header>
+<div class="progress-wrap">
+  <div class="progress-copy">YOUR LESSON PROGRESS</div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div class="progress-count" id="progressCount">0 / 8 sections</div>
+</div>
+<div class="layout">
+<aside class="side">
+  <div class="side-title">Lesson contents</div>
+  <nav class="nav">
+    <a href="#s1"><span class="nav-num">01</span> Homework review</a>
+    <a href="#s2"><span class="nav-num">02</span> Vocabulary refresh</a>
+    <a href="#s3"><span class="nav-num">03</span> Reading</a>
+    <a href="#s4"><span class="nav-num">04</span> After reading</a>
+    <a href="#s5"><span class="nav-num">05</span> Top 10 adaptations</a>
+    <a href="#s6"><span class="nav-num">06</span> Perfect adaptation</a>
+    <a href="#s7"><span class="nav-num">07</span> Think fast!</a>
+    <a href="#homework"><span class="nav-num">HW</span> Homework</a>
+  </nav>
+</aside>
+<main class="content">
+<section class="section" id="s1">
+<div class="section-head"><div><div class="section-kicker">Section 01 · 5 minutes</div><h2>Homework review — Movie review</h2></div><label class="done"><input class="complete" type="checkbox"> Completed</label></div>
+<div class="lead">You did a really good job with your review of <em>Super Alibi</em>!</div>
+<div class="grid2">
+<div class="feedback"><h4>What you did really well</h4><ul>
+<li>Your review had a clear structure: introduction, plot, opinion and recommendation.</li>
+<li>You used a great range of vocabulary: <em>secret agency, fake stories, great chemistry, entertaining, highly recommend</em>.</li>
+<li>You explained your opinions and supported them with reasons.</li>
+<li>You used more advanced sentence patterns naturally.</li>
+</ul></div>
+<div class="feedback"><h4>Small improvements</h4><p style="font-size:11px;color:#68766e">A few phrases can sound more natural:</p>
+<table class="table"><tr><th>Your phrase</th><th>A more natural version</th></tr>
+<tr><td>“first sequel and two”</td><td>“the first and second Babysitting films”</td></tr>
+<tr><td>“Marry Me, You”</td><td>“Marry Me, Dude” <span style="font-weight:400">(if this is the film you mean)</span></td></tr>
+<tr><td>“the same group of friends who starred in my other favourite movies”</td><td>“the same group of actors who starred in my other favourite films”</td></tr>
+<tr><td>“it changed the way I think. Yes, a little bit.”</td><td>“It made me think differently, at least a little.”</td></tr></table>
+</div></div>
+<h3>Let's talk about the film</h3>
+<div class="question-list">
+<div class="question"><b>1</b> Which character did you like the most? Why?</div>
+<div class="question"><b>2</b> Would you watch this film again?</div>
+<div class="question"><b>3</b> Would you recommend it to a friend?</div>
+</div>
+</section>
+
+<section class="section" id="s2">
+<div class="section-head"><div><div class="section-kicker">Section 02 · 6 minutes</div><h2>Vocabulary refresh</h2></div><label class="done"><input class="complete" type="checkbox"> Completed</label></div>
+<p>Click each card to reveal the Ukrainian translation. Try to remember the meaning first.</p>
+<h3>Words that bring stories to life</h3>
+<div class="flash-grid">
+<button class="flash"><span class="word">gripping</span><span class="hint">Click to reveal</span><span class="translation">захопливий</span></button>
+<button class="flash"><span class="word">thought-provoking</span><span class="hint">Click to reveal</span><span class="translation">такий, що змушує замислитися</span></button>
+<button class="flash"><span class="word">predictable</span><span class="hint">Click to reveal</span><span class="translation">передбачуваний</span></button>
+<button class="flash"><span class="word">overrated</span><span class="hint">Click to reveal</span><span class="translation">переоцінений</span></button>
+<button class="flash"><span class="word">underrated</span><span class="hint">Click to reveal</span><span class="translation">недооцінений</span></button>
+<button class="flash"><span class="word">heartwarming</span><span class="hint">Click to reveal</span><span class="translation">зворушливий</span></button>
+<button class="flash"><span class="word">disappointing</span><span class="hint">Click to reveal</span><span class="translation">розчаровуючий</span></button>
+<button class="flash"><span class="word">visually stunning</span><span class="hint">Click to reveal</span><span class="translation">візуально вражаючий</span></button>
+<button class="flash"><span class="word">slow-paced</span><span class="hint">Click to reveal</span><span class="translation">з повільним темпом розвитку подій</span></button>
+</div>
+<h3>Useful expressions</h3>
+<p>Click an expression to see its Ukrainian meaning.</p>
+<div class="expression-list">
+<div class="expression"><button>It kept me hooked.</button><div class="translation">Це тримало мене в напрузі / не давало відірватися.</div></div>
+<div class="expression"><button>I couldn't get into it.</button><div class="translation">Я ніяк не міг / могла захопитися цим.</div></div>
+<div class="expression"><button>It lived up to my expectations.</button><div class="translation">Це виправдало мої очікування.</div></div>
+<div class="expression"><button>It didn't live up to the hype.</button><div class="translation">Це не виправдало ажіотажу навколо себе.</div></div>
+<div class="expression"><button>I lost interest halfway through.</button><div class="translation">Я втратив / втратила інтерес на половині.</div></div>
+<div class="expression"><button>It left a lasting impression on me.</button><div class="translation">Це справило на мене тривале враження.</div></div>
+<div class="expression"><button>I saw it coming.</button><div class="translation">Я здогадався / здогадалася, що так станеться.</div></div>
+<div class="expression"><button>It was worth the watch.</button><div class="translation">Це варто було подивитися.</div></div>
+</div>
+<div class="task">
+<div class="task-title">Vocabulary practice · Choose the best expression</div>
+<div class="gap-row"><label for="v1">1. The story was so exciting that I couldn't stop reading. It ...</label><select id="v1"><option value="">Choose an answer</option><option>kept me hooked</option><option>didn't live up to the hype</option><option>predictable</option><option>left a lasting impression on me</option><option>visually stunning</option></select></div>
+<div class="gap-row"><label for="v2">2. Everyone said this film was amazing, but I didn't enjoy it. It ...</label><select id="v2"><option value="">Choose an answer</option><option>kept me hooked</option><option>didn't live up to the hype</option><option>predictable</option><option>left a lasting impression on me</option><option>visually stunning</option></select></div>
+<div class="gap-row"><label for="v3">3. I guessed the ending after the first 20 minutes. It was ...</label><select id="v3"><option value="">Choose an answer</option><option>kept me hooked</option><option>didn't live up to the hype</option><option>predictable</option><option>left a lasting impression on me</option><option>visually stunning</option></select></div>
+<div class="gap-row"><label for="v4">4. I still think about this book years later. It ...</label><select id="v4"><option value="">Choose an answer</option><option>kept me hooked</option><option>didn't live up to the hype</option><option>predictable</option><option>left a lasting impression on me</option><option>visually stunning</option></select></div>
+<div class="gap-row"><label for="v5">5. The film looked absolutely beautiful. It was ...</label><select id="v5"><option value="">Choose an answer</option><option>kept me hooked</option><option>didn't live up to the hype</option><option>predictable</option><option>left a lasting impression on me</option><option>visually stunning</option></select></div>
+<button class="check-btn" id="checkVocab">Check answers</button><span class="feedback-msg" id="vocabFeedback" aria-live="polite"></span>
+<details><summary>Open answer key</summary><div class="answers">1. kept me hooked<br>2. didn't live up to the hype<br>3. predictable / I saw it coming<br>4. left a lasting impression on me<br>5. visually stunning</div></details>
+</div>
+<div class="lead">Speaking: Choose any two expressions and use them to describe a book or film you've watched.</div>
+</section>
+
+<section class="section" id="s3">
+<div class="section-head"><div><div class="section-kicker">Section 03 · 8 minutes</div><h2>Reading</h2></div><label class="done"><input class="complete" type="checkbox"> Completed</label></div>
+<div class="reading-card">
+<h3 class="read-title">Should Every Great Book Become a Film?</h3><div class="subtitle">When a book meets the big screen</div>
+<div class="lead">Before reading: Can a film ever be better than the book it's based on?</div>
+<div class="reading">
+<p>Imagine that you have just finished a brilliant novel. The plot was gripping, the characters felt like real people, and the ending stayed in your mind for days. But then you hear the news: a film adaptation is coming. At first, you are excited, but a small question appears: what if the film changes everything you loved?</p>
+<p>Many book lovers feel nervous when their favourite stories move to the cinema. One reason is imagination. When we read, we create our own pictures of the characters, places and events. We decide what a mysterious house looks like or how heroes sound. A film gives us someone else's version. Even a talented director may imagine the story differently from us.</p>
+<p>There is another problem: time. A novel can have hundreds of pages, but most films last around two hours. A screenwriter often has to remove characters, shorten conversations, or change parts of the plot. Sometimes an important chapter disappears. The original ending may also change because the director wants a more surprising or emotional finish. For readers, these changes can be disappointing. A story that felt complex on the page may become too simple on screen.</p>
+<p>However, a film adaptation can also bring something wonderful. Talented actors can make familiar characters feel new. A beautiful soundtrack can create emotion, while visual effects can turn an imaginary world into something visually stunning. A film can also introduce a story to people who would never pick up the book, and sometimes a new version makes us want to read the original novel.</p>
+<p>Of course, not every adaptation is successful. Some are predictable, while others miss the heart of the story. But a film doesn't have to be an exact copy to be good. Perhaps the best adaptations respect the main ideas and feelings of a book while finding a fresh way to tell the story.</p>
+<p>So, should every great book become a film? Maybe not. Some stories are perfect in our imagination; others are waiting for the right actors, directors, and screenwriters. The real question may not be whether a film is better than the book, but whether it gives us another reason to love the story.</p>
+</div></div>
+<h3>Check your understanding</h3>
+<div class="comprehension">
+<div class="comp-item"><p>1. Why can readers feel worried when their favourite book becomes a film?</p><textarea placeholder="Write or say your answer..."></textarea></div>
+<div class="comp-item"><p>2. What does a book allow readers to decide for themselves?</p><textarea placeholder="Write or say your answer..."></textarea></div>
+<div class="comp-item"><p>3. Why do screenwriters sometimes remove characters or change the ending?</p><textarea placeholder="Write or say your answer..."></textarea></div>
+<div class="comp-item"><p>4. How can a film bring something new to the original story?</p><textarea placeholder="Write or say your answer..."></textarea></div>
+<div class="comp-item"><p>5. According to the text, what makes a good adaptation?</p><textarea placeholder="Write or say your answer..."></textarea></div>
+</div>
+<details><summary>Open suggested answers</summary><div class="answers">1. Readers may worry that the film will change the things they loved about the book.<br>2. They can imagine the characters, places and events for themselves.<br>3. Films are shorter than novels, so screenwriters need to shorten the story; directors may also want a more surprising or emotional ending.<br>4. Actors, music and visual effects can bring characters and imaginary worlds to life. A film can also introduce the story to new people.<br>5. A good adaptation respects the book's main ideas and feelings while finding a fresh way to tell the story.</div></details>
+</section>
+
+<section class="section" id="s4">
+<div class="section-head"><div><div class="section-kicker">Section 04 · 5 minutes</div><h2>After reading — What do you think?</h2></div><label class="done"><input class="complete" type="checkbox"> Completed</label></div>
+<p>Share your opinion. You don't need to agree with the text!</p>
+<div class="question-list">
+<div class="question"><b>1</b> Do you agree that some stories are better left on the page? Why?</div>
+<div class="question"><b>2</b> Is it a problem if the director changes the original ending?</div>
+<div class="question"><b>3</b> Can a bad adaptation damage the reputation of a good book?</div>
+<div class="question"><b>4</b> Should authors have the final say in how their books are adapted?</div>
+<div class="question"><b>5</b> Would you rather see a faithful adaptation or a creative new version?</div>
+</div>
+<div class="language-box"><span>In my opinion...</span><span>I see your point, but...</span><span>One reason is...</span><span>For example...</span><span>It depends on...</span></div>
+</section>
+
+<section class="section" id="s5">
+<div class="section-head"><div><div class="section-kicker">Section 05 · 7 minutes</div><h2>Book or screen? — Top 10 adaptations</h2></div><label class="done"><input class="complete" type="checkbox"> Completed</label></div>
+<p>Explore the titles. Choose two or three for a deeper conversation — you don't need to discuss all ten.</p>
+<div class="adapt-grid">
+<article class="adapt"><div class="adapt-top"><h4>Harry Potter</h4></div><div class="genre">Fantasy</div><div class="author">J. K. Rowling</div><p class="adapt-q">Which film is your favourite? Do you prefer the books or the films?</p></article>
+<article class="adapt"><div class="adapt-top"><h4>Twilight</h4></div><div class="genre">Romance / Fantasy</div><div class="author">Stephenie Meyer</div><p class="adapt-q">Were the films as good as the books?</p></article>
+<article class="adapt"><div class="adapt-top"><h4>The Hunger Games</h4></div><div class="genre">Dystopian</div><div class="author">Suzanne Collins</div><p class="adapt-q">Did the films capture the atmosphere of the books?</p></article>
+<article class="adapt"><div class="adapt-top"><h4>Star Wars</h4></div><div class="genre">Sci-fi franchise</div><div class="author">A film-first universe</div><p class="adapt-q">Did you know many Star Wars books expand the film universe? Have you read any?</p><div class="adapt-note">A little difference: Star Wars is primarily a film franchise, with books based on it — not a traditional book-to-film adaptation.</div></article>
+<article class="adapt"><div class="adapt-top"><h4>The Lord of the Rings</h4></div><div class="genre">Fantasy</div><div class="author">J. R. R. Tolkien</div><p class="adapt-q">Can a film show such a detailed fantasy world?</p></article>
+<article class="adapt"><div class="adapt-top"><h4>The Chronicles of Narnia</h4></div><div class="genre">Fantasy</div><div class="author">C. S. Lewis</div><p class="adapt-q">Would you like to visit the world of Narnia?</p></article>
+<article class="adapt"><div class="adapt-top"><h4>The Devil Wears Prada</h4></div><div class="genre">Comedy / Drama</div><div class="author">Lauren Weisberger</div><p class="adapt-q">Did you know it was based on a book? Would you read it?</p></article>
+<article class="adapt"><div class="adapt-top"><h4>The Fault in Our Stars</h4></div><div class="genre">Romance / Drama</div><div class="author">John Green</div><p class="adapt-q">Can a film make you feel the same emotions as a book?</p></article>
+<article class="adapt"><div class="adapt-top"><h4>Jurassic Park</h4></div><div class="genre">Sci-fi / Thriller</div><div class="author">Michael Crichton</div><p class="adapt-q">Can special effects make a film better than the original story?</p></article>
+<article class="adapt"><div class="adapt-top"><h4>Dune</h4></div><div class="genre">Sci-fi</div><div class="author">Frank Herbert</div><p class="adapt-q">Is this story better suited to a book or a big-screen experience?</p></article>
+</div>
+<h3>Let's compare your favourites</h3>
+<div class="question-list">
+<div class="question"><b>1</b> Which of these have you watched?</div>
+<div class="question"><b>2</b> Which books have you actually read?</div>
+<div class="question"><b>3</b> Have you ever watched a film without knowing it was based on a book?</div>
+<div class="question"><b>4</b> Which adaptation surprised you the most?</div>
+<div class="question"><b>5</b> Is there a film you enjoyed more than the book?</div>
+<div class="question"><b>6</b> Which book would you recommend turning into a film?</div>
+</div>
+</section>
+
+<section class="section" id="s6">
+<div class="section-head"><div><div class="section-kicker">Section 06 · 8 minutes</div><h2>The Perfect Adaptation</h2></div><label class="done"><input class="complete" type="checkbox"> Completed</label></div>
+<div class="lead">Imagine you are making a film based on your favourite book. But there's a problem: you can only keep THREE things from the original story.</div>
+<p>Select exactly three elements. Your counter will update as you choose.</p>
+<div class="counter"><span id="choiceCount">0/3</span> <small>elements selected</small></div>
+<div class="choice-grid" id="choiceGrid">
+<label class="choice"><input type="checkbox" value="The main characters"><span>The main characters</span></label>
+<label class="choice"><input type="checkbox" value="The original ending"><span>The original ending</span></label>
+<label class="choice"><input type="checkbox" value="The atmosphere and mood"><span>The atmosphere and mood</span></label>
+<label class="choice"><input type="checkbox" value="The most important scenes"><span>The most important scenes</span></label>
+<label class="choice"><input type="checkbox" value="The author's message"><span>The author's message</span></label>
+<label class="choice"><input type="checkbox" value="The relationships between characters"><span>The relationships between characters</span></label>
+<label class="choice"><input type="checkbox" value="The original dialogue"><span>The original dialogue</span></label>
+<label class="choice"><input type="checkbox" value="The setting and locations"><span>The setting and locations</span></label>
+</div>
+<div class="limit" id="choiceMessage" aria-live="polite">Choose three things that matter most to you.</div>
+<h3>Defend your choices</h3>
+<div class="question-list">
+<div class="question"><b>1</b> Why did you choose these three elements?</div>
+<div class="question"><b>2</b> Which element was the hardest to give up?</div>
+<div class="question"><b>3</b> Would you change the original ending? Why?</div>
+<div class="question"><b>4</b> Would you cast famous actors or choose new faces?</div>
+<div class="question"><b>5</b> What would make your adaptation successful?</div>
+</div>
+<div class="language-box"><span>I'd definitely keep...</span><span>The most important thing is...</span><span>I wouldn't change...</span><span>It wouldn't make sense to...</span></div>
+</section>
+
+<section class="section" id="s7">
+<div class="section-head"><div><div class="section-kicker">Section 07 · 5 minutes</div><h2>Final challenge: Think fast!</h2></div><label class="done"><input class="complete" type="checkbox"> Completed</label></div>
+<div class="lead">Don't answer with just yes or no. Try to speak!</div>
+<div class="final-grid">
+<div class="final-card"><div class="n">01</div><p>If you could only read books or watch films for the rest of your life, what would you choose?</p></div>
+<div class="final-card"><div class="n">02</div><p>Would you rather watch a terrible film based on your favourite book or never see the adaptation?</p></div>
+<div class="final-card"><div class="n">03</div><p>Do you think people will still read physical books in 50 years? Why?</p></div>
+<div class="final-card"><div class="n">04</div><p>Is it possible for a story to be good even if it has boring characters?</p></div>
+<div class="final-card"><div class="n">05</div><p>What makes a story unforgettable: its plot, characters, message or ending?</p></div>
+</div>
+</section>
+
+<section class="section homework" id="homework">
+<div class="section-head"><div><div class="section-kicker">Your speaking project</div><h2>You're the Film Director!</h2><p class="subtitle">Create your own film adaptation.</p></div><label class="done"><input class="complete" type="checkbox"> Completed</label></div>
+<div class="lead">A famous author has sold the rights to their best-selling novel. You are directing the film adaptation. You have a limited budget and only two hours to tell the story.</div>
+<h3>Your task</h3>
+<p>Choose a book (it can be a famous book or one you love) and prepare a short presentation about your film adaptation. Explain your decisions.</p>
+<h3>Make your decisions</h3>
+<ol class="homework-list">
+<li>Would you keep the original ending or create a surprising new one?</li>
+<li>Would you keep all the characters or remove some?</li>
+<li>Would you choose famous actors or talented unknown actors?</li>
+<li>Would you use emotional music or a simple soundtrack?</li>
+<li>Would you follow the book closely or add new scenes?</li>
+<li>Would you show the best scenes in the trailer or keep the story mysterious?</li>
+<li>What would you call your film, and who would you want to watch it?</li>
+</ol>
+<h3>What to include</h3>
+<p>You can adapt a real book or invent a possible adaptation. Describe:</p>
+<ul class="homework-list" style="counter-reset:item">
+<li>The book and its story.</li><li>The main characters and casting choices.</li><li>The changes you would make.</li><li>Your version of the ending.</li><li>The target audience and why people would enjoy the film.</li>
+</ul>
+<div class="lead">Presentation length: 1–2 minutes.</div>
+<h3>Useful language</h3>
+<div class="language-box"><span>I'd cast ... as ...</span><span>I'd keep/change ... because ...</span><span>The story would be set in ...</span><span>I'd remove ... to make the story shorter.</span><span>My film would appeal to ...</span><span>I think the audience would love it because ...</span><span>Unlike the original book, my film would ...</span></div>
+<h3>Bonus challenge</h3>
+<p><strong>Create a title and describe your film poster in 2–3 sentences.</strong> What would we see? What colours or mood would you use?</p>
+</section>
+<div class="footer">One story. Two worlds. Endless ways to imagine. · End of Part 2</div>
+</main>
+</div>
+</div>
+<script>
+document.querySelectorAll('.flash').forEach(card=>card.addEventListener('click',()=>card.classList.toggle('revealed')));
+document.querySelectorAll('.expression button').forEach(btn=>btn.addEventListener('click',()=>btn.parentElement.classList.toggle('revealed')));
+const answers={v1:'kept me hooked',v2:"didn't live up to the hype",v3:'predictable',v4:'left a lasting impression on me',v5:'visually stunning'};
+document.getElementById('checkVocab').addEventListener('click',()=>{
+ let score=0;
+ Object.entries(answers).forEach(([id,answer])=>{const el=document.getElementById(id);const ok=el.value===answer||(id==='v3'&&el.value==='predictable');el.style.borderColor=ok?'#7ca487':el.value?'#c58a78':'#cfd8cd';if(ok)score++;});
+ const msg=document.getElementById('vocabFeedback');msg.textContent=`${score}/5 correct`;msg.className='feedback-msg '+(score===5?'correct':'incorrect');
+});
+const checks=[...document.querySelectorAll('#choiceGrid input')],count=document.getElementById('choiceCount'),message=document.getElementById('choiceMessage');
+checks.forEach(ch=>ch.addEventListener('change',()=>{
+ const selected=checks.filter(x=>x.checked);
+ if(selected.length>3){ch.checked=false;message.textContent='You can choose only three. Unselect one first.';message.style.color='#a15a45';}
+ else {count.textContent=`${selected.length}/3`;message.textContent=selected.length===3?'Great! You have chosen your three essential elements.':`Choose ${3-selected.length} more ${3-selected.length===1?'element':'elements'}.`;message.style.color='var(--muted)';}
+}));
+const complete=[...document.querySelectorAll('.complete')],fill=document.getElementById('progressFill'),pc=document.getElementById('progressCount');
+function updateProgress(){const n=complete.filter(x=>x.checked).length;fill.style.width=(n/complete.length*100)+'%';pc.textContent=`${n} / ${complete.length} sections`;}
+complete.forEach(x=>x.addEventListener('change',updateProgress));updateProgress();
+const links=[...document.querySelectorAll('.nav a')];const sections=links.map(a=>document.querySelector(a.getAttribute('href')));
+function updateNav(){let current=sections[0];sections.forEach(s=>{if(s&&s.getBoundingClientRect().top<150)current=s;});links.forEach(a=>a.classList.toggle('active',document.querySelector(a.getAttribute('href'))===current));}
+window.addEventListener('scroll',updateNav,{passive:true});updateNav();
+</script>
+</body>
+</html>

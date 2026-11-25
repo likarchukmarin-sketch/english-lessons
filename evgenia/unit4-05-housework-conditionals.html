@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Housework: If You Don't Do It, What Happens?</title>
+<style>
+  :root{
+    --paper:#f6f1ea;--ink:#2a2420;--panel:#ffffff;--clay:#a85a3a;--clay-dark:#86452c;
+    --sage:#6b7055;--sage-dark:#555a43;--line:#e4dccc;--muted:#73695c;--error:#a3453a;--good:#4b6a4f;
+    --radius:14px;
+    --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .shell{max-width:760px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;}
+
+  header.top{padding:16px 22px 0;}
+  .progresswrap{display:flex;align-items:center;gap:12px;}
+  .progress-track{flex:1;height:6px;background:var(--line);border-radius:4px;overflow:hidden;}
+  .progress-fill{height:100%;background:var(--clay);border-radius:4px;transition:width .3s;}
+  .counter{font-size:13px;color:var(--muted);white-space:nowrap;}
+
+  main{flex:1;padding:22px 22px 10px;}
+  .slide{display:none;animation:fade .25s ease;}
+  .slide.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .eyebrow{font-size:12.5px;color:var(--clay-dark);text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin:0 0 8px;}
+  h1.slidetitle{font-family:var(--serif);font-size:clamp(23px,4.6vw,31px);margin:0 0 8px;color:var(--ink);font-weight:600;line-height:1.25;}
+  .slidesub{font-size:15.5px;color:var(--muted);margin:0 0 18px;font-style:italic;}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;}
+  .card.prompt{border-left:4px solid var(--clay);}
+  .speaking-q{font-family:var(--serif);font-size:19px;color:var(--ink);margin:0;}
+
+  .chip-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:4px;}
+  .choicecard{background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:11px 16px;border-radius:10px;font-size:15px;cursor:pointer;transition:all .15s;user-select:none;}
+  .choicecard:hover{border-color:var(--clay);}
+  .choicecard.marked{background:#f1ece2;border-color:var(--sage);color:var(--sage-dark);}
+
+  .statement{font-family:var(--serif);font-size:17.5px;color:var(--ink);background:#f1ece2;border-radius:10px;padding:13px 16px;margin-bottom:10px;}
+  .statement b{color:var(--clay-dark);}
+
+  .item{border-bottom:1px dashed var(--line);padding:14px 0;}
+  .item:last-child{border-bottom:none;}
+  .item .lead{font-size:16px;margin-bottom:8px;}
+
+  .reveal-btn{background:var(--clay);color:#fff;border:none;padding:8px 17px;border-radius:7px;font-size:14px;cursor:pointer;margin-top:6px;}
+  .reveal-btn:hover{background:var(--clay-dark);}
+  .reveal-box{display:none;margin-top:10px;padding:11px 14px;background:#f1ece2;border-left:3px solid var(--sage);border-radius:4px;font-size:14.5px;color:var(--ink);}
+  .reveal-box.open{display:block;}
+
+  .opt-row{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+  button.opt{text-align:left;background:var(--panel);border:1px solid var(--line);padding:10px 14px;border-radius:8px;font-size:15px;cursor:pointer;color:var(--ink);font-family:var(--sans);}
+  button.opt:hover:not(:disabled){border-color:var(--clay);}
+  button.opt.correct{background:#eaf0e8;border-color:var(--good);color:var(--good);font-weight:600;}
+  button.opt.incorrect{background:#f6e9e6;border-color:var(--error);color:var(--error);}
+  button.opt:disabled{cursor:default;}
+
+  .twobtn{display:flex;gap:10px;margin-top:8px;}
+  .twobtn button{flex:1;}
+
+  .rulebox{background:var(--sage-dark);color:#f4f1ea;border-radius:var(--radius);padding:18px 20px;margin-top:4px;}
+  .rulebox h3{margin:0 0 8px;font-family:var(--serif);font-size:19px;color:#fff;}
+  .rulebox .formula{font-family:var(--serif);font-style:italic;font-size:17px;margin:6px 0;}
+  .rulebox ul{margin:8px 0 0;padding-left:18px;font-size:14.5px;}
+
+  .badge-bonus{display:inline-block;background:var(--clay);color:#fff;font-size:12px;letter-spacing:.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:10px;}
+
+  .colgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;}
+  @media(max-width:600px){.colgrid{grid-template-columns:1fr;}}
+  .colcard{border:1.5px dashed var(--sage);border-radius:10px;padding:14px;background:#fbfaf6;}
+  .colcard h4{margin:0 0 6px;font-size:14px;color:var(--sage-dark);}
+  .colcard p{margin:0;font-family:var(--serif);font-style:italic;font-size:14.5px;color:var(--muted);}
+
+  .scenario{background:#f6e9e2;border:1px solid #e9d2c3;border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+  .scenario b{color:var(--clay-dark);}
+
+  .summarylist{list-style:none;padding:0;margin:14px 0 0;}
+  .summarylist li{padding:6px 0;font-size:15px;}
+
+  /* teacher notes */
+  .tn-toggle{background:none;border:1px solid var(--line);color:var(--muted);font-size:12.5px;padding:5px 12px;border-radius:20px;cursor:pointer;float:right;margin-top:-4px;}
+  .tn-toggle:hover{border-color:var(--sage);color:var(--sage-dark);}
+  .teacher-notes{display:none;clear:both;margin-top:16px;background:#efe9df;border:1px dashed var(--muted);border-radius:10px;padding:14px 16px;font-size:13.5px;color:var(--ink);}
+  .teacher-notes.open{display:block;}
+  .teacher-notes h4{margin:0 0 4px;font-size:12.5px;color:var(--clay-dark);text-transform:uppercase;letter-spacing:.4px;}
+  .teacher-notes p{margin:0 0 8px;}
+  .teacher-notes p:last-child{margin-bottom:0;}
+
+  nav.navbar{padding:14px 22px 22px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);}
+  .navbtn{background:var(--ink);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:14.5px;cursor:pointer;}
+  .navbtn:disabled{opacity:.3;cursor:default;}
+  .navbtn.ghost{background:none;color:var(--ink);border:1px solid var(--line);}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <div class="progresswrap">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="counter" id="counter">1 / 16</div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- SLIDE 1 -->
+    <section class="slide active" id="slide-1">
+      <p class="eyebrow">Housework &amp; Conditionals</p>
+      <h1 class="slidetitle">Housework: If You Don't Do It, What Happens?</h1>
+      <p class="slidesub">Zero, First &amp; a little Second Conditional</p>
+      <div class="card prompt">
+        <p class="speaking-q">What household chore do you hate doing the most? Why?</p>
+      </div>
+      <button class="tn-toggle" onclick="toggleTN('tn1')">Teacher notes</button>
+      <div class="teacher-notes" id="tn1">
+        <h4>Мета</h4><p>Розігрів-speaking, активізація відомої лексики housework, без граматики.</p>
+        <h4>Час</h4><p>~2 хв</p>
+        <h4>Завдання</h4><p>Попросити відповісти 2–3 реченнями, використавши одну з відомих фраз (do the laundry / do the dishes / do the ironing / tidy up тощо).</p>
+        <h4>Follow-up</h4><p>"How often do you have to do it?"</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 2 -->
+    <section class="slide" id="slide-2">
+      <p class="eyebrow">Quick Recall</p>
+      <h1 class="slidetitle">Let's bring housework back</h1>
+      <p class="slidesub">Click each one and say: "When was the last time you did this?"</p>
+      <div class="chip-row" id="recallChips">
+        <span class="choicecard" onclick="this.classList.toggle('marked')">do the dishes</span>
+        <span class="choicecard" onclick="this.classList.toggle('marked')">do the laundry</span>
+        <span class="choicecard" onclick="this.classList.toggle('marked')">make the bed</span>
+        <span class="choicecard" onclick="this.classList.toggle('marked')">do the ironing</span>
+        <span class="choicecard" onclick="this.classList.toggle('marked')">sweep the floor</span>
+        <span class="choicecard" onclick="this.classList.toggle('marked')">clear the table</span>
+        <span class="choicecard" onclick="this.classList.toggle('marked')">take out the garbage</span>
+        <span class="choicecard" onclick="this.classList.toggle('marked')">tidy up</span>
+      </div>
+      <p class="example" style="font-size:13.5px;color:var(--muted);margin-top:10px;">e.g. "I did the laundry yesterday."</p>
+      <button class="tn-toggle" onclick="toggleTN('tn2')">Teacher notes</button>
+      <div class="teacher-notes" id="tn2">
+        <h4>Мета</h4><p>Швидка активізація відомої лексики — не grammar exercise.</p>
+        <h4>Час</h4><p>Максимум 4 хв — не затягувати.</p>
+        <h4>Примітка</h4><p>Картки клікабельні лише для позначення "вже обговорили" — відповіді не перевіряються.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 3 -->
+    <section class="slide" id="slide-3">
+      <p class="eyebrow">Consequences</p>
+      <h1 class="slidetitle">What happens if…?</h1>
+      <p class="slidesub">Finish each sentence yourself before revealing a possible answer.</p>
+
+      <div class="item">
+        <div class="lead">If you leave wet clothes in the washing machine, …</div>
+        <button class="reveal-btn" onclick="toggleReveal('c1')">Reveal possible answer</button>
+        <div class="reveal-box" id="c1">…they smell bad.</div>
+      </div>
+      <div class="item">
+        <div class="lead">If you don't take out the garbage, …</div>
+        <button class="reveal-btn" onclick="toggleReveal('c2')">Reveal possible answer</button>
+        <div class="reveal-box" id="c2">…the kitchen smells.</div>
+      </div>
+      <div class="item">
+        <div class="lead">If you never tidy up, …</div>
+        <button class="reveal-btn" onclick="toggleReveal('c3')">Reveal possible answer</button>
+        <div class="reveal-box" id="c3">…your home gets messy.</div>
+      </div>
+      <div class="item">
+        <div class="lead">If you don't dry the dishes, …</div>
+        <button class="reveal-btn" onclick="toggleReveal('c4')">Reveal possible answer</button>
+        <div class="reveal-box" id="c4">…the dishes stay wet.</div>
+      </div>
+      <div class="item">
+        <div class="lead">If you don't change your sheets for a long time, …</div>
+        <button class="reveal-btn" onclick="toggleReveal('c5')">Reveal possible answer</button>
+        <div class="reveal-box" id="c5">…the sheets get dirty.</div>
+      </div>
+
+      <button class="tn-toggle" onclick="toggleTN('tn3')">Teacher notes</button>
+      <div class="teacher-notes" id="tn3">
+        <h4>Мета</h4><p>М'який вхід у значення Zero Conditional через зміст, без терміну.</p>
+        <h4>Важливо</h4><p>Не вимагати дослівного збігу з "можливою відповіддю" — будь-яке логічне продовження приймається.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 -->
+    <section class="slide" id="slide-4">
+      <p class="eyebrow">Discover the Grammar</p>
+      <h1 class="slidetitle">What do these sentences have in common?</h1>
+      <div class="statement">If you don't take out the garbage, the kitchen smells.</div>
+      <div class="statement">If you leave wet clothes in the washing machine, they smell bad.</div>
+      <div class="statement">If you don't tidy up regularly, your home gets messy.</div>
+      <div class="card">
+        <ul class="summarylist" style="margin:0;">
+          <li>1. Are we talking about one specific future situation?</li>
+          <li>2. Or something that usually happens?</li>
+          <li>3. Which tense do we use after IF?</li>
+          <li>4. Which tense do we use in the result?</li>
+        </ul>
+      </div>
+      <button class="reveal-btn" onclick="toggleReveal('rule0')">Show the rule</button>
+      <div class="reveal-box" id="rule0" style="padding:0;background:none;border:none;">
+        <div class="rulebox">
+          <h3>ZERO CONDITIONAL</h3>
+          <div class="formula">IF + Present Simple → Present Simple</div>
+          <p style="margin:8px 0 0;">Use it for: facts, rules, things that usually happen, cause and effect.</p>
+          <p style="margin-top:8px;"><i>If you don't clean your sponge, it gets dirty.</i></p>
+        </div>
+      </div>
+      <button class="tn-toggle" onclick="toggleTN('tn4')">Teacher notes</button>
+      <div class="teacher-notes" id="tn4">
+        <h4>Мета</h4><p>Guided discovery — студентка сама формулює здогад перед правилом.</p>
+        <h4>Можливі помилки</h4><p>Може сказати "will" в обох частинах — не виправляти одразу, дати дійти самій на наступному слайді.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 5 -->
+    <section class="slide" id="slide-5">
+      <p class="eyebrow">Zero Conditional Check</p>
+      <h1 class="slidetitle">Choose the ending</h1>
+
+      <div class="item"><div class="lead">If you don't wash your sheets regularly…</div>
+        <div class="opt-row">
+          <button class="opt" data-correct="true" onclick="selectOption(this,true,'e1')">they get dirty.</button>
+          <button class="opt" data-correct="false" onclick="selectOption(this,false,'e1')">they will get dirty.</button>
+          <button class="opt" data-correct="false" onclick="selectOption(this,false,'e1')">they would get dirty.</button>
+        </div>
+        <div class="reveal-box" id="e1">Zero Conditional: both parts use Present Simple — no "will", no "would".</div>
+      </div>
+
+      <div class="item"><div class="lead">If you leave dishes in the sink…</div>
+        <div class="opt-row">
+          <button class="opt" data-correct="true" onclick="selectOption(this,true,'e2')">the kitchen gets messy.</button>
+          <button class="opt" data-correct="false" onclick="selectOption(this,false,'e2')">the kitchen will get messy.</button>
+          <button class="opt" data-correct="false" onclick="selectOption(this,false,'e2')">the kitchen would get messy.</button>
+        </div>
+        <div class="reveal-box" id="e2">A general result — Present Simple on both sides.</div>
+      </div>
+
+      <div class="item"><div class="lead">If you don't dry the dishes…</div>
+        <div class="opt-row">
+          <button class="opt" data-correct="true" onclick="selectOption(this,true,'e3')">they stay wet.</button>
+          <button class="opt" data-correct="false" onclick="selectOption(this,false,'e3')">they will stay wet.</button>
+          <button class="opt" data-correct="false" onclick="selectOption(this,false,'e3')">they would stay wet.</button>
+        </div>
+        <div class="reveal-box" id="e3">Fact / usual result → Zero Conditional.</div>
+      </div>
+
+      <div class="item"><div class="lead">If you don't take out the garbage…</div>
+        <div class="opt-row">
+          <button class="opt" data-correct="true" onclick="selectOption(this,true,'e4')">it starts to smell.</button>
+          <button class="opt" data-correct="false" onclick="selectOption(this,false,'e4')">it will start to smell.</button>
+          <button class="opt" data-correct="false" onclick="selectOption(this,false,'e4')">it would start to smell.</button>
+        </div>
+        <div class="reveal-box" id="e4">Cause and effect, always true → Present Simple + Present Simple.</div>
+      </div>
+
+      <div class="item"><div class="lead">If you don't sweep the floor…</div>
+        <div class="opt-row">
+          <button class="opt" data-correct="true" onclick="selectOption(this,true,'e5')">it gets dirty.</button>
+          <button class="opt" data-correct="false" onclick="selectOption(this,false,'e5')">it will get dirty.</button>
+          <button class="opt" data-correct="false" onclick="selectOption(this,false,'e5')">it would get dirty.</button>
+        </div>
+        <div class="reveal-box" id="e5">Same pattern — a usual, repeated result.</div>
+      </div>
+
+      <div class="item"><div class="lead">If you don't tidy up…</div>
+        <div class="opt-row">
+          <button class="opt" data-correct="true" onclick="selectOption(this,true,'e6')">things are everywhere.</button>
+          <button class="opt" data-correct="false" onclick="selectOption(this,false,'e6')">things will be everywhere.</button>
+          <button class="opt" data-correct="false" onclick="selectOption(this,false,'e6')">things would be everywhere.</button>
+        </div>
+        <div class="reveal-box" id="e6">Zero Conditional — a rule about what always happens.</div>
+      </div>
+
+      <button class="tn-toggle" onclick="toggleTN('tn5')">Teacher notes</button>
+      <div class="teacher-notes" id="tn5">
+        <h4>Мета</h4><p>Закріпити форму Zero Conditional через розпізнавання, перш ніж переходити до First.</p>
+        <h4>Якщо легко</h4><p>Попросити додати власний приклад на кожен пункт усно.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 6 -->
+    <section class="slide" id="slide-6">
+      <p class="eyebrow">Production</p>
+      <h1 class="slidetitle">Housework Rules</h1>
+      <p class="slidesub">Finish each one in your own words — out loud.</p>
+      <ul class="summarylist">
+        <li>If you don't do the laundry, …</li>
+        <li>If you don't make the bed, …</li>
+        <li>If you don't clear the table, …</li>
+        <li>If you don't clean the kitchen utensils, …</li>
+        <li>If you don't take out the garbage, …</li>
+      </ul>
+      <button class="tn-toggle" onclick="toggleTN('tn6')">Teacher notes</button>
+      <div class="teacher-notes" id="tn6">
+        <h4>Мета</h4><p>Вільна продукція Zero Conditional — speaking + grammar разом.</p>
+        <h4>Корекція</h4><p>Виправляти лише ключові помилки (форма, не лексика), не перебивати кожне речення.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 7 -->
+    <section class="slide" id="slide-7">
+      <p class="eyebrow">Zero → First</p>
+      <h1 class="slidetitle">Wait… is it always Zero Conditional?</h1>
+      <div class="statement">If I don't do the laundry <b>regularly</b>, I have no clean clothes.</div>
+      <div class="statement">If I don't do the laundry <b>tonight</b>, I'll have no clean clothes tomorrow.</div>
+      <div class="card"><p class="speaking-q" style="font-size:16px;">What is the difference?</p></div>
+      <button class="reveal-btn" onclick="toggleReveal('rule1')">Show the rule</button>
+      <div class="reveal-box" id="rule1" style="padding:0;background:none;border:none;">
+        <div class="rulebox" style="margin-bottom:10px;">
+          <h3>ZERO CONDITIONAL</h3>
+          <p style="margin:0;">General / usual result</p>
+          <div class="formula">If I don't do the laundry regularly, I have no clean clothes.</div>
+        </div>
+        <div class="rulebox" style="background:var(--clay-dark);">
+          <h3>FIRST CONDITIONAL</h3>
+          <p style="margin:0;">Real future possibility</p>
+          <div class="formula">If I don't do the laundry tonight, I'll have no clean clothes tomorrow.</div>
+          <p style="margin-top:10px;">IF + Present Simple → WILL + base verb<br>(never "will" after IF)</p>
+        </div>
+      </div>
+      <button class="tn-toggle" onclick="toggleTN('tn7')">Teacher notes</button>
+      <div class="teacher-notes" id="tn7">
+        <h4>Мета</h4><p>Контраст загального правила vs конкретної майбутньої ситуації.</p>
+        <h4>Можлива помилка</h4><p>"If I will do the laundry tonight..." — одразу м'яко виправити після цього слайду.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 8 -->
+    <section class="slide" id="slide-8">
+      <p class="eyebrow">Detective</p>
+      <h1 class="slidetitle">Zero or First?</h1>
+
+      <div class="item"><div class="lead">1. If I don't clean regularly, my apartment gets messy.</div>
+        <div class="twobtn">
+          <button class="opt" onclick="detect(this,true,'d1')">ZERO</button>
+          <button class="opt" onclick="detect(this,false,'d1')">FIRST</button>
+        </div>
+        <div class="reveal-box" id="d1">ZERO — a usual, repeated result ("regularly").</div>
+      </div>
+      <div class="item"><div class="lead">2. If I don't do the laundry tonight, I'll have no clean clothes tomorrow.</div>
+        <div class="twobtn">
+          <button class="opt" onclick="detect(this,false,'d2')">ZERO</button>
+          <button class="opt" onclick="detect(this,true,'d2')">FIRST</button>
+        </div>
+        <div class="reveal-box" id="d2">FIRST — a specific, real future situation ("tonight"/"tomorrow").</div>
+      </div>
+      <div class="item"><div class="lead">3. If you leave wet clothes in the washing machine, they smell bad.</div>
+        <div class="twobtn">
+          <button class="opt" onclick="detect(this,true,'d3')">ZERO</button>
+          <button class="opt" onclick="detect(this,false,'d3')">FIRST</button>
+        </div>
+        <div class="reveal-box" id="d3">ZERO — always true, a fact.</div>
+      </div>
+      <div class="item"><div class="lead">4. If I have guests tomorrow, I'll tidy up the living room.</div>
+        <div class="twobtn">
+          <button class="opt" onclick="detect(this,false,'d4')">ZERO</button>
+          <button class="opt" onclick="detect(this,true,'d4')">FIRST</button>
+        </div>
+        <div class="reveal-box" id="d4">FIRST — a specific future plan.</div>
+      </div>
+      <div class="item"><div class="lead">5. If you don't clean your sponge, it gets dirty.</div>
+        <div class="twobtn">
+          <button class="opt" onclick="detect(this,true,'d5')">ZERO</button>
+          <button class="opt" onclick="detect(this,false,'d5')">FIRST</button>
+        </div>
+        <div class="reveal-box" id="d5">ZERO — a general fact.</div>
+      </div>
+      <div class="item"><div class="lead">6. If I finish work early, I'll do the grocery shopping.</div>
+        <div class="twobtn">
+          <button class="opt" onclick="detect(this,false,'d6')">ZERO</button>
+          <button class="opt" onclick="detect(this,true,'d6')">FIRST</button>
+        </div>
+        <div class="reveal-box" id="d6">FIRST — a real possibility today.</div>
+      </div>
+      <div class="item"><div class="lead">7. If you don't take out the garbage, the kitchen smells.</div>
+        <div class="twobtn">
+          <button class="opt" onclick="detect(this,true,'d7')">ZERO</button>
+          <button class="opt" onclick="detect(this,false,'d7')">FIRST</button>
+        </div>
+        <div class="reveal-box" id="d7">ZERO — a general rule.</div>
+      </div>
+      <div class="item"><div class="lead">8. If I don't have time tonight, I'll do the dishes tomorrow.</div>
+        <div class="twobtn">
+          <button class="opt" onclick="detect(this,false,'d8')">ZERO</button>
+          <button class="opt" onclick="detect(this,true,'d8')">FIRST</button>
+        </div>
+        <div class="reveal-box" id="d8">FIRST — a specific plan for tonight/tomorrow.</div>
+      </div>
+
+      <button class="tn-toggle" onclick="toggleTN('tn8')">Teacher notes</button>
+      <div class="teacher-notes" id="tn8">
+        <h4>Мета</h4><p>Розпізнавання Zero vs First за контекстом (regularly/usually vs tonight/tomorrow).</p>
+        <h4>Follow-up</h4><p>Попросити пояснити "чому" після 2-3 відповідей, не після кожної.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 9 -->
+    <section class="slide" id="slide-9">
+      <p class="eyebrow">First Conditional</p>
+      <h1 class="slidetitle">What will happen?</h1>
+      <p class="slidesub">Complete each one — use one of the ideas below, or your own.</p>
+
+      <div class="item"><div class="lead">1. If I have guests tomorrow, I'll…</div>
+        <div class="chip-row"><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">tidy up the living room</span><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">cook a nice dinner</span><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">clean the bathroom first</span><span class="chip" style="background:var(--clay);color:#fff;padding:5px 11px;border-radius:14px;font-size:13.5px;">your own idea</span></div>
+      </div>
+      <div class="item"><div class="lead">2. If I finish work early, I'll…</div>
+        <div class="chip-row"><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">do the grocery shopping</span><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">clean the kitchen</span><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">relax at home</span><span class="chip" style="background:var(--clay);color:#fff;padding:5px 11px;border-radius:14px;font-size:13.5px;">your own idea</span></div>
+      </div>
+      <div class="item"><div class="lead">3. If I don't have enough time tonight, I'll…</div>
+        <div class="chip-row"><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">do the dishes tomorrow</span><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">leave the laundry for the weekend</span><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">just tidy up quickly</span><span class="chip" style="background:var(--clay);color:#fff;padding:5px 11px;border-radius:14px;font-size:13.5px;">your own idea</span></div>
+      </div>
+      <div class="item"><div class="lead">4. If my washing machine breaks, I'll…</div>
+        <div class="chip-row"><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">wash clothes by hand</span><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">go to a laundromat</span><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">call a repair person</span><span class="chip" style="background:var(--clay);color:#fff;padding:5px 11px;border-radius:14px;font-size:13.5px;">your own idea</span></div>
+      </div>
+      <div class="item"><div class="lead">5. If the garbage bags run out, I'll…</div>
+        <div class="chip-row"><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">buy more today</span><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">use a plastic bag instead</span><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">ask a neighbour</span><span class="chip" style="background:var(--clay);color:#fff;padding:5px 11px;border-radius:14px;font-size:13.5px;">your own idea</span></div>
+      </div>
+      <div class="item"><div class="lead">6. If my apartment gets really messy, I'll…</div>
+        <div class="chip-row"><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">clean everything on the weekend</span><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">ask someone to help</span><span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">do a quick 10-minute tidy-up</span><span class="chip" style="background:var(--clay);color:#fff;padding:5px 11px;border-radius:14px;font-size:13.5px;">your own idea</span></div>
+      </div>
+
+      <button class="tn-toggle" onclick="toggleTN('tn9')">Teacher notes</button>
+      <div class="teacher-notes" id="tn9">
+        <h4>Мета</h4><p>Заохочувати повні речення з "I'll", не однослівні відповіді.</p>
+        <h4>Follow-up</h4><p>"Why that one?" після вибору — для розгорнутої відповіді.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 10 -->
+    <section class="slide" id="slide-10">
+      <p class="eyebrow">Housework Emergency 🚨</p>
+      <h1 class="slidetitle">What will you do?</h1>
+      <p class="slidesub">Use First Conditional at least twice.</p>
+
+      <div class="scenario"><b>Situation 1 —</b> Your friends are coming in 2 hours. Your apartment is a mess.
+        <button class="reveal-btn" onclick="toggleReveal('s1')">Need an example?</button>
+        <div class="reveal-box" id="s1">"If my friends are coming in two hours, I'll tidy up first."</div>
+      </div>
+      <div class="scenario"><b>Situation 2 —</b> You have no clean clothes and you need to leave tomorrow morning.</div>
+      <div class="scenario"><b>Situation 3 —</b> Your washing machine suddenly stops working.</div>
+      <div class="scenario"><b>Situation 4 —</b> You're exhausted after work, but the garbage is full and there are dirty dishes everywhere.
+        <button class="reveal-btn" onclick="toggleReveal('s4')">Need an example?</button>
+        <div class="reveal-box" id="s4">"If I don't have enough energy, I'll only clean the kitchen and leave the rest for tomorrow."</div>
+      </div>
+
+      <button class="tn-toggle" onclick="toggleTN('tn10')">Teacher notes</button>
+      <div class="teacher-notes" id="tn10">
+        <h4>Мета</h4><p>Вільна продукція First Conditional у реалістичних "кризових" ситуаціях.</p>
+        <h4>Важливо</h4><p>Не показувати готові answers заздалегідь — лише опційний приклад за кнопкою, якщо застрягла.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 11 -->
+    <section class="slide" id="slide-11">
+      <p class="eyebrow">Real Life Decisions</p>
+      <h1 class="slidetitle">What would you do first?</h1>
+      <div class="chip-row">
+        <span class="chip" style="background:#f1ece2;padding:7px 14px;border-radius:16px;">do the dishes</span>
+        <span class="chip" style="background:#f1ece2;padding:7px 14px;border-radius:16px;">do the laundry</span>
+        <span class="chip" style="background:#f1ece2;padding:7px 14px;border-radius:16px;">sweep the floor</span>
+        <span class="chip" style="background:#f1ece2;padding:7px 14px;border-radius:16px;">take out the garbage</span>
+        <span class="chip" style="background:#f1ece2;padding:7px 14px;border-radius:16px;">tidy up</span>
+      </div>
+      <div class="card prompt" style="margin-top:16px;">
+        <p style="margin:0 0 8px;"><b>You only have 30 minutes before leaving home.</b></p>
+        <p class="speaking-q" style="font-size:16.5px;">Which three things will you do first? Why?</p>
+      </div>
+      <p class="example" style="font-size:14px;color:var(--muted);">e.g. "If I only have 30 minutes, I'll take out the garbage first because…"</p>
+      <button class="tn-toggle" onclick="toggleTN('tn11')">Teacher notes</button>
+      <div class="teacher-notes" id="tn11">
+        <h4>Мета</h4><p>First Conditional + обґрунтування вибору (because) — природний, реалістичний контекст.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 12 -->
+    <section class="slide" id="slide-12">
+      <span class="badge-bonus">Bonus Level ⭐</span>
+      <h1 class="slidetitle">What if…?</h1>
+      <div class="rulebox" style="background:var(--sage-dark);">
+        <h3>SECOND CONDITIONAL</h3>
+        <div class="formula">IF + Past Simple → WOULD + base verb</div>
+        <p style="margin:8px 0 0;">Use it for: imaginary / unlikely situations.</p>
+        <p style="margin-top:8px;"><i>If I had a cleaner, I would never do the ironing.</i></p>
+      </div>
+      <div class="card" style="margin-top:14px;">
+        <p style="margin:0 0 6px;"><b>First:</b> If I have more time tonight, I'll clean the kitchen. <span style="color:var(--muted);">→ real possibility</span></p>
+        <p style="margin:0;"><b>Second:</b> If I had more free time, I would clean the whole apartment. <span style="color:var(--muted);">→ hypothetical</span></p>
+      </div>
+      <button class="tn-toggle" onclick="toggleTN('tn12')">Teacher notes</button>
+      <div class="teacher-notes" id="tn12">
+        <h4>Мета</h4><p>Короткий bonus — лише якщо залишається час. Не перевантажувати теорією.</p>
+        <h4>Якщо мало часу</h4><p>Можна пропустити слайди 12-13 повністю.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 13 -->
+    <section class="slide" id="slide-13">
+      <p class="eyebrow">Bonus Speaking</p>
+      <h1 class="slidetitle">If you had unlimited help…</h1>
+      <ul class="summarylist">
+        <li>1. If you had a cleaner for one day, what would you ask them to do?</li>
+        <li>2. If you had unlimited money, which chores would you never do yourself?</li>
+        <li>3. If you had a huge house, which chores would you hate?</li>
+        <li>4. If you had a robot that could do one chore, what would you choose?</li>
+        <li>5. If you had to live without a washing machine for a month, what would you do?</li>
+      </ul>
+      <div class="chip-row">
+        <span class="chip" style="background:#f1ece2;padding:6px 13px;border-radius:16px;">I would…</span>
+        <span class="chip" style="background:#f1ece2;padding:6px 13px;border-radius:16px;">I wouldn't…</span>
+        <span class="chip" style="background:#f1ece2;padding:6px 13px;border-radius:16px;">I'd rather…</span>
+      </div>
+      <button class="tn-toggle" onclick="toggleTN('tn13')">Teacher notes</button>
+      <div class="teacher-notes" id="tn13">
+        <h4>Мета</h4><p>Вільна гіпотетична мова — радше гра уяви, ніж граматична точність.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 14 -->
+    <section class="slide" id="slide-14">
+      <p class="eyebrow">Final Challenge</p>
+      <h1 class="slidetitle">3 Conditionals Challenge</h1>
+      <div class="colgrid">
+        <div class="colcard"><h4>ZERO</h4><p>If I don't…, …</p></div>
+        <div class="colcard"><h4>FIRST</h4><p>If I don't… tonight, I'll…</p></div>
+        <div class="colcard"><h4>SECOND</h4><p>If I had…, I would…</p></div>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <p style="margin:0 0 8px;font-size:14px;color:var(--muted);">Vocabulary bank:</p>
+        <div class="chip-row">
+          <span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">do the laundry</span>
+          <span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">do the dishes</span>
+          <span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">make the bed</span>
+          <span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">do the ironing</span>
+          <span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">sweep the floor</span>
+          <span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">take out the garbage</span>
+          <span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">tidy up</span>
+          <span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">washing machine</span>
+          <span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">sponge</span>
+          <span class="chip" style="background:#f1ece2;padding:5px 11px;border-radius:14px;font-size:13.5px;">broom</span>
+        </div>
+      </div>
+      <div class="card prompt" style="margin-top:12px;">
+        <p style="margin:0;">Create: <b>2 Zero</b>, <b>2 First</b>, and <b>1 Second</b> Conditional sentence — your own content.</p>
+      </div>
+      <button class="tn-toggle" onclick="toggleTN('tn14')">Teacher notes</button>
+      <div class="teacher-notes" id="tn14">
+        <h4>Мета</h4><p>Синтез усіх трьох типів — власний контент, не повторення готових речень.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 15 -->
+    <section class="slide" id="slide-15">
+      <p class="eyebrow">Final Speaking</p>
+      <h1 class="slidetitle">My Perfect Housework System</h1>
+      <p class="slidesub">Imagine you're designing your own housework system. Talk for 1–2 minutes.</p>
+      <ul class="summarylist">
+        <li><b>What do you usually do?</b> <span style="color:var(--muted);font-size:14px;">→ Zero Conditional</span></li>
+        <li><b>What will you do if you're busy this week?</b> <span style="color:var(--muted);font-size:14px;">→ First Conditional</span></li>
+        <li><b>What would you change if you had more money/time/help?</b> <span style="color:var(--muted);font-size:14px;">→ Second Conditional</span></li>
+      </ul>
+      <div class="chip-row">
+        <span class="chip" style="background:#f1ece2;padding:6px 13px;border-radius:16px;">If I don't…</span>
+        <span class="chip" style="background:#f1ece2;padding:6px 13px;border-radius:16px;">If I have…</span>
+        <span class="chip" style="background:#f1ece2;padding:6px 13px;border-radius:16px;">If I don't have…</span>
+        <span class="chip" style="background:#f1ece2;padding:6px 13px;border-radius:16px;">If I had…</span>
+        <span class="chip" style="background:#f1ece2;padding:6px 13px;border-radius:16px;">I'll…</span>
+        <span class="chip" style="background:#f1ece2;padding:6px 13px;border-radius:16px;">I would…</span>
+        <span class="chip" style="background:#f1ece2;padding:6px 13px;border-radius:16px;">I wouldn't…</span>
+      </div>
+      <button class="tn-toggle" onclick="toggleTN('tn15')">Teacher notes</button>
+      <div class="teacher-notes" id="tn15">
+        <h4>Мета</h4><p>Фінальна вільна мова, 1-2 хв, усі три типи природно в одному монолозі.</p>
+        <h4>Корекція</h4><p>Не перебивати; зібрати 1-2 показові помилки на завершення.</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 16 -->
+    <section class="slide" id="slide-16">
+      <p class="eyebrow">Exit Ticket</p>
+      <h1 class="slidetitle">Before you go…</h1>
+      <ul class="summarylist">
+        <li>1. If I don't do housework regularly, …</li>
+        <li>2. If I have a busy week, I'll …</li>
+        <li>3. If I had a personal cleaner, I would …</li>
+      </ul>
+      <div class="card" style="margin-top:18px;background:#f1ece2;border:none;">
+        <p style="margin:0 0 8px;font-weight:600;color:var(--sage-dark);">Today you practised:</p>
+        <ul class="summarylist" style="margin:0;">
+          <li>✓ Zero Conditional — facts &amp; usual results</li>
+          <li>✓ First Conditional — real future possibilities</li>
+          <li>✓ Second Conditional — imaginary situations</li>
+        </ul>
+      </div>
+      <button class="tn-toggle" onclick="toggleTN('tn16')">Teacher notes</button>
+      <div class="teacher-notes" id="tn16">
+        <h4>Мета</h4><p>Фінальна перевірка продукції всіх трьох типів без підтримки.</p>
+        <h4>Примітка</h4><p>Не вимагати єдиного правильного формулювання — приймати будь-яке логічне й граматично правильне завершення.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="navbar">
+    <button class="navbtn ghost" id="prevBtn" onclick="changeSlide(-1)">Previous</button>
+    <button class="navbtn" id="nextBtn" onclick="changeSlide(1)">Next</button>
+  </nav>
+</div>
+
+<script>
+  const total = 16;
+  let current = 1;
+
+  function render(){
+    document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
+    document.getElementById('slide-'+current).classList.add('active');
+    document.getElementById('progressFill').style.width = (current/total*100)+'%';
+    document.getElementById('counter').textContent = current+' / '+total;
+    document.getElementById('prevBtn').disabled = current===1;
+    document.getElementById('nextBtn').textContent = current===total ? 'Finish' : 'Next';
+    document.getElementById('nextBtn').disabled = current===total;
+    window.scrollTo(0,0);
+  }
+
+  function changeSlide(dir){
+    const next = current+dir;
+    if(next>=1 && next<=total){ current=next; render(); }
+  }
+
+  function toggleReveal(id){
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  function toggleTN(id){
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  function selectOption(btn, isCorrect, explId){
+    const row = btn.parentElement;
+    row.querySelectorAll('button.opt').forEach(b=>{
+      b.disabled = true;
+      if(b===btn){ b.classList.add(isCorrect ? 'correct' : 'incorrect'); }
+      else if(b.dataset.correct === 'true'){ b.classList.add('correct'); }
+    });
+    const exp = document.getElementById(explId);
+    if(exp) exp.classList.add('open');
+  }
+
+  function detect(btn, isCorrect, explId){
+    const row = btn.parentElement;
+    row.querySelectorAll('button.opt').forEach(b=>{ b.disabled = true; });
+    btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+    const exp = document.getElementById(explId);
+    if(exp) exp.classList.add('open');
+  }
+
+  render();
+</script>
+</body>
+</html>

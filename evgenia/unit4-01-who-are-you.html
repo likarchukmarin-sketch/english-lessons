@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1 — Who Are You? | Yevheniia</title>
+<style>
+  :root{
+    --ink:#1e2a2e;
+    --paper:#faf8f4;
+    --panel:#ffffff;
+    --teal:#3a6b62;
+    --teal-dark:#2a4d47;
+    --gold:#b8863f;
+    --line:#e3ddd0;
+    --muted:#6b6459;
+    --error:#a3453a;
+    --good:#3a6b52;
+    --radius:10px;
+    --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px 80px;}
+
+  header.top{
+    background:var(--teal-dark);
+    color:#f4f1ea;
+    padding:28px 20px 22px;
+    border-bottom:4px solid var(--gold);
+  }
+  header.top .inner{max-width:760px;margin:0 auto;}
+  .eyebrow{font-size:13px;color:#cfe0da;margin:0 0 6px;}
+  h1{
+    font-family:var(--serif);
+    font-size:clamp(26px,5vw,34px);
+    margin:0 0 10px;
+    font-weight:600;
+    letter-spacing:.2px;
+  }
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:14px;color:#dfe8e4;margin-bottom:16px;}
+  .meta-row span b{color:#fff;}
+  .objective{
+    background:rgba(255,255,255,.08);
+    border-left:3px solid var(--gold);
+    padding:12px 14px;
+    border-radius:4px;
+    font-size:15px;
+  }
+
+  .progress-bar{
+    display:flex;gap:4px;padding:14px 0 0;
+    max-width:760px;margin:0 auto;
+  }
+  .progress-bar .seg{
+    flex:1;height:6px;border-radius:4px;background:rgba(255,255,255,.18);
+    transition:background .3s;
+  }
+  .progress-bar .seg.done{background:var(--gold);}
+
+  nav.stagenav{
+    position:sticky;top:0;z-index:10;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
+    white-space:nowrap;
+    padding:10px 20px;
+    font-size:13px;
+  }
+  nav.stagenav a{
+    color:var(--muted);
+    text-decoration:none;
+    margin-right:16px;
+    padding:5px 10px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    display:inline-block;
+  }
+  nav.stagenav a.active{
+    background:var(--teal);
+    color:#fff;
+    border-color:var(--teal);
+  }
+
+  section.stage{
+    padding:34px 0 8px;
+    border-bottom:1px solid var(--line);
+  }
+  section.stage:last-of-type{border-bottom:none;}
+  .stage-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:6px;
+  }
+  .stage-head h2{
+    font-family:var(--serif);
+    font-size:22px;
+    margin:0;
+    color:var(--teal-dark);
+  }
+  .timing{
+    font-size:13px;
+    color:var(--gold);
+    background:#f4ead8;
+    padding:3px 10px;
+    border-radius:20px;
+    white-space:nowrap;
+  }
+  .stage-note{color:var(--muted);font-size:14.5px;margin:0 0 18px;}
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:18px 20px;
+    margin-bottom:16px;
+  }
+  .card h3{
+    font-size:15.5px;
+    margin:0 0 10px;
+    color:var(--teal-dark);
+  }
+  .prompt-list{margin:0;padding-left:0;list-style:none;}
+  .prompt-list li{
+    padding:9px 0;
+    border-bottom:1px dashed var(--line);
+    font-size:15px;
+  }
+  .prompt-list li:last-child{border-bottom:none;}
+
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+  .chip{
+    background:#eef3f0;
+    border:1px solid #d7e3dc;
+    color:var(--teal-dark);
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:14px;
+  }
+
+  .reveal-btn{
+    background:var(--teal);
+    color:#fff;
+    border:none;
+    padding:8px 16px;
+    border-radius:6px;
+    font-size:14px;
+    cursor:pointer;
+    margin-top:8px;
+  }
+  .reveal-btn:hover{background:var(--teal-dark);}
+  .reveal-box{
+    display:none;
+    margin-top:12px;
+    padding:12px 14px;
+    background:#f6f2e8;
+    border-left:3px solid var(--gold);
+    border-radius:4px;
+    font-size:14.5px;
+  }
+  .reveal-box.open{display:block;}
+
+  .sentence-item{
+    padding:10px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .sentence-item:last-child{border-bottom:none;}
+  .sentence-item .txt{font-size:15px;}
+  .tiny-btn{
+    font-size:12.5px;
+    color:var(--teal);
+    background:none;
+    border:1px solid var(--teal);
+    border-radius:14px;
+    padding:2px 10px;
+    cursor:pointer;
+    margin-top:5px;
+  }
+
+  .mistake-item{
+    background:#faf3f1;
+    border:1px solid #edd8d3;
+    border-radius:8px;
+    padding:12px 14px;
+    margin-bottom:10px;
+  }
+  .mistake-item .wrong{color:var(--error);font-size:15px;}
+
+  .frame-box{
+    font-size:15.5px;
+    background:#f4f1ea;
+    border-radius:8px;
+    padding:14px 16px;
+    margin:10px 0;
+    font-family:var(--serif);
+    font-style:italic;
+    color:var(--teal-dark);
+  }
+
+  .peoplemap{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-top:10px;
+  }
+  @media(max-width:520px){.peoplemap{grid-template-columns:1fr;}}
+  .person-slot{
+    border:1.5px dashed var(--teal);
+    border-radius:10px;
+    padding:14px;
+    background:#fbfdfc;
+  }
+  .person-slot h4{margin:0 0 8px;font-size:14px;color:var(--teal-dark);}
+  .person-slot ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--muted);}
+
+  .selfcheck-list{list-style:none;padding:0;margin:0;}
+  .selfcheck-list li{
+    display:flex;align-items:flex-start;gap:10px;
+    padding:9px 0;border-bottom:1px dashed var(--line);
+    font-size:15px;
+  }
+  .selfcheck-list li:last-child{border-bottom:none;}
+  .selfcheck-list input{margin-top:4px;width:17px;height:17px;accent-color:var(--teal);}
+
+  .homework-box{
+    background:var(--teal-dark);
+    color:#f4f1ea;
+    border-radius:var(--radius);
+    padding:20px 22px;
+  }
+  .homework-box h3{margin:0 0 8px;color:#fff;font-family:var(--serif);font-size:19px;}
+
+  details.teacher{
+    margin-top:34px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:#f4f1ea;
+  }
+  details.teacher summary{
+    cursor:pointer;
+    padding:14px 18px;
+    font-weight:600;
+    color:var(--teal-dark);
+    font-size:14.5px;
+  }
+  details.teacher .tcontent{padding:0 18px 18px;font-size:14px;color:var(--ink);}
+  details.teacher .tcontent h4{margin:14px 0 6px;color:var(--teal-dark);font-size:14.5px;}
+  details.teacher .tcontent ul{margin:0 0 4px;padding-left:20px;}
+
+  footer.end{
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    padding:30px 0 10px;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <p class="eyebrow">Yevheniia's Course · Module 1 · Lesson 1 of ~42</p>
+    <h1>Who Are You? People In Your Life</h1>
+    <div class="meta-row">
+      <span><b>Speakout B1</b>, Unit 1A</span>
+      <span>50 min</span>
+      <span>Speaking-first + diagnostic</span>
+    </div>
+    <div class="objective">
+      <b>Lesson goal:</b> by the end of the lesson, you can describe 3–4 important people in your life (who they are, what they're like, what you do together), naturally choosing between Present Simple and Present Continuous, with minimal pauses to search for words.
+    </div>
+  </div>
+  <div class="progress-bar" id="progressBar"></div>
+</header>
+
+<nav class="stagenav" id="stageNav">
+  <a href="#s1">1. Warm-up</a>
+  <a href="#s2">2. Vocabulary</a>
+  <a href="#s3">3. Grammar</a>
+  <a href="#s4">4. Practice</a>
+  <a href="#s5">5. People Map</a>
+  <a href="#s6">6. Feedback</a>
+  <a href="#s7">7. Self-check</a>
+  <a href="#s8">8. Homework</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- STAGE 1 -->
+  <section class="stage" id="s1" data-stage="0">
+    <div class="stage-head"><h2>1. Warm-up — quick retrieval</h2><span class="timing">5 min</span></div>
+    <p class="stage-note">Answer right away, without thinking too long about each one. The goal is speed, not perfect accuracy.</p>
+    <div class="card">
+      <h3>Quick-fire questions (spoken, from your teacher)</h3>
+      <ul class="prompt-list">
+        <li>How often do you talk to your family?</li>
+        <li>Who are you spending the most time with these days?</li>
+        <li>What do you usually do at weekends?</li>
+        <li>What are you working on right now (a project, a book, a habit)?</li>
+        <li>Who is your oldest friend, and how did you meet?</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- STAGE 2 -->
+  <section class="stage" id="s2" data-stage="1">
+    <div class="stage-head"><h2>2. Vocabulary — people & character</h2><span class="timing">8 min</span></div>
+    <p class="stage-note">This vocabulary is probably already familiar — the goal here isn't to learn something new, but to bring it back quickly.</p>
+
+    <div class="card">
+      <h3>Chunks for talking about relationships</h3>
+      <div class="chip-row">
+        <span class="chip">get on well with</span>
+        <span class="chip">look up to</span>
+        <span class="chip">stay in touch with</span>
+        <span class="chip">take after</span>
+        <span class="chip">rely on</span>
+        <span class="chip">catch up with</span>
+      </div>
+      <button class="reveal-btn" onclick="toggleReveal('rev1')">Check meaning</button>
+      <div class="reveal-box" id="rev1">
+        <b>get on well with</b> — to have a good relationship with someone · <b>look up to</b> — to admire and respect someone ·
+        <b>stay in touch with</b> — to keep contacting someone · <b>take after</b> — to be similar to a parent or relative ·
+        <b>rely on</b> — to depend on someone · <b>catch up with</b> — to meet and talk after a while apart
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Personality adjectives — check how fast you can recall these</h3>
+      <div class="chip-row">
+        <span class="chip">reliable</span>
+        <span class="chip">easy-going</span>
+        <span class="chip">generous</span>
+        <span class="chip">sociable</span>
+        <span class="chip">hard-working</span>
+        <span class="chip">patient</span>
+        <span class="chip">stubborn</span>
+        <span class="chip">supportive</span>
+      </div>
+      <button class="reveal-btn" onclick="toggleReveal('rev2')">Show quick definitions</button>
+      <div class="reveal-box" id="rev2">
+        reliable — you can trust them to do what they say · easy-going — relaxed, doesn't get stressed easily · generous — happy to give time/money/help · sociable — enjoys being with people · hard-working — puts in a lot of effort · patient — doesn't get annoyed while waiting · stubborn — doesn't change their mind easily · supportive — helps and encourages you
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Try it out loud</h3>
+      <p style="font-size:15px;margin:0;">Pick 3 adjectives and 2 chunks, and say 3 sentences out loud about real people in your life — no writing.</p>
+    </div>
+  </section>
+
+  <!-- STAGE 3 -->
+  <section class="stage" id="s3" data-stage="2">
+    <div class="stage-head"><h2>3. Grammar — Present Simple vs Continuous</h2><span class="timing">10 min</span></div>
+    <p class="stage-note">This is grammar you already know. The tasks below are diagnostic — let's see how automatic your choice of tense is, and whether there's a trap with state verbs.</p>
+
+    <div class="card">
+      <h3>Notice the difference</h3>
+      <div class="sentence-item">
+        <div class="txt">1. My sister <b>lives</b> in Lviv, but she<b>'s staying</b> with us this month.</div>
+        <button class="tiny-btn" onclick="toggleReveal('g1')">Why?</button>
+        <div class="reveal-box" id="g1">lives — a permanent fact (Present Simple); is staying — a temporary situation right now (Present Continuous).</div>
+      </div>
+      <div class="sentence-item">
+        <div class="txt">2. I <b>usually see</b> my grandparents on Sundays, but this week I<b>'m seeing</b> them on Friday instead.</div>
+        <button class="tiny-btn" onclick="toggleReveal('g2')">Why?</button>
+        <div class="reveal-box" id="g2">usually see — a habit/routine; am seeing — a specific temporary plan for this week.</div>
+      </div>
+      <div class="sentence-item">
+        <div class="txt">3. She<b>'s working</b> on a big project at the moment, so she<b>'s</b> quite busy these days.</div>
+        <button class="tiny-btn" onclick="toggleReveal('g3')">Why?</button>
+        <div class="reveal-box" id="g3">is working — a temporary period, happening now/around now; is (busy) — Present Simple, a current description.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Spot the mistake (state verbs)</h3>
+      <div class="mistake-item">
+        <div class="wrong">✗ I'm loving spending time with my family.</div>
+        <button class="tiny-btn" onclick="toggleReveal('m1')">Correct it</button>
+        <div class="reveal-box" id="m1">✓ I love spending time with my family. <br><span style="color:var(--muted)">love is a state verb — it isn't used in the continuous.</span></div>
+      </div>
+      <div class="mistake-item">
+        <div class="wrong">✗ He's having three brothers.</div>
+        <button class="tiny-btn" onclick="toggleReveal('m2')">Correct it</button>
+        <div class="reveal-box" id="m2">✓ He has three brothers. <br><span style="color:var(--muted)">have (meaning "to possess") describes a state, not an action.</span></div>
+      </div>
+      <div class="mistake-item">
+        <div class="wrong">✗ She's understanding the situation really well.</div>
+        <button class="tiny-btn" onclick="toggleReveal('m3')">Correct it</button>
+        <div class="reveal-box" id="m3">✓ She understands the situation really well.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Adverbs of frequency — order them mentally from 0% to 100%</h3>
+      <div class="chip-row">
+        <span class="chip">never</span>
+        <span class="chip">rarely / hardly ever</span>
+        <span class="chip">sometimes</span>
+        <span class="chip">often</span>
+        <span class="chip">usually</span>
+        <span class="chip">always</span>
+      </div>
+      <p style="font-size:14px;color:var(--muted);margin-top:10px;">Remember: these words go <i>before</i> the main verb, but <i>after</i> "to be" — I <u>usually</u> call her. / She's <u>usually</u> busy.</p>
+    </div>
+  </section>
+
+  <!-- STAGE 4 -->
+  <section class="stage" id="s4" data-stage="3">
+    <div class="stage-head"><h2>4. Guided practice</h2><span class="timing">5 min</span></div>
+    <p class="stage-note">Complete these out loud (not in writing) about yourself, using the vocabulary and grammar above.</p>
+    <div class="card">
+      <div class="frame-box">I ___ (always / usually / rarely) ___ with my ___.</div>
+      <div class="frame-box">At the moment, I ___ (present continuous) ___.</div>
+      <div class="frame-box">My ___ is really ___ (adjective) — that's why I ___ (chunk) ___.</div>
+    </div>
+  </section>
+
+  <!-- STAGE 5 -->
+  <section class="stage" id="s5" data-stage="4">
+    <div class="stage-head"><h2>5. People Map — main task</h2><span class="timing">15 min</span></div>
+    <p class="stage-note">Name 4 people who are important to you right now. For each person, speak without notes: who they are, 2 personality traits, how you're connected (a chunk), one habit (Present Simple + frequency), and one "right now" detail (Present Continuous). Your teacher will ask 1–2 follow-up questions about each person.</p>
+    <div class="peoplemap">
+      <div class="person-slot"><h4>Person 1 — family</h4><ul><li>who is it?</li><li>2 personality traits</li><li>1 chunk</li><li>habit + frequency</li><li>"right now" detail</li></ul></div>
+      <div class="person-slot"><h4>Person 2 — a friend</h4><ul><li>who is it?</li><li>2 personality traits</li><li>1 chunk</li><li>habit + frequency</li><li>"right now" detail</li></ul></div>
+      <div class="person-slot"><h4>Person 3 — work</h4><ul><li>who is it?</li><li>2 personality traits</li><li>1 chunk</li><li>habit + frequency</li><li>"right now" detail</li></ul></div>
+      <div class="person-slot"><h4>Person 4 — your choice</h4><ul><li>who is it?</li><li>2 personality traits</li><li>1 chunk</li><li>habit + frequency</li><li>"right now" detail</li></ul></div>
+    </div>
+  </section>
+
+  <!-- STAGE 6 -->
+  <section class="stage" id="s6" data-stage="5">
+    <div class="stage-head"><h2>6. Feedback</h2><span class="timing">4 min</span></div>
+    <p class="stage-note">Your teacher will note down 2–3 sentences from your speech (with a mistake) — try to correct them yourself before hearing the right version.</p>
+    <div class="card" id="liveErrors">
+      <h3>Noted during "People Map"</h3>
+      <p style="color:var(--muted);font-size:14.5px;">(Teacher fills this in live — space for notes)</p>
+      <div class="mistake-item"><div class="wrong">1. ______________________________</div></div>
+      <div class="mistake-item"><div class="wrong">2. ______________________________</div></div>
+      <div class="mistake-item"><div class="wrong">3. ______________________________</div></div>
+    </div>
+  </section>
+
+  <!-- STAGE 7 -->
+  <section class="stage" id="s7" data-stage="6">
+    <div class="stage-head"><h2>7. Self-check</h2><span class="timing">1 min</span></div>
+    <div class="card">
+      <ul class="selfcheck-list">
+        <li><input type="checkbox"><span>I can describe important people in my life using personality traits and chunks.</span></li>
+        <li><input type="checkbox"><span>I can correctly choose between Present Simple and Present Continuous in spontaneous speech.</span></li>
+        <li><input type="checkbox"><span>I don't use the continuous with state verbs (love, have, understand...).</span></li>
+        <li><input type="checkbox"><span>I can answer follow-up questions without long pauses.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- STAGE 8 -->
+  <section class="stage" id="s8" data-stage="7">
+    <div class="stage-head"><h2>8. Homework</h2><span class="timing">2 min</span></div>
+    <div class="homework-box">
+      <h3>Voice message, 30 seconds</h3>
+      <p style="margin:0 0 8px;">Introduce yourself as if to a new acquaintance: who you are, who you spend time with, what you're doing right now. Use at least <b>3 personality adjectives</b> from today's lesson, and choose correctly between Present Simple and Present Continuous.</p>
+      <p style="margin:0;font-size:13.5px;color:#cfe0da;">Goal: active retrieval of vocabulary with no visual support — exactly what matters most for you right now.</p>
+    </div>
+  </section>
+
+  <details class="teacher">
+    <summary>Нотатки для викладача</summary>
+    <div class="tcontent">
+      <h4>Мета уроку</h4>
+      <p>Перший урок курсу — одночасно speaking-first і діагностичний. Головне завдання: побачити реальну швидкість ретриву лексики про людей/характер і природність вибору Present Simple/Continuous у спонтанному мовленні, а не в контрольованій вправі.</p>
+      <h4>Чому така структура</h4>
+      <p>Лексика й граматика тут відомі студентці — тому короткий noticing/diagnostic блок (10 хв), а не пояснення з нуля. Основний час і вага — на "People Map" (15 хв), де вона produces language під легким тиском часу й уточнюючих запитань.</p>
+      <h4>Ключова мова для спостереження</h4>
+      <ul>
+        <li>Present Simple vs Continuous при описі людей і звичок</li>
+        <li>State verbs (love, have, understand, know) — чи з'являється помилкове -ing</li>
+        <li>Adverbs of frequency — позиція в реченні (до дієслова / після be)</li>
+        <li>Швидкість пригадування chunks і прикметників характеру</li>
+      </ul>
+      <h4>Ймовірні труднощі</h4>
+      <ul>
+        <li>Паузи на пригадування прикметників характеру — нормально для першого уроку, фіксувати які саме слова "гальмують"</li>
+        <li>Можливий перехід на українську при описі складніших стосунків — це нормально, м'яко пропонувати парафраз</li>
+        <li>Continuous зі state verbs — головна граматична пастка цього уроку</li>
+      </ul>
+      <h4>Стратегія корекції</h4>
+      <p>Під час "People Map" — не перебивати, лише занотовувати 2–3 показові помилки. У блоці фідбеку — дати їй шанс самокорекції (написати помилкове речення, дати подумати), і лише потім озвучити правильний варіант.</p>
+      <h4>Що повторити наступного разу</h4>
+      <p>Прикметники характеру й chunks з цього уроку мають з'явитись знову в Уроці 2 (Speakout 1B, робота/verb patterns) — наприклад, при описі колег. Present Simple/Continuous також буде фоново повторюватись у всьому Модулі 1.</p>
+      <h4>Адаптація</h4>
+      <p><b>Якщо важко:</b> дозволити описати лише 2–3 людей замість 4; дати сентенс-старти з блоку 4 як опору під час "People Map".<br>
+      <b>Якщо легко:</b> прибрати опори, додати запитання на порівняння ("Хто з них більше схожий на тебе?"), попросити розповісти про одну людину 1 хвилину без зупинки.</p>
+    </div>
+  </details>
+
+  <footer class="end">Yevheniia's Course · Lesson 1 · Module 1</footer>
+</div>
+
+<script>
+  function toggleReveal(id){
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  const stages = document.querySelectorAll('.stage');
+  const navLinks = document.querySelectorAll('.stagenav a');
+  const bar = document.getElementById('progressBar');
+  stages.forEach(()=>{
+    const seg = document.createElement('div');
+    seg.className='seg';
+    bar.appendChild(seg);
+  });
+  const segs = bar.querySelectorAll('.seg');
+
+  function onScroll(){
+    let current = 0;
+    stages.forEach((s,i)=>{
+      const rect = s.getBoundingClientRect();
+      if(rect.top < window.innerHeight*0.4) current = i;
+    });
+    segs.forEach((seg,i)=> seg.classList.toggle('done', i<=current));
+    navLinks.forEach((a,i)=> a.classList.toggle('active', i===current));
+  }
+  document.addEventListener('scroll', onScroll);
+  onScroll();
+</script>
+
+</body>
+</html>

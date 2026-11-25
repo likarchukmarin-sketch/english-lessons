@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twilight: Hidden in Plain Sight – The Forks Investigation</title>
+<style>
+:root{--bg:#0d1113;--panel:#162022;--panel2:#212b2d;--ink:#f3efe9;--muted:#b9c3c1;--red:#873840;--red2:#c27a80;--line:#374343;--gold:#e0cda7;--green:#9fc9a8;--rose:#e0aeb2;--blue:#9db9cf}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,"Segoe UI",sans-serif}
+a{color:#edc4c6}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:0;background:#fff;color:#000;padding:.5rem 1rem;z-index:100}.skip:focus{left:0}
+.wrap{max-width:1120px;margin:auto;padding:0 20px}
+/* HERO */
+.hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;padding:4rem 0;overflow:hidden;background:linear-gradient(0deg,#0d1113 3%,rgba(13,17,19,.7) 45%,rgba(13,17,19,.15)),url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=80') center/cover,linear-gradient(160deg,#27373a,#0d1113)}
+.rain{position:absolute;inset:-50% 0 0 0;pointer-events:none;background:repeating-linear-gradient(103deg,transparent 0 14px,rgba(200,215,220,.10) 14px 15px,transparent 15px 31px),repeating-linear-gradient(101deg,transparent 0 41px,rgba(200,215,220,.07) 41px 42px,transparent 42px 77px);animation:fall 1.1s linear infinite}
+@keyframes fall{to{transform:translateY(50%)}}
+@media(prefers-reduced-motion:reduce){.rain{animation:none}html{scroll-behavior:auto}}
+.hero .wrap{position:relative}
+.eyebrow,.tag{color:var(--rose);text-transform:uppercase;letter-spacing:.15em;font-size:.76rem;font-weight:750}
+.hero h1{font:clamp(2.8rem,8vw,5.8rem)/.95 Georgia,serif;letter-spacing:-.035em;margin:.6rem 0 1rem}
+.hero .q{font:italic clamp(1.2rem,3vw,1.7rem)/1.35 Georgia,serif;color:var(--gold);max-width:720px;margin:.5rem 0 1rem}
+.pill{display:inline-block;border:1px solid #88666a;border-radius:99px;padding:.25rem .75rem;margin:.2rem .2rem .2rem 0;font-size:.85rem}
+.btn-link{display:inline-block;margin-top:1rem;background:var(--red);color:#fff;text-decoration:none;padding:.7rem 1.2rem;border-radius:10px;border:1px solid #b56c71}
+.credit{font-size:.75rem;color:var(--muted);margin-top:1.2rem}
+/* NAV */
+.nav{position:sticky;top:0;background:#0d1113f2;backdrop-filter:blur(8px);z-index:20;border-bottom:1px solid var(--line);overflow-x:auto}
+.nav .wrap{display:flex;gap:.25rem;white-space:nowrap;padding-top:.5rem;padding-bottom:.5rem}
+.nav a{color:var(--muted);text-decoration:none;padding:.4rem .65rem;border-radius:8px;font-size:.9rem}
+.nav a:hover,.nav a.on{background:var(--panel2);color:#fff}
+.nav a.on{box-shadow:inset 0 -2px 0 var(--red2)}
+/* SECTIONS */
+section{padding:3.2rem 0;border-bottom:1px solid var(--line)}
+section.alt{background:linear-gradient(180deg,#101719,#0d1113)}
+h2{font:clamp(1.9rem,4.6vw,3rem)/1.1 Georgia,serif;margin:.35rem 0 .8rem}
+h3{margin:.2rem 0 .5rem;font-size:1.2rem}
+h4{margin:.8rem 0 .3rem;font-size:1rem;color:var(--gold)}
+p{margin:.4rem 0 .8rem}
+.sub{color:var(--muted);max-width:800px}.small{font-size:.92rem;color:var(--muted)}.caption{font-size:.8rem;color:var(--muted)}
+.head{display:flex;justify-content:space-between;gap:1rem;margin-bottom:1.4rem}
+.time{color:var(--gold);border:1px solid #675a43;border-radius:99px;padding:.25rem .8rem;white-space:nowrap;height:max-content}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.split{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:1.2rem;align-items:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.1rem;min-width:0}
+.sticky{position:sticky;top:70px}
+.scene{font:italic 1.15rem/1.6 Georgia,serif;border-left:3px solid var(--red2);padding:.4rem 0 .4rem 1rem;margin:.6rem 0 1rem;color:#efe6da;background:linear-gradient(90deg,rgba(135,56,64,.18),transparent)}
+.stamp{display:inline-block;border:2px solid var(--red2);color:var(--red2);font:700 .8rem/1 system-ui;letter-spacing:.2em;padding:.35rem .6rem;transform:rotate(-3deg);text-transform:uppercase}
+.prompt{border-left:3px solid var(--red2);padding:.2rem 0 .2rem .8rem;margin:.6rem 0}
+.prompt.big{font-size:1.2rem}
+.follow{color:var(--muted);font-size:.95rem;margin:.2rem 0 0;padding-left:1.1rem}
+.follow li{margin:.15rem 0}
+.challenge{margin-top:.7rem;border:1px dashed #6a5a42;border-radius:10px;padding:.5rem .8rem;font-size:.93rem;color:#e8dcc4}
+.challenge b{color:var(--gold)}
+.frame{background:#1d2527;border:1px solid #435052;border-radius:10px;padding:.55rem .8rem;font-size:.95rem;color:#e6dfd4}
+.frame em{color:#f1c9cd}
+/* BUTTONS & CONTROLS */
+button{background:var(--red);color:#fff;border:1px solid #b56c71;border-radius:10px;padding:.6rem 1rem;cursor:pointer;font:inherit}
+button:hover{background:#a44952}
+button.secondary{background:#262d2e;border-color:#566060}
+button.secondary:hover{background:#323b3c}
+.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.7rem 0}
+.hidden{display:none!important}
+.reveal{display:none;background:#222b2c;border:1px solid #465050;border-radius:10px;padding:.9rem;margin-top:.7rem}
+.reveal.open{display:block}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin:.5rem 0}
+.chip{background:#222b2c;color:var(--ink);border:1px solid #4a5656;border-radius:99px;padding:.4rem .85rem;font-size:.95rem}
+.chip[aria-pressed=true],.chip.sel{background:var(--red);border-color:#d79aa0}
+.tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.8rem}
+.tab{background:#1b2426;border-color:#44504f;border-radius:10px 10px 0 0}
+.tab[aria-selected=true]{background:var(--red);border-color:#d79aa0}
+.choices{display:grid;gap:.45rem;margin:.6rem 0}
+.choice{display:flex;gap:.55rem;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:.55rem .7rem;background:#111719;cursor:pointer;font-size:.97rem}
+.choice:hover{border-color:var(--red2)}
+input[type=radio],input[type=checkbox],input[type=range]{accent-color:var(--red2)}
+input[type=radio],input[type=checkbox]{margin-top:.38rem}
+input[type=range]{width:100%}
+.scale{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted)}
+textarea{width:100%;min-height:80px;background:#0f1517;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:.7rem;font:inherit}
+.badge{display:inline-block;border-radius:6px;padding:.15rem .55rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border:1px solid}
+.b-story{color:var(--green);border-color:#5c8b66}.b-confirmed{color:var(--green);border-color:#5c8b66}.b-reported{color:var(--gold);border-color:#8d7a52}.b-fan{color:var(--rose);border-color:#8f5f64}.b-set{color:var(--blue);border-color:#58758a}
+.note{background:#29251f;border:1px solid #69583e;border-radius:11px;padding:.9rem 1rem;color:#f0e2c9}
+details.teacher{border:1px dashed #a8834d;border-radius:11px;padding:.6rem 1rem;margin-top:1rem;background:#1f1c17;color:#e9d8bc}
+details.teacher summary{cursor:pointer;color:#f0c98c;font-weight:700}
+details.teacher p,details.teacher li{color:#e9d8bc}
+details.words{margin-top:.8rem}
+details.words summary{cursor:pointer;color:var(--gold);font-weight:700}
+.ladder{display:grid;gap:.6rem}
+.rung{border-radius:12px;padding:.7rem .9rem;border:1px solid var(--line);background:#121a1c}
+.rung .pct{font:700 .8rem system-ui;letter-spacing:.12em;color:var(--muted)}
+.rung .f{font:1.1rem Georgia,serif;color:#efc7cb}
+.rung.r1{border-left:6px solid #b96d72}.rung.r2{border-left:6px solid #d8bf86}.rung.r3{border-left:6px solid #6f93a8}
+.rung em{display:block;font-size:.93rem;color:#ddd5ca}
+.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem;margin:.8rem 0}
+.pin{position:relative;text-align:left;background:#d9d0bd;color:#2a2620;border:1px solid #a79d86;border-radius:4px;padding:.8rem .8rem .7rem;min-height:116px;font-size:.95rem;line-height:1.4;transform:rotate(-.8deg);box-shadow:0 6px 14px rgba(0,0,0,.45)}
+.pin:nth-child(even){transform:rotate(.9deg)}
+.pin:hover{background:#e6ddc9}
+.pin::before{content:"";position:absolute;top:-6px;left:50%;width:12px;height:12px;border-radius:50%;background:#873840;box-shadow:0 2px 3px rgba(0,0,0,.5)}
+.pin[aria-pressed=true]{outline:3px solid var(--red2);background:#f0e2d0}
+.pin .rk{position:absolute;right:8px;top:6px;background:var(--red);color:#fff;border-radius:50%;width:26px;height:26px;display:none;align-items:center;justify-content:center;font-weight:700}
+.pin[aria-pressed=true] .rk{display:flex}
+.pin b{display:block;margin-bottom:.2rem}
+.theory{background:#1a1417;border:1px solid #6a3d44}
+.progress{height:5px;background:#303737;border-radius:9px;overflow:hidden;margin-bottom:1rem}.progress span{display:block;height:100%;width:0;background:var(--red2)}
+.score{font:1.3rem Georgia,serif;color:var(--gold)}
+.feedback{display:none;background:#222b2c;border:1px solid #465050;border-radius:9px;padding:.6rem .8rem;margin-top:.5rem;font-size:.95rem}.feedback.show{display:block}
+.checklist label{display:flex;gap:.55rem;margin:.5rem 0}
+.meter{display:flex;align-items:baseline;gap:.6rem}
+.meter output{font:2rem Georgia,serif;color:var(--gold);min-width:2.2rem}
+.verdict-box{border:2px solid var(--red2);border-radius:14px;padding:1rem 1.2rem;margin-top:1rem;background:#1b1214}
+/* TOOLKIT */
+#tkBtn{position:fixed;right:16px;bottom:16px;z-index:40;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+#toolkit{position:fixed;right:16px;bottom:70px;width:min(420px,calc(100vw - 32px));max-height:70vh;overflow:auto;background:#121a1c;border:1px solid #6d5b44;border-radius:14px;padding:1rem;z-index:40;display:none;box-shadow:0 12px 34px rgba(0,0,0,.6)}
+#toolkit.open{display:block}
+#toolkit h4{margin:.7rem 0 .2rem}
+#toolkit ul{margin:0;padding-left:1.1rem;font-size:.95rem}
+.footer{padding:2rem 0 5rem;color:var(--muted);font-size:.85rem}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top}
+th{color:var(--gold)}
+ol,ul{padding-left:1.3rem}
+@media(max-width:860px){.split{grid-template-columns:1fr}.sticky{position:static}.board{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.grid,.grid3{grid-template-columns:1fr}.head{display:block}.time{display:inline-block;margin-top:.5rem}body{font-size:16px}.hero{min-height:70vh}}
+@media print{.nav,button,#tkBtn,#toolkit,details.teacher{display:none!important}body{background:#fff;color:#111}.card{background:#fff;color:#111;border-color:#bbb}.hero{min-height:auto;background:#fff}.rain{display:none}.reveal{display:block}}
+</style>
+</head>
+<body>
+<a class="skip" href="#forks">Skip to the lesson</a>
+
+<header class="hero" id="top">
+  <div class="rain" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="eyebrow">Case file · Speaking lesson · A2+</div>
+    <h1>TWILIGHT:<br><em>Hidden in Plain Sight</em></h1>
+    <p class="q">“How much can we really trust what we see?”</p>
+    <span class="pill">50 minutes</span><span class="pill">You speak. The teacher investigates with you.</span><span class="pill">Spoilers for all five films</span>
+    <p class="small">Detective rule: look first, guess second, check the evidence last.</p>
+    <a class="btn-link" href="#forks">Open the case file</a>
+    <p class="credit">Background: atmospheric forest photograph (not a film still). Needs internet; the lesson works without it.</p>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Lesson stages"><div class="wrap">
+  <a href="#forks">A · Forks</a><a href="#clues">B · Clues</a><a href="#minds">C · Minds</a><a href="#eggs">D · Egg or coincidence?</a><a href="#board">E · Theory board</a><a href="#verdict">F · Verdict</a><a href="#homework">Homework</a><a href="#extension">Extension</a><a href="#teacher">Teacher</a>
+</div></nav>
+
+<main id="main">
+
+<!-- STAGE A -->
+<section id="forks"><div class="wrap">
+  <div class="head"><div><div class="eyebrow">Stage A · Enter Forks</div><h2>The new girl in the rain</h2><p class="sub">Forget the English lesson for a minute. You are in Forks, Washington.</p></div><span class="time">5 min</span></div>
+  <div class="split">
+    <div>
+      <div class="scene">Forks, Washington. It rains almost every day. Grey sky, green forest, a very small school. A new girl arrives from a sunny city. Everyone looks at her. But she is looking at five students who sit alone and never seem to belong.</div>
+      <div class="card">
+        <div class="tag">Three questions · one at a time</div>
+        <div id="steps">
+          <div class="step" data-i="0">
+            <h3>1 · Notice</h3>
+            <p class="prompt big">Close your eyes for a moment. What can you see, hear and feel in Forks?</p>
+            <ul class="follow"><li>What colour is the town?</li><li>Do you feel calm, tense or lonely? Why?</li></ul>
+          </div>
+          <div class="step hidden" data-i="1">
+            <h3>2 · Wonder</h3>
+            <p class="prompt big">Why is a rainy, quiet, forest town a good place for a story about secrets?</p>
+            <ul class="follow"><li>What could people hide here?</li><li>Would you like to live there? Why or why not?</li></ul>
+            <p class="challenge"><b>Challenge:</b> How is a small town different from a big city for someone with a secret?</p>
+          </div>
+          <div class="step hidden" data-i="2">
+            <h3>3 · Predict</h3>
+            <p class="prompt big">The new girl notices something strange about the five students. What do you think she will discover?</p>
+            <ul class="follow"><li>What makes you think that?</li><li>Is it dangerous for her? Why?</li></ul>
+          </div>
+        </div>
+        <div class="row"><button id="nextStep">Next question</button><span class="small" id="stepInfo">1 of 3</span></div>
+      </div>
+    </div>
+    <div class="card sticky">
+      <div class="tag">Your first instinct</div>
+      <h3>How much can we trust what we see in Twilight?</h3>
+      <label for="trust0" class="small">Move the slider, then explain your number.</label>
+      <div class="meter"><output id="trust0out" for="trust0">5</output><input type="range" id="trust0" min="0" max="10" value="5" aria-describedby="trustScale0"></div>
+      <div class="scale" id="trustScale0"><span>0 · Not at all</span><span>10 · Completely</span></div>
+      <p class="frame"><em>I chose … because … I think people in Forks …</em></p>
+      <p class="small">We will check this number again at the end.</p>
+      <details class="words"><summary>Detective words (tap to open)</summary>
+        <div class="chips" id="wordChips"></div>
+        <div class="reveal" id="wordDef" aria-live="polite"></div>
+      </details>
+    </div>
+  </div>
+  <details class="teacher"><summary>Teacher notes · Stage A</summary>
+    <ul>
+      <li><b>Goal:</b> get her imagining and speaking in under two minutes. Read the scene aloud slowly; do not explain it.</li>
+      <li>If she gives short answers, extend with: “What else?” “Can you describe it more?” “Why does that feel lonely?”</li>
+      <li>The slider is a first instinct, not a test. Note the number: you will revisit it in Stage F.</li>
+      <li>Vocabulary support is optional. Open it only if she asks for a word.</li>
+      <li>Teacher can add a personal answer to Notice to model a longer response.</li>
+    </ul>
+  </details>
+</div></section>
+
+<!-- STAGE B -->
+<section id="clues" class="alt"><div class="wrap">
+  <div class="head"><div><div class="eyebrow">Stage B · Read the clues</div><h2>Three exhibits from Forks High School</h2><p class="sub">Open one exhibit. Describe what you can see. Then give two explanations: an ordinary one and a secret one.</p></div><span class="time">12 min</span></div>
+  <div class="split">
+    <div>
+      <div class="tabs" role="tablist" aria-label="Exhibits">
+        <button class="tab" role="tab" id="tab-exA" aria-controls="pan-exA" aria-selected="true">Exhibit A · The cafeteria</button>
+        <button class="tab secondary" role="tab" id="tab-exB" aria-controls="pan-exB" aria-selected="false" tabindex="-1">Exhibit B · Biology class</button>
+        <button class="tab secondary" role="tab" id="tab-exC" aria-controls="pan-exC" aria-selected="false" tabindex="-1">Exhibit C · The sunny day</button>
+      </div>
+
+      <div class="card" role="tabpanel" id="pan-exA" aria-labelledby="tab-exA">
+        <span class="stamp">Exhibit A</span>
+        <div class="scene">Lunchtime. Five students sit together at one table. Their trays are full: pizza, fruit, a drink. Nobody takes a bite. They only talk quietly and look at the door.</div>
+        <p class="prompt big">What is strange about this table?</p>
+        <ul class="follow"><li>What can we actually see?</li><li>Give one ordinary explanation and one secret explanation.</li><li>Which is more convincing? Why?</li></ul>
+        <div class="grid" style="margin-top:.8rem">
+          <div class="frame"><b>Ordinary explanation</b><br><em>Maybe they … / They could be …</em></div>
+          <div class="frame"><b>Secret explanation</b><br><em>I have a feeling that … / It might be …</em></div>
+        </div>
+        <p class="challenge"><b>Challenge:</b> What would you need to see to be sure?</p>
+        <div class="row"><button class="secondary" data-toggle="hintA">Hint</button><button data-toggle="infoA">What the story tells us</button></div>
+        <div class="reveal" id="hintA">Look at the trays, not the people. Why would someone carry food they do not eat?</div>
+        <div class="reveal" id="infoA"><span class="badge b-story">Story fact</span> In the story, the Cullens are vampires. They carry food so they look like ordinary students.</div>
+      </div>
+
+      <div class="card hidden" role="tabpanel" id="pan-exB" aria-labelledby="tab-exB">
+        <span class="stamp">Exhibit B</span>
+        <div class="scene">Biology class. The only free seat is next to Edward. As Bella sits down, he leans away, covers his face and looks angry. The next day his seat is empty. He is absent for days.</div>
+        <p class="prompt big">Why does Edward react like this to a girl he has never met?</p>
+        <ul class="follow"><li>What are you sure about? What are you only guessing?</li><li>Use the ladder: is this <em>must</em>, <em>might</em> or <em>can't</em>?</li><li>Why does he disappear instead of staying and explaining?</li></ul>
+        <div class="grid" style="margin-top:.8rem">
+          <div class="frame"><b>Theory 1</b><br><em>He must … / He might …</em></div>
+          <div class="frame"><b>Theory 2</b><br><em>Another possibility is … / It can't be …</em></div>
+        </div>
+        <p class="challenge"><b>Challenge:</b> If you were Bella, what would you think after the first day? What would you do?</p>
+        <div class="row"><button class="secondary" data-toggle="hintB">Hint</button><button data-toggle="infoB">What the story tells us</button></div>
+        <div class="reveal" id="hintB">Think about the opposite of dislike. Could a strong reaction mean something else?</div>
+        <div class="reveal" id="infoB"><span class="badge b-story">Story fact · spoiler</span> Edward is fighting a very strong instinct around Bella. Staying away is his way to protect her.</div>
+      </div>
+
+      <div class="card hidden" role="tabpanel" id="pan-exC" aria-labelledby="tab-exC">
+        <span class="stamp">Exhibit C</span>
+        <div class="scene">Forks has one rule: it rains. But on the rare sunny day, five desks stay empty. Nobody in school seems to notice. Bella does.</div>
+        <p class="prompt big">What do the Cullens do when the sun comes out? What might this mean?</p>
+        <ul class="follow"><li>Past deduction: what <em>must have</em> happened to them yesterday?</li><li>Why might this be an easy clue to miss?</li><li>Which is stronger evidence: Exhibit A, B or C? Why?</li></ul>
+        <div class="grid" style="margin-top:.8rem">
+          <div class="frame"><b>The fact</b><br><em>I noticed that …</em></div>
+          <div class="frame"><b>My theory</b><br><em>This could mean that … They must have …</em></div>
+        </div>
+        <p class="challenge"><b>Challenge:</b> If the film took place in a sunny city, how would the secret be different?</p>
+        <div class="row"><button class="secondary" data-toggle="hintC">Hint</button><button data-toggle="infoC">What the story tells us</button></div>
+        <div class="reveal" id="hintC">Think about what the sun does to skin.</div>
+        <div class="reveal" id="infoC"><span class="badge b-story">Story fact</span> In the story, strong sunlight makes vampire skin sparkle, so the Cullens avoid being seen in it. This is why Forks is the perfect hiding place.</div>
+      </div>
+
+      <details class="teacher"><summary>Teacher notes · Stage B (how to run it, 12 min)</summary>
+        <ul>
+          <li><b>Flow (about 3-4 min each):</b> read the scene → she describes what she sees → she gives two explanations → you challenge her better one → reveal only when she has committed to a theory.</li>
+          <li><b>After Exhibit A (minute 4):</b> pause the exhibits for a 2-minute grammar moment using the Confidence ladder on the right. Model: “They must be hiding something.” Then she makes her own sentence.</li>
+          <li><b>Sample teacher pushback:</b> A: “Maybe they are just not hungry. That's possible, isn't it?” B: “Maybe he is simply unfriendly. Why must it be a secret?” C: “Perhaps they all just like camping.”</li>
+          <li><b>Language focus:</b> praise the reasoning first. Correct <em>must have + past participle</em> only when she attempts it, using delayed correction.</li>
+          <li><b>Do not</b> reveal “What the story tells us” if she is mid-thought. Use the Hint button only when she is stuck for 10+ seconds.</li>
+          <li><b>If she knows the saga very well:</b> ask her to explain the clue to you as if you have never seen the film. Great for A2+ extended speaking.</li>
+          <li>All three exhibits are story-based inferences, not film trivia. The scene wording is a short summary for discussion, not a quotation from the film or books.</li>
+        </ul>
+      </details>
+    </div>
+
+    <aside class="card sticky" aria-label="Confidence ladder">
+      <div class="tag">Detective language</div>
+      <h3>The confidence ladder</h3>
+      <div class="ladder">
+        <div class="rung r1"><div class="pct">ALMOST SURE</div><div class="f">must be / must have + past participle</div><em>He must be hiding something.</em><em>She must have noticed the clue.</em></div>
+        <div class="rung r2"><div class="pct">POSSIBLE</div><div class="f">might / could be / might have + past participle</div><em>She might know the truth.</em><em>They might have planned it.</em></div>
+        <div class="rung r3"><div class="pct">IMPOSSIBLE (for me)</div><div class="f">can't be / can't have + past participle</div><em>He can't be serious.</em><em>It can't have been an accident.</em></div>
+      </div>
+      <p class="small"><b>Now</b> = modal + base verb (<em>must be</em>). <b>Before</b> = modal + <em>have</em> + past participle (<em>must have seen</em>). Here <em>must</em> means “I am almost sure”, not “it is an obligation”.</p>
+    </aside>
+  </div>
+
+  <div class="card" style="margin-top:1.2rem">
+    <div class="tag">Say it · then check it</div>
+    <h3>Use the ladder</h3>
+    <div class="grid">
+      <div>
+        <p><b>Say your own sentences aloud:</b></p>
+        <ol>
+          <li>Edward didn't eat his lunch. He must …</li>
+          <li>Yesterday his seat was empty. He might have …</li>
+          <li>Bella can't …, because …</li>
+          <li>The Cullens aren't at school today. They could …</li>
+        </ol>
+        <p class="small">Teacher: ask “How sure are you? Why?” after each sentence.</p>
+      </div>
+      <div>
+        <p><b>Quick check:</b> choose the best phrase.</p>
+        <div id="grammarQuiz"></div>
+        <div class="row"><button id="checkGrammar">Check</button><button class="secondary" id="resetGrammar">Try again</button><span class="score" id="grammarScore"></span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- STAGE C -->
+<section id="minds"><div class="wrap">
+  <div class="head"><div><div class="eyebrow">Stage C · Enter the characters' minds</div><h2>Secrets, trust and choices</h2><p class="sub">Choose one dilemma. Talk it through: opinion, evidence, other side, you.</p></div><span class="time">9 min</span></div>
+  <div class="grid3" id="dilemmaCards"></div>
+  <div class="card theory hidden" id="dilemmaPanel" aria-live="polite" style="margin-top:1rem"></div>
+
+  <div class="card" style="margin-top:1rem">
+    <div class="tag">If time · Hot seat</div>
+    <h3>Three questions for one character</h3>
+    <p class="small">Choose a character. Ask three questions. The teacher answers as that character, in character. Is the character honest?</p>
+    <div class="chips" id="hotChips" role="group" aria-label="Choose a character"></div>
+    <div class="reveal" id="hotQs" aria-live="polite"></div>
+    <p class="frame"><em>Why did you …? / What were you thinking when …? / Do you regret …?</em></p>
+  </div>
+
+  <details class="teacher"><summary>Teacher notes · Stage C</summary>
+    <ul>
+      <li><b>One dilemma is enough.</b> Let the student choose; if the talk is rich, do not rush to the next card. Do the hot seat only if you have 3 minutes.</li>
+      <li><b>Play devil's advocate:</b> take the opposite side of whatever she says, politely: “But isn't that unfair to Charlie?”.</li>
+      <li><b>All dilemmas rely on events in the films and books</b> (Port Angeles, Bella's lies to Charlie, Edward's warnings). Check the events if she remembers them differently: that is a great mini-discussion, not an error.</li>
+      <li><b>Correct lightly:</b> for opinions, note 2 or 3 errors in a doc and review them after the stage, not during it.</li>
+      <li><b>Keep it concrete:</b> if she says “because it's romantic”, ask “Can you give me an example from the film?”.</li>
+    </ul>
+  </details>
+</div></section>
+
+<!-- STAGE D -->
+<section id="eggs" class="alt"><div class="wrap">
+  <div class="head"><div><div class="eyebrow">Stage D · Easter egg or coincidence?</div><h2>Test the evidence</h2><p class="sub">Choose <b>two</b> cases. Follow the five steps. Decide before you reveal the answer.</p></div><span class="time">9 min</span></div>
+  <div class="chips" aria-label="Process">
+    <span class="chip">1 · What are the facts?</span><span class="chip">2 · What are we assuming?</span><span class="chip">3 · Two explanations</span><span class="chip">4 · How sure are you?</span><span class="chip">5 · Defend your answer</span>
+  </div>
+  <div class="note"><b>Remember:</b> An Easter egg is a hidden reference planned by the filmmakers. A coincidence is something that only <em>looks</em> connected. A fan theory is an idea from fans that may be interesting but not proven.</div>
+  <div class="grid" id="caseGrid" style="margin-top:1rem"></div>
+  <details class="teacher"><summary>Teacher notes · Stage D</summary>
+    <ul>
+      <li><b>Select two cases only.</b> I suggest Apple + Wolf picture (one strong, one weak) or Chessboard + Eggs for contrast. The rest are optional.</li>
+      <li><b>After she reveals her confidence, reveal the answer and discuss:</b> “Does your confidence change? Would it be an Easter egg even if the filmmakers did not plan it?”</li>
+      <li><b>Teacher counter-arguments are listed inside each case.</b> Disagree gently even if she is right: defending an answer is the speaking goal.</li>
+      <li><b>Important:</b> Keep the labels exact. See the fact-status table at the bottom of the page.</li>
+    </ul>
+  </details>
+</div></section>
+
+<!-- STAGE E -->
+<section id="board"><div class="wrap">
+  <div class="head"><div><div class="eyebrow">Stage E · The theory board</div><h2>Connect the clues</h2><p class="sub">Choose <b>three</b> pieces of evidence for your theory about the Cullens (or about the story). The order matters: 1 = strongest.</p></div><span class="time">9 min</span></div>
+  <div class="board" id="pinBoard" role="group" aria-label="Evidence board"></div>
+  <div class="row"><button class="secondary" id="resetBoard">Clear the board</button><span class="small" id="boardInfo">0 of 3 clues chosen.</span></div>
+  <div class="card theory hidden" id="theoryFile" aria-live="polite">
+    <div class="tag">Your theory file</div>
+    <ol id="theoryList"></ol>
+    <p class="prompt big">Explain how your three clues fit together.</p>
+    <div class="frame"><em>My theory is that … My strongest clue is … because … Clue 2 shows that … I'm not completely sure, but …</em></div>
+    <p class="small" id="sourceCheck"></p>
+    <p class="challenge"><b>Teacher challenge:</b> <span id="boardChallenge"></span></p>
+  </div>
+
+  <div class="card" style="margin-top:1.2rem">
+    <div class="tag">Last task · The director's chair</div>
+    <h3>Plant your own Easter egg</h3>
+    <p>Now you are directing the next film. Hide one small clue that supports <b>your</b> theory.</p>
+    <div class="chips" id="eggChips" role="group" aria-label="Choose an object"></div>
+    <div class="frame"><em>I would hide … in the scene where … It would mean … Fans would notice it because …</em></div>
+    <p class="small">Teacher: ask “Would it be too obvious? Would it be an Easter egg or a coincidence?”</p>
+  </div>
+
+  <details class="teacher"><summary>Teacher notes · Stage E</summary>
+    <ul>
+      <li><b>Do not let her just click.</b> Ask her to say aloud why she is choosing each card before she clicks.</li>
+      <li><b>The Emmett's eggs card is a deliberate red herring.</b> If she picks it, say: “Is it really evidence about the Cullens?” and move to Stage D logic.</li>
+      <li>The panel shows only how reliable each source is, after she chooses. Ask: “Is your strongest clue also the best-supported clue?”</li>
+      <li>If time is short, skip “Plant your own Easter egg” and use it as the first speaking task next lesson.</li>
+    </ul>
+  </details>
+</div></section>
+
+<!-- STAGE F -->
+<section id="verdict" class="alt"><div class="wrap">
+  <div class="head"><div><div class="eyebrow">Stage F · The final verdict</div><h2>Close the case</h2><p class="sub">Back to the central question. Has the evidence changed your mind?</p></div><span class="time">4 min</span></div>
+  <div class="split">
+    <div class="card">
+      <h3>Present your verdict</h3>
+      <ol>
+        <li class="prompt">My strongest theory is …</li>
+        <li class="prompt">The best evidence is …</li>
+        <li class="prompt">Another explanation could be …</li>
+        <li class="prompt">I am … sure, because …</li>
+        <li class="prompt">At the start I thought …, but now I think …</li>
+      </ol>
+      <p class="challenge"><b>Challenge:</b> What is the one detail that most people would miss?</p>
+    </div>
+    <div class="card">
+      <div class="tag">Your second answer</div>
+      <h3>How much can we trust what we see?</h3>
+      <label for="trust1" class="small">Move the slider. Compare with your first answer.</label>
+      <div class="meter"><output id="trust1out" for="trust1">5</output><input type="range" id="trust1" min="0" max="10" value="5"></div>
+      <div class="scale"><span>0 · Not at all</span><span>10 · Completely</span></div>
+      <div class="row"><button id="closeCase">Close the case</button></div>
+      <div class="verdict-box hidden" id="verdictBox" aria-live="polite"></div>
+    </div>
+  </div>
+  <details class="teacher"><summary>Teacher notes · Stage F</summary>
+    <ul>
+      <li>Let her speak without interruption for the first answer. Then give two or three pieces of language feedback, using examples from her own sentences.</li>
+      <li>Praise one good piece of reasoning explicitly.</li>
+      <li>If she does not change her opinion, great: ask what would change it. That sentence is a very useful C1 phrase later.</li>
+    </ul>
+  </details>
+</div></section>
+
+<!-- HOMEWORK -->
+<section id="homework"><div class="wrap">
+  <div class="head"><div><div class="eyebrow">Homework</div><h2>The Easter Egg Hunter</h2><p class="sub">Find one or two details in the Twilight films. Record a short audio message in English.</p></div><span class="time">10–20 min</span></div>
+  <div class="grid">
+    <div class="card">
+      <h3>Your mission</h3>
+      <div class="checklist">
+        <label><input type="checkbox"> Choose one Twilight film. Find 1–2 interesting details.</label>
+        <label><input type="checkbox"> Decide: confirmed fact, widely reported, fan theory, or just a coincidence?</label>
+        <label><input type="checkbox"> Record 1–2 minutes of audio. Do not read a script.</label>
+        <label><input type="checkbox"> Send it before our next lesson.</label>
+      </div>
+      <p class="small">One really good detail is better than two weak ones. You can also use a case from our lesson that we did not discuss.</p>
+      <div class="note"><b>Fact check rule:</b> if you only read it on a fan page, say “fans say” or “some people think”. Do not say “it is a fact”.</div>
+    </div>
+    <div class="card">
+      <h3>Your audio plan</h3>
+      <ol>
+        <li><b>The detail:</b> Which film? What did you notice?</li>
+        <li><b>The theory:</b> What does it mean?</li>
+        <li><b>The evidence:</b> Where did you find it? Is it confirmed or a fan theory?</li>
+        <li><b>Your opinion:</b> Do you believe it? Why or why not?</li>
+      </ol>
+      <h4>Language help</h4>
+      <p class="small"><em>I found a hidden detail in … / It might be a reference to … / Fans say that … / I'm not completely sure, but … / In my opinion it is / isn't a coincidence because … / I read this on …</em></p>
+      <p class="small">Starting point: <a href="https://twilightsaga.fandom.com/wiki/Easter_eggs" target="_blank" rel="noopener">Twilight Saga Wiki: Easter eggs</a> (a fan wiki: check claims before calling them confirmed).</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- EXTENSION -->
+<section id="extension" class="alt"><div class="wrap">
+  <div class="head"><div><div class="eyebrow">Optional extension</div><h2>Fan quiz</h2><p class="sub">Use if the student finishes early, or as a warm-up next lesson. Choose an answer, then reveal the score and talk about it.</p></div><span class="time">optional</span></div>
+  <div class="progress"><span id="progress"></span></div>
+  <div class="grid" id="quizBox"></div>
+  <div class="row"><button id="checkQuiz">Reveal my score</button><button class="secondary" id="resetQuiz">Try again</button><span id="quizScore" class="score"></span></div>
+  <div class="card"><h3>Talk about it</h3><p class="prompt">Which question was easiest? Which fact surprised you? Which film do you remember best?</p></div>
+</div></section>
+
+<!-- TEACHER -->
+<section id="teacher"><div class="wrap">
+  <div class="eyebrow">Teacher-only area</div><h2>Lesson map and sources</h2>
+  <details class="teacher" open><summary>Lesson map · 50 minutes</summary>
+    <table>
+      <tr><th>Stage</th><th>Min</th><th>Student talk</th><th>Purpose</th></tr>
+      <tr><td>A · Enter Forks</td><td>5</td><td>High</td><td>Atmosphere, immediate speculation, first-instinct trust number</td></tr>
+      <tr><td>B · Clues (+ ladder)</td><td>12</td><td>High</td><td>Evidence → two explanations; deduction grammar in context</td></tr>
+      <tr><td>C · Minds</td><td>9</td><td>Very high</td><td>Opinions, justification, pushback</td></tr>
+      <tr><td>D · Egg or coincidence?</td><td>9</td><td>High</td><td>Separate fact from assumption; defend a confidence level</td></tr>
+      <tr><td>E · Theory board + own egg</td><td>9</td><td>Very high</td><td>Rank evidence; create and defend an original theory</td></tr>
+      <tr><td>F · Verdict</td><td>4</td><td>Very high</td><td>Summarise, compare opinions, reflect</td></tr>
+      <tr><td>Transitions / feedback</td><td>2</td><td>–</td><td>Flexible time; use it to extend the best discussion</td></tr>
+    </table>
+    <p>Rule of thumb: if a discussion is going well, stay. Skip the hot seat, the second Stage D case or “Plant your own Easter egg” first.</p>
+  </details>
+  <details class="teacher"><summary>Fact status · what is confirmed, reported or fan theory</summary>
+    <table>
+      <tr><th>Item</th><th>Label</th><th>Source / caution</th></tr>
+      <tr><td>Apple symbolism (book cover)</td><td><span class="badge b-confirmed">Confirmed</span></td><td><a href="https://stepheniemeyer.com/the-books/twilight/twilight-faq/" target="_blank" rel="noopener">Stephenie Meyer's official FAQ</a>: the apple as “forbidden fruit”.</td></tr>
+      <tr><td>Film's apple shot echoing the cover</td><td><span class="badge b-reported">Widely reported</span></td><td>Reported by fans and media. I could not verify a direct production quote here; check the linked GQ interview before calling it intentional.</td></tr>
+      <tr><td>Red-and-white chess pieces</td><td><span class="badge b-reported">Widely reported</span></td><td>Visual echo of the Breaking Dawn cover; also reported in a trivia roundup. Verify the exact film scene if you screen-share it.</td></tr>
+      <tr><td>Wolf picture / Jacob</td><td><span class="badge b-fan">Fan theory</span></td><td>Fan-wiki interpretation. No production source.</td></tr>
+      <tr><td>Victoria in the prom crowd</td><td><span class="badge b-fan">Fan-reported</span></td><td>Listed in fan sources. Unverified.</td></tr>
+      <tr><td>Emmett's boiled eggs</td><td><span class="badge b-set">Reported set story</span></td><td>Reported in an interview with director Catherine Hardwicke (Yahoo link below). Check the original before quoting.</td></tr>
+      <tr><td>Stephenie Meyer's diner cameo</td><td><span class="badge b-confirmed">Widely documented</span></td><td>Not used in the main lesson; the quiz mentions it.</td></tr>
+      <tr><td>Exhibits A–C, Stage C dilemmas</td><td><span class="badge b-story">Story facts</span></td><td>In-universe events and rules (food, sunlight, Edward's behaviour, Port Angeles). Not trivia. Scenes are summarised, not quoted.</td></tr>
+    </table>
+  </details>
+  <details class="teacher"><summary>Sources and technical notes</summary>
+    <ul>
+      <li><a href="https://stepheniemeyer.com/the-books/twilight/twilight-faq/" target="_blank" rel="noopener">Stephenie Meyer's official FAQ</a></li>
+      <li><a href="https://www.gq-magazine.co.uk/article/twilight-director-interview-2023" target="_blank" rel="noopener">GQ interview with Catherine Hardwicke</a></li>
+      <li><a href="https://www.buzzfeed.com/noradominick/twilight-saga-movie-details-easter-eggs" target="_blank" rel="noopener">Film-detail roundup</a> (fan/media level)</li>
+      <li><a href="https://www.yahoo.com/entertainment/twilight-director-finally-solves-long-225900636.html" target="_blank" rel="noopener">Interview report about the boiled eggs</a></li>
+      <li><a href="https://twilightsaga.fandom.com/wiki/Easter_eggs" target="_blank" rel="noopener">Twilight Saga Wiki: Easter eggs</a> (fan-curated)</li>
+      <li><b>Internet needed only for:</b> the hero photograph and external links. All interactions work offline; the hero falls back to a dark gradient.</li>
+      <li><b>No film stills are embedded.</b> If you want to show an exact scene, screen-share it from your own legal copy.</li>
+      <li><b>Printing:</b> teacher notes and buttons are hidden when printed.</li>
+    </ul>
+  </details>
+</div></section>
+</main>
+
+<footer class="footer"><div class="wrap">Twilight: Hidden in Plain Sight · The Forks Investigation · A2+ speaking lesson. External image and links need internet.</div></footer>
+
+<button id="tkBtn" aria-expanded="false" aria-controls="toolkit">Speaking toolkit</button>
+<div id="toolkit" role="dialog" aria-label="Speaking toolkit">
+  <div class="tag">Speaking toolkit</div>
+  <h4>Giving an opinion</h4><ul><li>I think …</li><li>In my opinion …</li><li>The way I see it …</li><li>I have a feeling that …</li></ul>
+  <h4>Explaining evidence</h4><ul><li>I think this because …</li><li>One clue is …</li><li>I noticed that …</li><li>This could mean that …</li></ul>
+  <h4>Speculating</h4><ul><li>Maybe … / It might be … / She could be …</li><li>He must have … / It can't be …</li><li>I'm not completely sure, but …</li></ul>
+  <h4>Agreeing and disagreeing</h4><ul><li>I see your point, but …</li><li>Maybe, but another possibility is …</li><li>I agree because … / I'm not convinced because …</li></ul>
+  <h4>Expressing confidence</h4><ul><li>I'm almost certain …</li><li>It's possible that …</li><li>I'm not sure yet. / I need more evidence.</li></ul>
+</div>
+
+<script>
+(function(){
+const $=(s,r)=>(r||document).querySelector(s), $$=(s,r)=>[...(r||document).querySelectorAll(s)];
+
+/* ---------- Toolkit ---------- */
+const tkBtn=$('#tkBtn'), tk=$('#toolkit');
+tkBtn.addEventListener('click',()=>{const o=tk.classList.toggle('open');tkBtn.setAttribute('aria-expanded',o);});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&tk.classList.contains('open')){tk.classList.remove('open');tkBtn.setAttribute('aria-expanded','false');tkBtn.focus();}});
+
+/* ---------- Generic reveal (data-toggle) ---------- */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-toggle]'); if(!b) return;
+  const t=document.getElementById(b.dataset.toggle); if(!t) return;
+  const open=t.classList.toggle('open');
+  b.setAttribute('aria-expanded',open);
+});
+
+/* ---------- Stage A: stepper, trust meter, words ---------- */
+let stepIdx=0; const steps=$$('#steps .step');
+$('#nextStep').addEventListener('click',()=>{
+  steps[stepIdx].classList.add('hidden');
+  stepIdx=(stepIdx+1)%steps.length;
+  steps[stepIdx].classList.remove('hidden');
+  $('#stepInfo').textContent=(stepIdx+1)+' of '+steps.length;
+});
+const t0=$('#trust0'), t1=$('#trust1');
+t0.addEventListener('input',()=>{$('#trust0out').textContent=t0.value;});
+t1.addEventListener('input',()=>{$('#trust1out').textContent=t1.value;});
+
+const words=[
+ ['clue','A small detail that helps you understand something.'],
+ ['evidence','Facts or details that support an idea.'],
+ ['a theory','An idea that tries to explain something.'],
+ ['a coincidence','Two things look connected, but it is only chance.'],
+ ['an Easter egg','A small hidden reference that the filmmakers planned.'],
+ ['a reference','A connection to another story, object or film.'],
+ ['foreshadowing','A hint about something that happens later.'],
+ ['suspicious','Making you think something is wrong or hidden.'],
+ ['a fan theory','An idea from fans. It may be interesting, but it is not proven.']
+];
+const wc=$('#wordChips'), wd=$('#wordDef');
+words.forEach(([w,d])=>{
+  const b=document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=w; b.setAttribute('aria-pressed','false');
+  b.addEventListener('click',()=>{
+    $$('#wordChips .chip').forEach(x=>x.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true'); wd.innerHTML='<b></b> <span></span>';
+    wd.firstChild.textContent=w+':'; wd.lastChild.textContent=d; wd.classList.add('open');
+  });
+  wc.appendChild(b);
+});
+
+/* ---------- Stage B: tabs ---------- */
+const tabs=$$('.tab');
+function showTab(t){
+  tabs.forEach(x=>{
+    const sel=x===t; x.setAttribute('aria-selected',sel); x.tabIndex=sel?0:-1;
+    x.classList.toggle('secondary',!sel);
+    document.getElementById(x.getAttribute('aria-controls')).classList.toggle('hidden',!sel);
+  });
+}
+tabs.forEach((t,i)=>{
+  t.addEventListener('click',()=>showTab(t));
+  t.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+      const n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length]; showTab(n); n.focus();
+    }
+  });
+});
+
+/* ---------- Grammar quiz ---------- */
+const gs=[
+ {q:'The Cullens never eat at lunch. They ___ vampires. (almost sure, now)',a:['must be','can’t be','might have been'],c:0,e:'must + base verb = strong deduction about now.'},
+ {q:'Edward’s seat was empty yesterday. He ___ left town. (possible, past)',a:['might have','can’t be','must to'],c:0,e:'might have + past participle = possible past action.'},
+ {q:'Bella saw Edward stop a van with his hand. That ___ a trick. (impossible for her)',a:['can’t be','must have','might to be'],c:0,e:'can’t + base verb = impossible, in my opinion.'},
+ {q:'The director ___ planned that detail. (almost sure, past)',a:['must have','can’t','might be'],c:0,e:'must have + past participle = strong deduction about the past.'}
+];
+const gb=$('#grammarQuiz');
+gs.forEach((q,i)=>{
+  const idx=q.a.map((_,j)=>j).sort(()=>Math.random()-.5);
+  const d=document.createElement('div'); d.style.margin='.7rem 0';
+  d.innerHTML='<p><b>'+(i+1)+'.</b> <span class="gq"></span></p><div class="choices"></div><div class="feedback" id="gf'+i+'"></div>';
+  d.querySelector('.gq').textContent=q.q;
+  const ch=d.querySelector('.choices');
+  idx.forEach(j=>{
+    const l=document.createElement('label'); l.className='choice';
+    const r=document.createElement('input'); r.type='radio'; r.name='g'+i; r.value=j;
+    l.appendChild(r); l.appendChild(document.createTextNode(q.a[j])); ch.appendChild(l);
+  });
+  gb.appendChild(d);
+});
+$('#checkGrammar').addEventListener('click',()=>{
+  let s=0;
+  gs.forEach((q,i)=>{
+    const sel=$('input[name=g'+i+']:checked'), f=$('#gf'+i); f.classList.add('show');
+    if(sel&&+sel.value===q.c){s++;f.textContent='Good. '+q.e;} else f.textContent='Best answer: '+q.a[q.c]+'. '+q.e;
+  });
+  $('#grammarScore').textContent=s+'/'+gs.length;
+});
+$('#resetGrammar').addEventListener('click',()=>{
+  $$('#grammarQuiz input').forEach(x=>x.checked=false);
+  $$('#grammarQuiz .feedback').forEach(x=>{x.classList.remove('show');x.textContent='';});
+  $('#grammarScore').textContent='';
+});
+
+/* ---------- Stage C: dilemmas + hot seat ---------- */
+const dilemmas=[
+ {id:'d1',title:'Port Angeles',intro:'Edward follows Bella to another town to protect her, but he does not tell her first.',
+  q:'Is Edward protective, controlling, or both?',
+  steps:['Your opinion: What do you think? (<em>In my opinion he is …</em>)','Evidence: What did Edward do exactly? What did Bella feel?','The other side: What would someone who disagrees say?','Would you react the same way as Bella? Why?'],
+  teacher:'“But he saved her life. Is that not more important than privacy?” or, if she defends him: “Imagine a friend did this to you. Is it still romantic?”'},
+ {id:'d2',title:'The secret',intro:'Bella learns the Cullens\' secret. She cannot tell her father, Charlie, and she keeps lying to him.',
+  q:'When is keeping a secret understandable, and when is it unfair?',
+  steps:['Your opinion: Is Bella right to keep the secret?','Evidence: Who is protected by the secret? Who could be hurt?','The other side: What would Charlie say?','Which character would you trust with an important secret? Why?'],
+  teacher:'“But Charlie is her father. Doesn\'t he have a right to know?” or “What if keeping the secret made things more dangerous?”'},
+ {id:'d3',title:'Bella\'s choice',intro:'Bella wants to stay with Edward even after she knows the danger.',
+  q:'Is Bella brave, careless, or simply in love?',
+  steps:['Your opinion: Do you agree with her decision?','Evidence: What does she know? What does she not know yet?','The other side: What would her friends or her mother say?','What would change your mind?'],
+  teacher:'“Does Bella really make her own choices, or does the world around her make them for her?”'}
+];
+const dc=$('#dilemmaCards'), dp=$('#dilemmaPanel');
+dilemmas.forEach(d=>{
+  const b=document.createElement('button'); b.type='button'; b.className='card secondary'; b.style.textAlign='left'; b.setAttribute('aria-pressed','false'); b.dataset.id=d.id;
+  b.innerHTML='<div class="tag">Dilemma</div><h3></h3><p class="small"></p>';
+  b.querySelector('h3').textContent=d.title; b.querySelector('p').textContent=d.intro;
+  b.addEventListener('click',()=>{
+    $$('#dilemmaCards button').forEach(x=>{x.setAttribute('aria-pressed','false');x.style.borderColor='';});
+    b.setAttribute('aria-pressed','true'); b.style.borderColor='#d79aa0';
+    dp.classList.remove('hidden');
+    dp.innerHTML='<div class="tag">Your dilemma · '+d.title+'</div><h3></h3><p class="prompt big"></p><ol id="dsteps"></ol><div class="row"><button class="secondary" type="button" id="dTeach">Teacher: pushback</button></div><div class="reveal" id="dTeachBox"></div>';
+    dp.querySelector('h3').textContent=d.intro; dp.querySelector('.prompt').textContent=d.q;
+    const ol=dp.querySelector('#dsteps'); d.steps.forEach(s=>{const li=document.createElement('li'); li.innerHTML=s; ol.appendChild(li);});
+    dp.querySelector('#dTeachBox').textContent=d.teacher;
+    dp.querySelector('#dTeach').addEventListener('click',()=>dp.querySelector('#dTeachBox').classList.toggle('open'));
+  });
+  dc.appendChild(b);
+});
+const chars={
+ 'Edward':['Why did you leave school after meeting Bella?','Do you think you control Bella too much?','What are you most afraid of?'],
+ 'Bella':['Why did you stay when you learned the truth?','What did you not tell your father?','Would you make the same choice again?'],
+ 'Alice':['What do you see in your visions that you do not tell?','Why did you accept Bella so quickly?','Is it hard to keep secrets when you can see the future?'],
+ 'Carlisle':['Why did you choose to live among humans?','Do you ever regret what you did to your family?','How do you decide who to trust?'],
+ 'Charlie':['When did you first think something was strange?','Are you worried about Bella?','What would you do if you knew the truth?'],
+ 'Jacob':['What do you know that Bella does not?','Why do you not trust the Cullens?','Is it easy to keep a secret for your tribe?']
+};
+const hc=$('#hotChips'), hq=$('#hotQs');
+Object.keys(chars).forEach(n=>{
+  const b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=n; b.setAttribute('aria-pressed','false');
+  b.addEventListener('click',()=>{
+    $$('#hotChips .chip').forEach(x=>x.setAttribute('aria-pressed','false')); b.setAttribute('aria-pressed','true');
+    hq.innerHTML='<b></b><ul></ul><span class="small">These are sample questions. She can invent her own.</span>';
+    hq.querySelector('b').textContent='Possible questions for '+n+':';
+    chars[n].forEach(q=>{const li=document.createElement('li'); li.textContent=q; hq.querySelector('ul').appendChild(li);});
+    hq.classList.add('open');
+  });
+  hc.appendChild(b);
+});
+
+/* ---------- Stage D: cases ---------- */
+const labels=[['story','A planned reference'],['reported','Reported, but not proven'],['fan','Fan theory'],['coin','Probably a coincidence']];
+const cases=[
+ {id:'apple',name:'The apple',desc:'In the first film, an apple appears in an Edward scene in a way that reminds fans of the first book cover.',
+  badge:'b-confirmed',bt:'Confirmed + widely reported',
+  note:'<b>Confirmed:</b> Stephenie Meyer has explained that the apple on the cover is a “forbidden fruit” symbol (official FAQ). <b>Widely reported:</b> the film\'s apple shot echoes that cover. Check the source before saying the filmmakers “planned” it.',
+  counter:'“Couldn\'t an apple in a school scene be just an apple? Why must it mean something?”'},
+ {id:'chess',name:'The chessboard',desc:'Red and white chess pieces appear in the saga. Fans connect them to the cover of Breaking Dawn.',
+  badge:'b-reported',bt:'Widely reported',
+  note:'<b>Widely reported:</b> The red-and-white chess pieces echo the Breaking Dawn cover, and chess appears in Breaking Dawn – Part 1. We do not have a direct production statement, so we say “it echoes” rather than “it was planned”.',
+  counter:'“Chess is a common symbol for strategy. Couldn\'t this be a coincidence?”'},
+ {id:'wolf',name:'The wolf picture',desc:'A picture of a wolf is said to appear near Bella\'s bedroom door. Some fans say it hints at Jacob.',
+  badge:'b-fan',bt:'Fan theory',
+  note:'<b>Fan interpretation:</b> It is a reasonable idea because Jacob and the werewolves become important later. But we have no direct production source, so it stays a theory.',
+  counter:'“If nobody planned it, is the theory still interesting? Is it still an Easter egg?”'},
+ {id:'eggs',name:'Emmett\'s eggs',desc:'In the cafeteria, Emmett has a bag of hard-boiled eggs. Is it a hidden vampire clue?',
+  badge:'b-set',bt:'Reported set story',
+  note:'<b>Reported:</b> an interview report says director Catherine Hardwicke explained the eggs came from the set, not from a planned clue. Not every strange detail is an Easter egg. Check the interview link in the teacher area.',
+  counter:'“But why would the director keep an odd detail in the final film? Isn\'t that a sign it means something?”'},
+ {id:'victoria',name:'Victoria at the prom',desc:'Fan lists say a future villain can be seen in the prom crowd.',
+  badge:'b-fan',bt:'Fan-reported',
+  note:'<b>Fan-reported, unverified:</b> We do not have a direct source. It would be foreshadowing if true. Ask her: “How could we check?”',
+  counter:'“Is it a clue, or is she just an extra who looks similar?”'}
+];
+const cg=$('#caseGrid');
+cases.forEach(c=>{
+  const a=document.createElement('article'); a.className='card';
+  const radios=labels.map(([v,t])=>'<label class="choice"><input type="radio" name="lab-'+c.id+'" value="'+v+'">'+t+'</label>').join('');
+  a.innerHTML='<div class="tag">Case</div><h3></h3><p class="small cdesc"></p>'+
+   '<p class="prompt">What are the facts? What are we only assuming?</p>'+
+   '<div class="choices">'+radios+'</div>'+
+   '<label for="conf-'+c.id+'" class="small">How sure are you?</label>'+
+   '<input type="range" id="conf-'+c.id+'" min="1" max="5" value="3" aria-describedby="cl-'+c.id+'">'+
+   '<div class="scale" id="cl-'+c.id+'"><span>1 · I need more evidence</span><span>5 · I\'m almost certain</span></div>'+
+   '<p class="frame"><em>I think it is … because … Another explanation could be …</em></p>'+
+   '<div class="row"><button type="button" data-case="'+c.id+'">Reveal the status</button></div>'+
+   '<div class="reveal" id="rv-'+c.id+'"><span class="badge '+c.badge+'">'+c.bt+'</span><p class="n"></p><p class="small"><b>Teacher counter:</b> <span class="ct"></span></p></div>';
+  a.querySelector('h3').textContent=c.name; a.querySelector('.cdesc').textContent=c.desc;
+  a.querySelector('.n').innerHTML=c.note; a.querySelector('.ct').textContent=c.counter;
+  cg.appendChild(a);
+});
+cg.addEventListener('click',e=>{
+  const b=e.target.closest('[data-case]'); if(!b) return;
+  const r=document.getElementById('rv-'+b.dataset.case); const o=r.classList.toggle('open');
+  b.textContent=o?'Hide the status':'Reveal the status';
+});
+
+/* ---------- Stage E: board ---------- */
+const pins=[
+ {id:'trays',t:'Untouched trays',d:'The Cullens sit with full trays and never eat.',src:'Story fact',cls:'b-story'},
+ {id:'bio',t:'The biology reaction',d:'Edward leans away, then disappears for days.',src:'Story fact',cls:'b-story'},
+ {id:'sun',t:'The empty desks',d:'The Cullens are absent when the sun comes out.',src:'Story fact',cls:'b-story'},
+ {id:'cold',t:'Cold, pale skin',d:'Edward\'s skin is very pale and cold to the touch.',src:'Story fact',cls:'b-story'},
+ {id:'apple',t:'The apple',d:'Forbidden fruit symbol from the first cover.',src:'Confirmed (book symbolism)',cls:'b-confirmed'},
+ {id:'chess',t:'The chessboard',d:'Red and white pieces echo Breaking Dawn.',src:'Widely reported',cls:'b-reported'},
+ {id:'wolf',t:'The wolf picture',d:'Said to hint at Jacob\'s future.',src:'Fan theory',cls:'b-fan'},
+ {id:'eggs',t:'Emmett\'s eggs',d:'A bag of hard-boiled eggs in the cafeteria.',src:'Reported set story (red herring)',cls:'b-set'}
+];
+const challenges=['Which of your three clues would you remove first? Why?','What if clue 2 was just a coincidence? Does your theory still work?','Is your strongest clue also the best-supported one?','Could a person who has never seen Twilight understand your theory?'];
+const pb=$('#pinBoard'); let picked=[];
+pins.forEach(p=>{
+  const b=document.createElement('button'); b.type='button'; b.className='pin'; b.setAttribute('aria-pressed','false'); b.dataset.id=p.id;
+  b.innerHTML='<span class="rk" aria-hidden="true"></span><b></b><span></span>';
+  b.querySelector('b').textContent=p.t; b.lastChild.textContent=p.d;
+  b.addEventListener('click',()=>{
+    const i=picked.indexOf(p.id);
+    if(i>-1) picked.splice(i,1); else if(picked.length<3) picked.push(p.id); else return;
+    renderBoard();
+  });
+  pb.appendChild(b);
+});
+function renderBoard(){
+  $$('#pinBoard .pin').forEach(b=>{
+    const i=picked.indexOf(b.dataset.id); b.setAttribute('aria-pressed',i>-1);
+    b.querySelector('.rk').textContent=i>-1?(i+1):'';
+  });
+  $('#boardInfo').textContent=picked.length+' of 3 clues chosen.'+(picked.length===3?' Now explain your theory aloud.':'');
+  const tf=$('#theoryFile'); tf.classList.toggle('hidden',picked.length<3);
+  if(picked.length===3){
+    const ol=$('#theoryList'); ol.innerHTML='';
+    picked.forEach(id=>{
+      const p=pins.find(x=>x.id===id); const li=document.createElement('li');
+      li.innerHTML='<b></b> <span class="badge '+p.cls+'"></span>'; li.querySelector('b').textContent=p.t; li.querySelector('.badge').textContent=p.src; ol.appendChild(li);
+    });
+    const weak=picked.filter(id=>{const c=pins.find(x=>x.id===id).cls;return c==='b-fan'||c==='b-set';});
+    $('#sourceCheck').textContent=weak.length?'Source check: '+weak.length+' of your clue(s) are fan theory or a set story. Can your theory survive without them?':'Source check: all of your clues are story facts or well-supported. Is that enough to be certain?';
+    $('#boardChallenge').textContent=challenges[Math.floor(Math.random()*challenges.length)];
+  }
+}
+$('#resetBoard').addEventListener('click',()=>{picked=[];renderBoard();});
+
+const eggs=['A chess piece','A red apple','A wolf picture','A song from an earlier film','An object from the cafeteria','My own idea'];
+const ec=$('#eggChips');
+eggs.forEach(n=>{
+  const b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=n; b.setAttribute('aria-pressed','false');
+  b.addEventListener('click',()=>{$$('#eggChips .chip').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');});
+  ec.appendChild(b);
+});
+
+/* ---------- Stage F: verdict ---------- */
+$('#closeCase').addEventListener('click',()=>{
+  const a=+t0.value, b=+t1.value, box=$('#verdictBox'); box.classList.remove('hidden');
+  const diff=b-a; let msg;
+  if(diff===0) msg='Your opinion did not change. What would change your mind?';
+  else if(diff>0) msg='You trust what you see <b>more</b> now. What gave you more confidence?';
+  else msg='You trust what you see <b>less</b> now. Which clue changed your mind?';
+  box.innerHTML='<span class="stamp">Case closed</span><p>First instinct: <b>'+a+'</b> → Final verdict: <b>'+b+'</b></p><p>'+msg+'</p>';
+});
+
+/* ---------- Extension quiz ---------- */
+const qs=[
+ {q:'Where does Bella move at the beginning of the story?',a:['Portland','Forks, Washington','Seattle'],c:1,e:'Bella moves from Phoenix to Forks to live with her father.'},
+ {q:'What is Edward\'s special ability?',a:['He can see the future','He can read minds','He can control the weather'],c:1,e:'Edward can read minds, but Bella is an exception.'},
+ {q:'What sport do the Cullens play during a thunderstorm?',a:['Basketball','Baseball','American football'],c:1,e:'Thunder helps cover the loud sound of the game.'},
+ {q:'Who hunts Bella in the first film?',a:['Laurent','James','Aro'],c:1,e:'James is the tracker who hunts Bella.'},
+ {q:'Who wrote the Twilight books?',a:['Suzanne Collins','Stephenie Meyer','Veronica Roth'],c:1,e:'Stephenie Meyer wrote the books. She also has a cameo in the first film.'}
+];
+const qb=$('#quizBox');
+qs.forEach((q,i)=>{
+  const d=document.createElement('div'); d.className='card';
+  d.innerHTML='<div class="tag">Question '+(i+1)+' of '+qs.length+'</div><h3></h3><div class="choices"></div><div class="feedback" id="qf'+i+'"></div>';
+  d.querySelector('h3').textContent=q.q;
+  q.a.forEach((t,j)=>{
+    const l=document.createElement('label'); l.className='choice'; const r=document.createElement('input'); r.type='radio'; r.name='q'+i; r.value=j;
+    r.addEventListener('change',updProg); l.appendChild(r); l.appendChild(document.createTextNode(t)); d.querySelector('.choices').appendChild(l);
+  });
+  qb.appendChild(d);
+});
+function updProg(){const n=qs.filter((q,i)=>$('input[name=q'+i+']:checked')).length; $('#progress').style.width=(n/qs.length*100)+'%';}
+$('#checkQuiz').addEventListener('click',()=>{
+  let s=0,done=0;
+  qs.forEach((q,i)=>{
+    const sel=$('input[name=q'+i+']:checked'), f=$('#qf'+i); f.classList.add('show');
+    if(!sel){f.textContent='Choose an answer to complete this question.';return;}
+    done++; const ok=+sel.value===q.c; if(ok) s++;
+    f.innerHTML='<b></b> <span></span>'; f.firstChild.textContent=ok?'Correct!':'Correct answer: '+q.a[q.c]; f.lastChild.textContent=q.e;
+  });
+  $('#quizScore').textContent=done===qs.length?('Score: '+s+'/'+qs.length):('Answered: '+done+'/'+qs.length);
+});
+$('#resetQuiz').addEventListener('click',()=>{
+  $$('#quizBox input').forEach(x=>x.checked=false);
+  $$('#quizBox .feedback').forEach(x=>{x.classList.remove('show');x.textContent='';});
+  $('#quizScore').textContent=''; updProg();
+});
+
+/* ---------- Nav scroll-spy ---------- */
+const links=$$('.nav a'); const map={};
+links.forEach(a=>{map[a.getAttribute('href').slice(1)]=a;});
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.remove('on'));const l=map[en.target.id]; if(l) l.classList.add('on');}});},{rootMargin:'-30% 0px -60% 0px'});
+  Object.keys(map).forEach(id=>{const el=document.getElementById(id); if(el) io.observe(el);});
+}
+})();
+</script>
+</body>
+</html>

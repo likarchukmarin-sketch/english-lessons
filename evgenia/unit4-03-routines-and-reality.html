@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluency Lab — Routines vs Reality</title>
+<style>
+  :root{
+    --ink:#1e2a2e;--paper:#faf8f4;--panel:#ffffff;--teal:#3a6b62;--teal-dark:#2a4d47;
+    --rust:#b5502e;--gold:#b8863f;--line:#e3ddd0;--muted:#6b6459;--error:#a3453a;--good:#3a6b52;--radius:12px;
+    --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:16.5px;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:740px;margin:0 auto;padding:0 20px 90px;}
+
+  header.top{background:var(--teal-dark);color:#f4f1ea;padding:34px 20px 24px;border-bottom:4px solid var(--rust);}
+  header.top .inner{max-width:740px;margin:0 auto;}
+  .badge{display:inline-block;background:var(--rust);color:#fff;font-size:12px;letter-spacing:.6px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:12px;}
+  h1{font-family:var(--serif);font-size:clamp(28px,5.5vw,38px);margin:0 0 6px;font-weight:600;letter-spacing:.2px;}
+  .subtitle{font-size:15.5px;color:#dfe8e4;margin:0 0 16px;font-style:italic;}
+  .objective{background:rgba(255,255,255,.09);border-left:3px solid var(--rust);padding:13px 15px;border-radius:4px;font-size:15px;}
+
+  .progress-bar{display:flex;gap:4px;padding:16px 0 0;max-width:740px;margin:0 auto;}
+  .progress-bar .seg{flex:1;height:6px;border-radius:4px;background:rgba(255,255,255,.18);transition:background .3s;}
+  .progress-bar .seg.done{background:var(--rust);}
+
+  nav.stagenav{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap;padding:11px 20px;font-size:13px;}
+  nav.stagenav a{color:var(--muted);text-decoration:none;margin-right:14px;padding:5px 11px;border-radius:20px;border:1px solid var(--line);display:inline-block;}
+  nav.stagenav a.active{background:var(--rust);color:#fff;border-color:var(--rust);}
+
+  section.stage{padding:38px 0 10px;border-bottom:1px solid var(--line);}
+  section.stage:last-of-type{border-bottom:none;}
+  .stage-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px;}
+  .stage-head h2{font-family:var(--serif);font-size:23px;margin:0;color:var(--teal-dark);}
+  .stage-sub{font-size:13.5px;color:var(--rust);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin:0 0 10px;}
+  .timing{font-size:13px;color:var(--gold);background:#f4ead8;padding:3px 11px;border-radius:20px;white-space:nowrap;}
+
+  .task{font-size:16px;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:var(--radius);padding:16px 20px;margin-bottom:14px;}
+  .task b{color:var(--teal-dark);}
+  .example{font-size:14.5px;color:var(--muted);font-style:italic;margin-top:8px;}
+
+  .prompt-list{margin:0;padding-left:0;list-style:none;}
+  .prompt-list li{padding:11px 0;border-bottom:1px dashed var(--line);font-size:16px;}
+  .prompt-list li:last-child{border-bottom:none;}
+
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+  .chip{background:#eef3f0;border:1px solid #d7e3dc;color:var(--teal-dark);padding:6px 13px;border-radius:20px;font-size:14px;}
+
+  .reveal-btn{background:var(--teal);color:#fff;border:none;padding:9px 18px;border-radius:6px;font-size:14.5px;cursor:pointer;margin-top:10px;}
+  .reveal-btn:hover{background:var(--teal-dark);}
+  .reveal-btn.rust{background:var(--rust);}
+  .reveal-btn.rust:hover{background:#8c3c21;}
+  .reveal-box{display:none;margin-top:12px;padding:13px 16px;background:#f6f2e8;border-left:3px solid var(--gold);border-radius:4px;font-size:14.5px;}
+  .reveal-box.open{display:block;}
+
+  .toolphrase{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--teal-dark);background:#f4f1ea;border-radius:10px;padding:14px 18px;margin-bottom:8px;}
+
+  .vocabrow{border-bottom:1px dashed var(--line);padding:12px 0;}
+  .vocabrow:last-child{border-bottom:none;}
+  .vocabrow b{color:var(--teal-dark);font-size:15.5px;}
+  .vocabrow .def{color:var(--muted);font-size:13.5px;}
+  .vocabrow .ex{font-style:italic;font-size:14px;margin-top:2px;}
+
+  .cardrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+  @media(max-width:560px){.cardrow{grid-template-columns:1fr;}}
+  .flipcard{border:1.5px dashed var(--teal);border-radius:10px;padding:14px;background:#fbfdfc;font-size:14.5px;}
+  .flipcard b{color:var(--teal-dark);}
+
+  .curveball{background:#fbf1ec;border:1px solid #eecfbf;border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+  .curveball b{color:var(--rust);}
+
+  .challenge-box{background:var(--teal-dark);color:#f4f1ea;border-radius:var(--radius);padding:22px 24px;}
+  .challenge-box h3{margin:0 0 10px;color:#fff;font-family:var(--serif);font-size:20px;}
+  .challenge-box ul{margin:10px 0 0;padding-left:18px;font-size:14.5px;}
+  .challenge-box li{margin-bottom:5px;}
+
+  .selfcheck-list{list-style:none;padding:0;margin:14px 0 0;}
+  .selfcheck-list li{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px dashed rgba(255,255,255,.2);font-size:15px;}
+  .selfcheck-list li:last-child{border-bottom:none;}
+  .selfcheck-list input{margin-top:4px;width:17px;height:17px;}
+
+  .homework-box{background:var(--rust);color:#fff;border-radius:var(--radius);padding:22px 24px;}
+  .homework-box h3{margin:0 0 10px;color:#fff;font-family:var(--serif);font-size:20px;}
+  .homework-box ul{margin:10px 0 0;padding-left:18px;font-size:14.5px;}
+  .homework-box li{margin-bottom:5px;}
+  .homework-box .hwcheck{list-style:none;padding:0;margin-top:14px;}
+  .homework-box .hwcheck li{display:flex;gap:8px;align-items:flex-start;font-size:14.5px;margin-bottom:6px;}
+
+  details.teacher{margin-top:36px;border:1px solid var(--line);border-radius:var(--radius);background:#f4f1ea;}
+  details.teacher summary{cursor:pointer;padding:14px 18px;font-weight:600;color:var(--teal-dark);font-size:14.5px;}
+  details.teacher .tcontent{padding:0 18px 18px;font-size:14px;color:var(--ink);}
+  details.teacher .tcontent h4{margin:14px 0 6px;color:var(--teal-dark);font-size:14.5px;}
+  details.teacher .tcontent ul{margin:0 0 4px;padding-left:20px;}
+
+  footer.end{text-align:center;color:var(--muted);font-size:13px;padding:32px 0 10px;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <span class="badge">Fluency Lab</span>
+    <h1>Routines vs Reality</h1>
+    <p class="subtitle">What your day actually looks like — not the version on paper.</p>
+    <div class="objective">
+      <b>By the end of this lesson</b> you can talk for 60–90 seconds about a normal day — and what went differently today — without stopping to translate, and without long pauses.
+    </div>
+  </div>
+  <div class="progress-bar" id="progressBar"></div>
+</header>
+
+<nav class="stagenav" id="stageNav">
+  <a href="#s1">1. Snooze or Go?</a>
+  <a href="#s2">2. Retrieval</a>
+  <a href="#s3">3. Toolkit</a>
+  <a href="#s4">4. Plan A vs Reality</a>
+  <a href="#s5">5. Complicated Day</a>
+  <a href="#s6">6. Reality Check</a>
+  <a href="#s7">7. Homework</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- STAGE 1 -->
+  <section class="stage" id="s1" data-stage="0">
+    <div class="stage-head"><h2>1. Snooze or Go?</h2><span class="timing">5 min</span></div>
+    <p class="stage-sub">React fast</p>
+    <div class="task">Pick one option from each pair and explain your choice <b>in one sentence, right away</b> — don't plan it in your head first.</div>
+    <ul class="prompt-list">
+      <li>Alarm goes off: snooze it, or get up straight away?</li>
+      <li>Unexpected free hour appears: catch up on work, or do nothing?</li>
+      <li>Plan changes last minute: go with it, or feel annoyed?</li>
+      <li>Bored at work: check your phone, or push through?</li>
+    </ul>
+  </section>
+
+  <!-- STAGE 2 -->
+  <section class="stage" id="s2" data-stage="1">
+    <div class="stage-head"><h2>2. Same Sentence, Different Words</h2><span class="timing">7 min</span></div>
+    <p class="stage-sub">Retrieval challenge</p>
+    <div class="task">Say each one <b>a smoother, more natural way</b> out loud — then check.</div>
+    <div class="task">
+      "Every day I do the same things, but today it is not like that."
+      <div class="example">→ a more natural way to say this uses a contrast between habit and today</div>
+      <button class="reveal-btn" onclick="toggleReveal('r1')">Check</button>
+      <div class="reveal-box" id="r1">I usually stick to a routine, but today's completely different.</div>
+    </div>
+    <div class="task">
+      "I am not able to finish this today because too many things is happening."
+      <button class="reveal-btn" onclick="toggleReveal('r2')">Check</button>
+      <div class="reveal-box" id="r2">I can't finish this today — too much is going on. / ...I'm dealing with too much today.</div>
+    </div>
+    <div class="task">
+      "Normally I go to gym, but this week I don't have time for do it."
+      <button class="reveal-btn" onclick="toggleReveal('r3')">Check</button>
+      <div class="reveal-box" id="r3">I usually go to the gym, but this week I can't fit it in / I've had to put it off.</div>
+    </div>
+  </section>
+
+  <!-- STAGE 3 -->
+  <section class="stage" id="s3" data-stage="2">
+    <div class="stage-head"><h2>3. Say It Smoother</h2><span class="timing">7 min</span></div>
+    <p class="stage-sub">Fluency toolkit</p>
+    <div class="toolphrase">Usually, ...</div>
+    <div class="toolphrase">The thing is, ...</div>
+    <div class="toolphrase">Actually, ...</div>
+    <div class="toolphrase">At the moment, ...</div>
+    <div class="toolphrase">I tend to ...</div>
+    <div class="toolphrase">I usually ..., but today ...</div>
+    <div class="toolphrase">If I'm being honest, ...</div>
+    <div class="toolphrase">It depends on ...</div>
+    <div class="task" style="margin-top:16px;">Now use <b>three</b> of these phrases in real sentences about your actual week — out loud, no writing.</div>
+  </section>
+
+  <!-- STAGE 4 -->
+  <section class="stage" id="s4" data-stage="3">
+    <div class="stage-head"><h2>4. Plan A vs Reality</h2><span class="timing">8 min</span></div>
+    <p class="stage-sub">Controlled → semi-controlled speaking</p>
+    <div class="task">For each area, say what you <b>usually</b> do (Plan A), then what's actually happening <b>this week</b> (Reality) — using "I usually... but today/this week..."</div>
+    <div class="cardrow">
+      <div class="flipcard"><b>Mornings</b><br>Plan A vs reality</div>
+      <div class="flipcard"><b>Exercise / health</b><br>Plan A vs reality</div>
+      <div class="flipcard"><b>Work focus</b><br>Plan A vs reality</div>
+      <div class="flipcard"><b>Evenings</b><br>Plan A vs reality</div>
+    </div>
+    <div class="task" style="margin-top:14px;">New vocabulary — try to use at least 2 of these while you talk:</div>
+    <div class="chip-row">
+      <span class="chip">squeeze into my schedule</span>
+      <span class="chip">run errands</span>
+      <span class="chip">get distracted</span>
+      <span class="chip">stick to a routine</span>
+      <span class="chip">put something off</span>
+      <span class="chip">take a break</span>
+      <span class="chip">deal with something</span>
+      <span class="chip">be in the middle of something</span>
+      <span class="chip">throw off my routine</span>
+    </div>
+    <button class="reveal-btn" onclick="toggleReveal('vocab')">What do these mean?</button>
+    <div class="reveal-box" id="vocab">
+      <div class="vocabrow"><b>squeeze something into my schedule</b><div class="def">to find time for it even when your day is full</div><div class="ex">I squeezed a quick call into my lunch break.</div></div>
+      <div class="vocabrow"><b>run errands</b><div class="def">small tasks like shopping, post office, bank</div><div class="ex">I need to run a few errands before work.</div></div>
+      <div class="vocabrow"><b>get distracted</b><div class="def">stop focusing because something else grabs your attention</div><div class="ex">I keep getting distracted by my phone.</div></div>
+      <div class="vocabrow"><b>stick to a routine</b><div class="def">keep doing the same plan/habits consistently</div><div class="ex">I try to stick to a routine on weekdays.</div></div>
+      <div class="vocabrow"><b>put something off</b><div class="def">delay doing something</div><div class="ex">I keep putting off that phone call.</div></div>
+      <div class="vocabrow"><b>take a break</b><div class="def">stop for a short rest</div><div class="ex">I need to take a break, I've been at my desk for hours.</div></div>
+      <div class="vocabrow"><b>deal with something</b><div class="def">handle a problem or task</div><div class="ex">I'm dealing with a difficult client today.</div></div>
+      <div class="vocabrow"><b>be in the middle of something</b><div class="def">be busy doing something right now</div><div class="ex">Can I call you back? I'm in the middle of something.</div></div>
+      <div class="vocabrow"><b>throw off my routine</b><div class="def">disrupt your usual plan/schedule</div><div class="ex">The trip completely threw off my routine.</div></div>
+    </div>
+  </section>
+
+  <!-- STAGE 5 -->
+  <section class="stage" id="s5" data-stage="4">
+    <div class="stage-head"><h2>5. Your Day Just Got Complicated</h2><span class="timing">10 min</span></div>
+    <p class="stage-sub">Main task — curveballs</p>
+    <div class="task">Start by describing a normal work day for you — 3–4 sentences, Present Simple, using "usually". Then your teacher will throw in <b>curveballs</b>, one at a time. React to each one immediately: say what's happening now, and how it's throwing off your plan.</div>
+    <div class="curveball"><b>Curveball 1:</b> your 9am meeting just got moved to right now.</div>
+    <div class="curveball"><b>Curveball 2:</b> a colleague needs your help with something urgent.</div>
+    <div class="curveball"><b>Curveball 3:</b> your internet/power goes down for an hour.</div>
+    <div class="curveball"><b>Curveball 4:</b> a friend calls — they need to talk right now.</div>
+    <div class="task">Try to keep talking through each curveball — don't stop, just adjust your story.</div>
+  </section>
+
+  <!-- STAGE 6 -->
+  <section class="stage" id="s6" data-stage="5">
+    <div class="stage-head"><h2>6. 60-Second Reality Check</h2><span class="timing">8 min</span></div>
+    <p class="stage-sub">Final fluency challenge</p>
+    <div class="challenge-box">
+      <h3>Describe your day — 60 to 90 seconds, without stopping for more than 3 seconds</h3>
+      <p style="margin:0;">A normal day for you, and what's different about today.</p>
+      <ul>
+        <li>use 2 Present Simple sentences</li>
+        <li>use 2 Present Continuous sentences</li>
+        <li>use 3 fluency phrases from stage 3</li>
+        <li>include one contrast / unexpected change</li>
+      </ul>
+      <h3 style="margin-top:18px;">Self-check</h3>
+      <ul class="selfcheck-list">
+        <li><input type="checkbox"><span>I spoke without translating every sentence in my head.</span></li>
+        <li><input type="checkbox"><span>I used fluency/linking phrases.</span></li>
+        <li><input type="checkbox"><span>I used Present Simple and Present Continuous naturally.</span></li>
+        <li><input type="checkbox"><span>I gave details, not just short answers.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- STAGE 7 -->
+  <section class="stage" id="s7" data-stage="6">
+    <div class="stage-head"><h2>7. Homework</h2><span class="timing">—</span></div>
+    <div class="homework-box">
+      <h3>A Realistic Day in My Life — 1–2 min recording</h3>
+      <p style="margin:0;">Record yourself describing a realistic day — not a perfect one. Include:</p>
+      <ul>
+        <li>at least 2 Present Simple sentences (your usual routine)</li>
+        <li>at least 2 Present Continuous sentences (something happening today/right now)</li>
+        <li>2–3 fluency phrases from today's toolkit</li>
+        <li>2–3 new expressions from today's vocabulary</li>
+        <li>one unexpected change or contrast in your day</li>
+      </ul>
+      <ul class="hwcheck">
+        <li>☐ Did I speak without long pauses?</li>
+        <li>☐ Did I include a contrast (Plan A vs reality)?</li>
+      </ul>
+    </div>
+  </section>
+
+  <details class="teacher">
+    <summary>Нотатки для викладача</summary>
+    <div class="tcontent">
+      <h4>Мета уроку</h4>
+      <p>Авторський fluency-урок (Урок 5, Модуль 1). Жодного нового граматичного матеріалу — Present Simple/Continuous і verb patterns з Уроків 1-4 працюють виключно як інструмент для розгорнутого, безперервного мовлення. Головна метрика успіху — тривалість і плавність висловлювання, а не граматична точність.</p>
+      <h4>Чому саме ця тема</h4>
+      <p>"Routines vs Reality" природно провокує контраст Present Simple/Continuous без потреби пояснювати правило — студентка сама його активує, розповідаючи про заплановане й реальне. Тема доросла й актуальна, без присмаку шкільного "My Daily Routine".</p>
+      <h4>Ключове про формат</h4>
+      <ul>
+        <li>Урок побудований як progression: recall → notice → use → personalize → challenge → speak freely — кожна активність готує до фінального 60-90-сек виклику</li>
+        <li>Curveballs (крок 5) — імпровізаційна механіка: не давати студентці готуватись заздалегідь, кидати по одному, стежити за реакцією без пауз</li>
+        <li>STT (student talking time) має домінувати — інструкції короткі, приклади прибрані з екрану студентки в reveal-блоки</li>
+      </ul>
+      <h4>Ключова мова для спостереження</h4>
+      <ul>
+        <li>Чи виникають природні паузи довше 3 сек — головний індикатор того, над чим працювати далі</li>
+        <li>Чи використовує fluency-фрази спонтанно в кроці 5-6, чи лише коли підказано в кроці 3</li>
+        <li>Present Simple/Continuous — контраст, а не окремі форми</li>
+        <li>Незакритий гештальт з Уроку 3 (starting a conversation) — гарний момент для нього НЕ тут (урок і так щільний), краще окремо в Уроці 6 (review)</li>
+      </ul>
+      <h4>Стратегія корекції</h4>
+      <p>Не переривати під час curveballs і фінального challenge — це фокус на fluency, не accuracy. Зібрати 2-3 показові помилки, дати фідбек після фінального завдання, коротко, без окремого блоку в матеріалі студентки.</p>
+      <h4>Адаптація</h4>
+      <p><b>Якщо важко:</b> дозволити 1-2 секунди подумати перед кожним curveball; скоротити фінальний challenge до 45-60 сек.<br>
+      <b>Якщо легко:</b> додати 5-й curveball без попередження; вимагати 90 сек мінімум у фінальному challenge без жодної паузи.</p>
+      <h4>Що повторити наступного разу</h4>
+      <p>Урок 6 — Unit 1 Review + Progress Check: гарне місце звести докупи всю лексику/граматику Модуля 1 і нарешті закрити функціональну мову з пропущеного Уроку 3.</p>
+    </div>
+  </details>
+
+  <footer class="end">Yevheniia's Course · Fluency Lab · Module 1</footer>
+</div>
+
+<script>
+  function toggleReveal(id){ document.getElementById(id).classList.toggle('open'); }
+  const stages = document.querySelectorAll('.stage');
+  const navLinks = document.querySelectorAll('.stagenav a');
+  const bar = document.getElementById('progressBar');
+  stages.forEach(()=>{ const seg=document.createElement('div'); seg.className='seg'; bar.appendChild(seg); });
+  const segs = bar.querySelectorAll('.seg');
+  function onScroll(){
+    let current=0;
+    stages.forEach((s,i)=>{ const rect=s.getBoundingClientRect(); if(rect.top<window.innerHeight*0.4) current=i; });
+    segs.forEach((seg,i)=> seg.classList.toggle('done', i<=current));
+    navLinks.forEach((a,i)=> a.classList.toggle('active', i===current));
+  }
+  document.addEventListener('scroll', onScroll);
+  onScroll();
+</script>
+
+</body>
+</html>

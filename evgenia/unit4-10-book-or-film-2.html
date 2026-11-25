@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Books, Films & Everything In Between</title>
+<style>
+:root{--ink:#28332d;--muted:#68736b;--sage:#718777;--sage2:#e7ede6;--cream:#f7f4ec;--paper:#fffdf8;--terra:#b9785e;--line:#e5e0d5;--gold:#d7b77b;--shadow:0 12px 34px rgba(43,53,44,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.65 'Aptos','Segoe UI',sans-serif}
+header{background:linear-gradient(120deg,#e9eee6,#f6f0e5 72%);padding:58px 22px 46px;border-bottom:1px solid var(--line)}
+.hero,.wrap{max-width:1080px;margin:auto}.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.72rem;color:var(--sage);font-weight:700}
+h1,h2,h3,.serif{font-family:Georgia,'Times New Roman',serif;font-weight:500;line-height:1.16}
+h1{font-size:clamp(2.5rem,6vw,4.6rem);max-width:760px;margin:15px 0}
+header p{max-width:610px;color:#59665d;font-size:1.08rem}.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.meta span{border:1px solid #cdd7cc;border-radius:30px;padding:6px 13px;font-size:.82rem;color:#536357}
+nav{position:sticky;top:0;z-index:5;background:rgba(255,253,248,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+nav a{color:var(--muted);text-decoration:none;font-size:.78rem;padding:6px 10px;border-radius:20px}nav a:hover{background:var(--sage2);color:var(--ink)}
+.wrap{padding:24px 22px 80px}.section{padding:46px 0 28px;scroll-margin-top:85px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:15px}
+h2{font-size:clamp(1.9rem,4vw,2.7rem);margin:6px 0}.duration{font-size:.8rem;color:var(--muted);white-space:nowrap}
+h3{font-size:1.35rem;margin:0 0 12px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.lead{background:#e8eee6;border-left:4px solid var(--sage);padding:23px 26px;border-radius:0 16px 16px 0;font:1.35rem/1.4 Georgia,serif;margin:20px 0}
+.qcard{padding:18px;background:var(--paper);border:1px solid var(--line);border-radius:14px}.qnum{color:var(--terra);font-size:.75rem;letter-spacing:.12em;font-weight:700}
+button,.choice{font:inherit;cursor:pointer}.btn{border:0;border-radius:30px;background:var(--sage);color:white;padding:10px 18px;font-weight:650}.btn:hover{background:#586e5e}.btn.secondary{background:transparent;color:var(--ink);border:1px solid #cbd4ca}.btn.terra{background:var(--terra)}.btn.small{padding:7px 13px;font-size:.85rem}
+details{background:#f2f1e9;border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-top:16px}summary{cursor:pointer;font-weight:650;color:#56665a}
+.vocab-card{width:100%;text-align:left;border:1px solid var(--line);background:var(--paper);border-radius:16px;padding:18px;min-height:150px;box-shadow:var(--shadow);color:var(--ink);transition:.2s}.vocab-card:hover{transform:translateY(-2px);border-color:#a8b7a8}.vocab-card .word{font:1.35rem Georgia,serif;display:block;margin:8px 0;color:#425a49}.vocab-card .clue{font-size:.9rem;color:var(--muted)}.reveal{display:none;margin-top:12px;border-top:1px solid var(--line);padding-top:10px}.vocab-card.open .reveal{display:block}.translation{color:var(--terra);font-weight:650}
+.phrases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.phrase{background:#f1f0e8;border-radius:12px;padding:13px 15px}.phrase b{display:block;font-family:Georgia,serif;font-size:1.05rem}.phrase span{font-size:.88rem;color:var(--muted)}
+.speaking-list{display:grid;gap:10px}.speakline{padding:15px 18px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}.speakline strong{color:var(--terra);margin-right:8px}
+.debate{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.statement{font:1.15rem Georgia,serif}.choices{display:flex;gap:6px;flex-wrap:wrap}.choice{border:1px solid #cbd4ca;background:transparent;padding:7px 11px;border-radius:22px;font-size:.82rem}.choice.selected{background:var(--sage);color:white;border-color:var(--sage)}.follow{display:none;grid-column:1/-1;background:var(--sage2);padding:12px 15px;border-radius:10px}.debate.active .follow{display:block}
+blockquote{margin:22px 0;padding:25px 30px;background:#eee8dc;border-radius:14px;text-align:center;font:italic 1.4rem/1.5 Georgia,serif;color:#596254}
+.lang-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.lang-grid .card{box-shadow:none}.lang-grid h4{margin:0 0 8px;color:var(--sage);font-size:.82rem;text-transform:uppercase;letter-spacing:.1em}
+.grammar-note{background:#f0f2eb;border-radius:12px;padding:15px;margin:12px 0}.grammar-note p{margin:5px 0}
+.exercise{display:grid;gap:12px;margin:18px 0}.question{padding:15px 16px;background:var(--paper);border:1px solid var(--line);border-radius:12px}.question p{margin:0 0 10px}.question select{max-width:100%;padding:8px 10px;border:1px solid #cbd4ca;border-radius:8px;background:white;color:var(--ink);font:inherit}.feedback{font-size:.88rem;margin-top:7px;min-height:1.3em}.correct{color:#34734b}.incorrect{color:#a64d3c}.score{font-weight:700;margin:12px 0}
+.reading{font:1.04rem/1.9 Georgia,serif;background:#fffefa;padding:clamp(22px,5vw,48px);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.reading h3{font-size:1.8rem}.reading .subtitle{color:var(--terra);font-style:italic;margin-top:-6px}.reading p{margin:0 0 1.1em}
+.homework{border-top:3px solid var(--gold)}.homework ol{padding-left:22px}.footer{text-align:center;color:var(--muted);font-size:.82rem;padding:30px 0}
+@media(max-width:720px){.grid,.grid.three,.phrases,.lang-grid{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.debate{grid-template-columns:1fr}.choices{margin-top:5px}.wrap{padding-inline:15px}header{padding-top:42px}}
+@media print{nav,.btn,.choices,button{display:none!important}body{background:white}.card,.reading,.vocab-card{box-shadow:none;break-inside:avoid}.section{padding:20px 0}.reveal{display:block!important}.follow{display:block!important}details>*{display:block!important}header{padding:20px}}
+</style>
+</head>
+<body>
+<header><div class="hero">
+<div class="eyebrow">A conversation-led English lesson · A2+–B1</div>
+<h1>Books, Films &<br>Everything In Between</h1>
+<p>Stories we love, adaptations we question, and the little details that make a book or film unforgettable.</p>
+<div class="meta"><span>60–70 minutes</span><span>One-to-one lesson</span><span>Speaking · Vocabulary · Accuracy</span></div>
+</div></header>
+<nav>
+<a href="#warmup">01 Warm-up</a><a href="#vocabulary">02 Vocabulary</a><a href="#debate">03 Debate</a><a href="#grammar">04 Grammar</a><a href="#reading">05 Reading</a><a href="#challenge">06 Challenge</a><a href="#homework">07 Homework</a>
+</nav>
+<main class="wrap">
+<section class="section" id="warmup">
+<div class="section-head"><div><div class="eyebrow">01 · Start talking</div><h2>Let's talk about it</h2></div><div class="duration">5 minutes</div></div>
+<div class="lead">If you have a free evening, what are you more likely to choose: a book, a film or a TV series? Why?</div>
+<div class="grid">
+<div class="qcard"><span class="qnum">01</span><p>How often do you watch films or series?</p></div>
+<div class="qcard"><span class="qnum">02</span><p>Are you reading anything interesting at the moment?</p></div>
+<div class="qcard"><span class="qnum">03</span><p>Have you watched any films based on books recently?</p></div>
+<div class="qcard"><span class="qnum">04</span><p>Do you usually read reviews or watch trailers before choosing a film?</p></div>
+<div class="qcard"><span class="qnum">05</span><p>What makes you stop watching a film or stop reading a book?</p></div>
+</div>
+<details><summary>Teacher notes</summary><ul><li>Listen for Present Simple, Present Continuous and Present Perfect.</li><li>Do not interrupt to correct every mistake.</li><li>Note recurring grammar mistakes for the grammar section.</li></ul></details>
+</section>
+
+<section class="section" id="vocabulary">
+<div class="section-head"><div><div class="eyebrow">02 · The reviewer's toolkit</div><h2>Words that bring stories to life</h2></div><div class="duration">8–10 minutes</div></div>
+<p>Read the clue first. Guess the meaning, then click a card to reveal its translation and example.</p>
+<div class="grid three" id="vocabGrid">
+<button class="vocab-card" type="button"><span class="qnum">01 · POSITIVE</span><span class="word">gripping</span><span class="clue">So exciting or interesting that you cannot stop reading or watching.</span><span class="reveal"><span class="translation">захопливий, від якого важко відірватися</span><br><em>The plot was so gripping that I finished the book in one day.</em></span></button>
+<button class="vocab-card" type="button"><span class="qnum">02 · THOUGHTFUL</span><span class="word">thought-provoking</span><span class="clue">Making you think seriously about an idea or a problem.</span><span class="reveal"><span class="translation">такий, що змушує задуматися</span><br><em>It was a thought-provoking film about friendship.</em></span></button>
+<button class="vocab-card" type="button"><span class="qnum">03 · NEUTRAL / NEGATIVE</span><span class="word">predictable</span><span class="clue">Easy to guess what will happen next.</span><span class="reveal"><span class="translation">передбачуваний</span><br><em>The ending was predictable, but I still enjoyed the film.</em></span></button>
+<button class="vocab-card" type="button"><span class="qnum">04 · NEGATIVE</span><span class="word">overrated</span><span class="clue">More popular or praised than you think it deserves.</span><span class="reveal"><span class="translation">переоцінений</span><br><em>I think this popular series is overrated.</em></span></button>
+<button class="vocab-card" type="button"><span class="qnum">05 · POSITIVE</span><span class="word">underrated</span><span class="clue">Better than most people realise; it deserves more attention.</span><span class="reveal"><span class="translation">недооцінений</span><br><em>It's an underrated film that deserves more attention.</em></span></button>
+<button class="vocab-card" type="button"><span class="qnum">06 · POSITIVE</span><span class="word">heartwarming</span><span class="clue">Making you feel happy, touched or full of warmth.</span><span class="reveal"><span class="translation">зворушливий, душевний</span><br><em>It's a heartwarming story about family.</em></span></button>
+<button class="vocab-card" type="button"><span class="qnum">07 · NEGATIVE</span><span class="word">disappointing</span><span class="clue">Not as good as you hoped or expected.</span><span class="reveal"><span class="translation">розчаровуючий</span><br><em>The sequel was a little disappointing.</em></span></button>
+<button class="vocab-card" type="button"><span class="qnum">08 · POSITIVE</span><span class="word">visually stunning</span><span class="clue">Extremely beautiful to look at, especially on screen.</span><span class="reveal"><span class="translation">візуально вражаючий</span><br><em>The film was visually stunning.</em></span></button>
+<button class="vocab-card" type="button"><span class="qnum">09 · DESCRIPTIVE</span><span class="word">slow-paced</span><span class="clue">Developing slowly, without much action or speed.</span><span class="reveal"><span class="translation">із повільним темпом</span><br><em>It's a slow-paced film, but the characters are fascinating.</em></span></button>
+</div>
+<h3 style="margin-top:30px">Useful expressions: talking about opinions</h3>
+<div class="phrases">
+<div class="phrase"><b>It kept me hooked.</b><span>Я не могла відірватися.</span></div><div class="phrase"><b>I couldn't get into it.</b><span>Я ніяк не могла захопитися цим.</span></div>
+<div class="phrase"><b>It lived up to my expectations.</b><span>Це виправдало мої очікування.</span></div><div class="phrase"><b>It didn't live up to the hype.</b><span>Це не виправдало ажіотажу.</span></div>
+<div class="phrase"><b>I lost interest halfway through.</b><span>Я втратила інтерес на середині.</span></div><div class="phrase"><b>It left a lasting impression on me.</b><span>Це залишило незабутнє враження.</span></div>
+<div class="phrase"><b>I saw it coming.</b><span>Я передбачала, що так станеться.</span></div><div class="phrase"><b>It was worth the watch.</b><span>Це варте перегляду.</span></div>
+</div>
+<h3 style="margin-top:30px">Complete the ideas — out loud</h3>
+<div class="speaking-list">
+<div class="speakline"><strong>01</strong>A film that kept me hooked was...</div><div class="speakline"><strong>02</strong>I couldn't get into the book because...</div><div class="speakline"><strong>03</strong>I think ... is overrated because...</div><div class="speakline"><strong>04</strong>The last story that left a lasting impression on me was...</div><div class="speakline"><strong>05</strong>I prefer stories with unpredictable endings because...</div>
+</div>
+<p><strong>Go further:</strong> Explain your answer, give an example and ask your teacher what they think.</p>
+<details><summary>Teacher notes</summary><ul><li>Ask the student to guess meanings before revealing translations.</li><li>Ask which words have positive, negative or neutral meanings.</li><li>Recycle familiar words naturally: actor, author, chapter, characters, director, ending, novel, page, paperback, plot, review, screenwriter, sequel, soundtrack, trailer.</li><li>Recycle genres: action, comedy, fantasy, historical fiction, horror, mystery, romance and sci-fi; and adjectives: action-packed, fast-paced, hilarious, scary, terrifying and thrilling. These are revision, not new vocabulary.</li></ul></details>
+</section>
+
+<section class="section" id="debate">
+<div class="section-head"><div><div class="eyebrow">03 · Make your case</div><h2>Mini debate: Pick a side</h2></div><div class="duration">8–10 minutes</div></div>
+<p>Choose a position for each statement. Then answer the follow-up question and support your opinion with an example.</p>
+<div class="speaking-list">
+<div class="card debate"><div class="statement">01. Books develop imagination better than films.</div><div class="choices"><button class="choice">Agree</button><button class="choice">Disagree</button><button class="choice">Not sure</button></div><div class="follow">Do films leave anything to our imagination?</div></div>
+<div class="card debate"><div class="statement">02. A film adaptation should always follow the original book.</div><div class="choices"><button class="choice">Agree</button><button class="choice">Disagree</button><button class="choice">Not sure</button></div><div class="follow">Should directors be allowed to change the ending?</div></div>
+<div class="card debate"><div class="statement">03. Watching a film is easier, but reading is more rewarding.</div><div class="choices"><button class="choice">Agree</button><button class="choice">Disagree</button><button class="choice">Not sure</button></div><div class="follow">What does “rewarding” mean to you?</div></div>
+<div class="card debate"><div class="statement">04. A two-hour film can tell a story better than a 500-page novel.</div><div class="choices"><button class="choice">Agree</button><button class="choice">Disagree</button><button class="choice">Not sure</button></div><div class="follow">What can a film show that a book cannot?</div></div>
+</div>
+<blockquote>“A great book doesn't always need a film. Sometimes, the film is already in your imagination.”</blockquote>
+<div class="lang-grid">
+<div class="card"><h4>Giving an opinion</h4>As far as I'm concerned...<br>Personally, I believe...</div>
+<div class="card"><h4>Adding a reason</h4>The main reason is...<br>What I mean is...</div>
+<div class="card"><h4>Disagreeing politely</h4>I see your point, but...<br>I'm not sure I agree because...</div>
+<div class="card"><h4>Giving examples</h4>A good example of this is...<br>Take ... for example.</div>
+</div>
+<details><summary>Teacher notes</summary>Sometimes take the opposite position to encourage the student to defend her ideas and develop arguments. Reuse vocabulary from the previous section.</details>
+</section>
+
+<section class="section" id="grammar">
+<div class="section-head"><div><div class="eyebrow">04 · Accuracy in context</div><h2>Grammar in real life</h2></div><div class="duration">10–12 minutes</div></div>
+<p>Choose the correct form. Submit your answers to see your score and feedback. Answers stay hidden until you check.</p>
+<div class="card">
+<h3>Part A. Film habits: usually or right now?</h3>
+<div class="grammar-note"><p><strong>Present Simple</strong> — habits, routines and general facts.</p><p><strong>Present Continuous</strong> — actions happening now, temporary or changing situations, and future arrangements.</p></div>
+<div id="exerciseA" class="exercise">
+<div class="question" data-answer="watch|am reading"><p>1. I usually <em>(watch)</em> films at weekends, but this week I <em>(read)</em> a novel.</p><select aria-label="Question 1, first verb"><option value="">Choose the first form</option><option>watch</option><option>am watching</option><option>watching</option></select> <select aria-label="Question 1, second verb"><option value="">Choose the second form</option><option>read</option><option>am reading</option><option>reads</option></select><div class="feedback"></div></div>
+<div class="question" data-answer="doesn't like|is watching"><p>2. My sister <em>(not like)</em> horror films, but she <em>(watch)</em> one with me tonight.</p><select aria-label="Question 2, first verb"><option value="">Choose the first form</option><option>isn't liking</option><option>doesn't like</option><option>don't like</option></select> <select aria-label="Question 2, second verb"><option value="">Choose the second form</option><option>watches</option><option>is watching</option><option>watch</option></select><div class="feedback"></div></div>
+<div class="question" data-answer="are|looking"><p>3. Why <em>(you / look)</em> at the reviews? Is the film really that bad?</p><select aria-label="Question 3, auxiliary"><option value="">Choose the auxiliary</option><option>do</option><option>are</option><option>does</option></select> <select aria-label="Question 3, verb"><option value="">Choose the verb</option><option>look</option><option>looking</option><option>looks</option></select><div class="feedback"></div></div>
+<div class="question" data-answer="are changing"><p>4. Streaming platforms <em>(change)</em> the way people watch films.</p><select aria-label="Question 4"><option value="">Choose the correct form</option><option>change</option><option>changes</option><option>are changing</option></select><div class="feedback"></div></div>
+</div><button class="btn check" data-exercise="exerciseA">Check answers</button><div class="score" id="scoreA" aria-live="polite"></div>
+<h3 style="margin-top:25px">Now make it personal</h3><div class="speaking-list"><div class="speakline">Are your habits changing?</div><div class="speakline">Are you watching more films or reading more books these days?</div><div class="speakline">Do you think people spend too much time in front of screens?</div></div>
+</div>
+<div class="card" style="margin-top:18px">
+<h3>Part B. Your experience with books and films</h3>
+<div class="grammar-note"><p><strong>Present Perfect</strong> is useful for life experiences, situations connected to the present, unfinished time periods, and experiences when the exact time is not important.</p></div>
+<div id="exerciseB" class="exercise">
+<div class="question" data-answer="have never read"><p>1. I ___ a book that was better than its film adaptation.</p><select aria-label="Question 1"><option value="">Choose the correct form</option><option>never read</option><option>have never read</option><option>am never reading</option></select><div class="feedback"></div></div>
+<div class="question" data-answer="Have you ever fallen asleep"><p>2. ___ while watching a film?</p><select aria-label="Question 2"><option value="">Choose the correct form</option><option>Did you ever fall asleep</option><option>Have you ever fallen asleep</option><option>Are you ever falling asleep</option></select><div class="feedback"></div></div>
+<div class="question" data-answer="haven't finished"><p>3. I ___ that novel yet.</p><select aria-label="Question 3"><option value="">Choose the correct form</option><option>didn't finish</option><option>haven't finished</option><option>don't finish</option></select><div class="feedback"></div></div>
+<div class="question" data-answer="has written"><p>4. My favourite author ___ several books that have become films.</p><select aria-label="Question 4"><option value="">Choose the correct form</option><option>have written</option><option>has wrote</option><option>has written</option></select><div class="feedback"></div></div>
+</div><button class="btn check" data-exercise="exerciseB">Check answers</button><div class="score" id="scoreB" aria-live="polite"></div>
+<h3 style="margin-top:25px">Tell me about your experience</h3><div class="speaking-list"><div class="speakline">What's the best film you've ever seen?</div><div class="speakline">Have you ever regretted watching a film?</div><div class="speakline">Have you ever read a book more than once?</div><div class="speakline">What films haven't you watched yet but really want to see?</div></div>
+</div>
+<details><summary>Teacher notes</summary>Keep the reminder short. Focus on why a tense is appropriate and on accurate forms in the student's own answers. Do not add Past Simple or Past Continuous drills.</details>
+</section>
+
+<section class="section" id="reading">
+<div class="section-head"><div><div class="eyebrow">05 · Read, react, discuss</div><h2>Should Every Great Book Become a Film?</h2><div class="serif" style="color:var(--terra)">When a book meets the big screen</div></div><div class="duration">10–12 minutes</div></div>
+<article class="reading">
+<h3>Should Every Great Book Become a Film?</h3><div class="subtitle">When a book meets the big screen</div>
+<p>Imagine that you have just finished a brilliant novel. The plot was gripping, the characters felt like real people, and the ending stayed in your mind for days. Then you hear the news: a film adaptation is coming. At first, you are excited. But a small question appears: what if the film changes everything you loved?</p>
+<p>Many book lovers feel nervous when their favourite stories move to the cinema. One reason is imagination. When we read, we create our own pictures of the characters, places and events. We decide what a mysterious house looks like or how a hero sounds. A film gives us someone else's version. Even a talented director may imagine the story differently from us.</p>
+<p>There is another problem: time. A novel can have hundreds of pages, but most films last around two hours. A screenwriter often has to remove characters, shorten conversations or change parts of the plot. Sometimes an important chapter disappears. The original ending may also change because the director wants a more surprising or emotional finish. For readers, these changes can be disappointing. A story that felt complex on the page may become too simple on screen.</p>
+<p>However, a film adaptation can also bring something wonderful. Talented actors can make familiar characters feel new. A beautiful soundtrack can create emotion, while visual effects can turn an imaginary world into something visually stunning. A film can also introduce a story to people who would never pick up the book. And sometimes a new version makes us want to read the original novel.</p>
+<p>Of course, not every adaptation is successful. Some are predictable, while others miss the heart of the story. But a film does not have to be an exact copy to be good. Perhaps the best adaptations respect the main ideas and feelings of a book while finding a fresh way to tell the story.</p>
+<p>So, should every great book become a film? Maybe not. Some stories are perfect in our imagination. Others are waiting for the right actors, director and screenwriter. The real question may not be whether a film is better than the book, but whether it gives us another reason to love the story.</p>
+</article>
+<div class="card" style="margin-top:18px">
+<h3>Check your understanding</h3>
+<div class="speaking-list"><div class="speakline">1. Why can readers feel worried when their favourite book becomes a film?</div><div class="speakline">2. What does a book allow readers to decide for themselves?</div><div class="speakline">3. Why do screenwriters sometimes remove characters or change the ending?</div><div class="speakline">4. How can a film bring something new to the original story?</div><div class="speakline">5. According to the text, what makes a good adaptation?</div></div>
+<details><summary>Teacher answers — open after discussing</summary><ol><li>They worry that the film may change the story or not match the version they imagined.</li><li>They can imagine the characters, places, voices and events for themselves.</li><li>Films have limited time, so screenwriters need to shorten the story and make choices.</li><li>Actors, music, visual effects and a new interpretation can add a different experience and reach new audiences.</li><li>It respects the main ideas and feelings of the book while finding a fresh way to tell the story.</li></ol></details>
+</div>
+<h3 style="margin-top:28px">After reading: what do you think?</h3>
+<div class="grid">
+<div class="qcard">1. Do you agree that some stories are better left on the page? Why?</div><div class="qcard">2. Is it a problem if a director changes the original ending?</div><div class="qcard">3. Can a bad adaptation damage the reputation of a good book?</div><div class="qcard">4. Should authors have the final say in how their books are adapted?</div><div class="qcard">5. Would you rather see a perfect copy of a book or a creative new version?</div>
+</div>
+</section>
+
+<section class="section" id="challenge">
+<div class="section-head"><div><div class="eyebrow">06 · Speak spontaneously</div><h2>Final challenge: Think fast!</h2></div><div class="duration">5–7 minutes</div></div>
+<div class="lead">Don't answer with just yes or no. Try to speak for 30–45 seconds per question.</div>
+<div class="grid">
+<div class="qcard"><span class="qnum">01</span><p>If you could only read books or watch films for the rest of your life, what would you choose?</p></div>
+<div class="qcard"><span class="qnum">02</span><p>Would you rather watch a terrible film based on your favourite book or never see the adaptation?</p></div>
+<div class="qcard"><span class="qnum">03</span><p>Do you think people will still read physical books in 50 years? Why?</p></div>
+<div class="qcard"><span class="qnum">04</span><p>Is it possible for a story to be good even if it has boring characters?</p></div>
+<div class="qcard"><span class="qnum">05</span><p>What makes a story unforgettable: its plot, characters, message or ending?</p></div>
+</div>
+<details><summary>Teacher notes</summary>If time is limited, choose three questions. Encourage the student to use at least two expressions from the vocabulary section.</details>
+</section>
+
+<section class="section" id="homework">
+<div class="section-head"><div><div class="eyebrow">07 · Take it beyond the lesson</div><h2>Homework: two creative missions</h2></div></div>
+<div class="grid">
+<div class="card homework"><div class="eyebrow">Mission 01</div><h3>Your Personal Review</h3><p class="serif">The review that makes us curious</p><p>Choose a book or film that made a strong impression on you. Prepare a <strong>1.5–2 minute voice message</strong> OR <strong>8–10 written sentences</strong>.</p><p>Answer these questions:</p><ol><li>What is it about?</li><li>What makes it special?</li><li>What did you like or dislike?</li><li>Was it gripping, predictable, hilarious or thought-provoking?</li><li>Would you recommend it? Why?</li><li>Has it changed the way you think about something?</li></ol><p><strong>Mission rule:</strong> Use at least FIVE expressions from the lesson vocabulary.</p></div>
+<div class="card homework"><div class="eyebrow">Mission 02</div><h3>You're the Film Director!</h3><p class="serif">Create your own film adaptation</p><p>A famous author has sold the rights to their bestselling novel. You are directing the adaptation. You have a limited budget and only two hours to tell the story.</p><p>Make six decisions and explain each one:</p><ol><li>Keep the original ending or create a surprising new one?</li><li>Keep all characters or remove some?</li><li>Choose famous actors or talented unknown actors?</li><li>Use emotional music or a simple soundtrack?</li><li>Follow the book or add new scenes?</li><li>Show the best scenes in the trailer or keep it mysterious?</li></ol><p><strong>Mission rule:</strong> Prepare six decisions and reasons. Be ready to defend your choices next lesson.</p></div>
+</div>
+<details><summary>Teacher follow-up for next lesson</summary>Play the original author and disagree with some of the student's decisions. This creates a natural role-play and speaking continuation.</details>
+</section>
+<div class="footer">A little less memorising. A little more thinking, speaking and storytelling.</div>
+</main>
+<script>
+document.querySelectorAll('.vocab-card').forEach(card=>card.addEventListener('click',()=>card.classList.toggle('open')));
+document.querySelectorAll('.debate').forEach(card=>card.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+ card.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');card.classList.add('active');
+})));
+document.querySelectorAll('.check').forEach(button=>button.addEventListener('click',()=>{
+ const id=button.dataset.exercise, root=document.getElementById(id), items=[...root.querySelectorAll('.question')];let score=0,total=0;
+ items.forEach(item=>{
+  const expected=item.dataset.answer.split('|'), selects=[...item.querySelectorAll('select')], feedback=item.querySelector('.feedback');total+=expected.length;
+  let itemScore=0;
+  selects.forEach((select,i)=>{const ok=select.value===expected[i];if(ok){score++;itemScore++;} });
+  feedback.textContent=itemScore===expected.length?'Correct — well done!':`Not quite. ${expected.length>1?'Check both forms.':'Try another form.'}`;
+  feedback.className='feedback '+(itemScore===expected.length?'correct':'incorrect');
+ });
+ document.getElementById(id==='exerciseA'?'scoreA':'scoreB').textContent=`Your score: ${score} / ${total}`;
+}));
+</script>
+</body></html>
