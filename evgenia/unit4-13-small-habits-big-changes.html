@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Small Habits, Big Changes: Can We Really Change Our Routines?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#F1F3EE;
+  --surface:#FFFFFF;
+  --surface-2:#E7EBE3;
+  --green:#1F4D3A;
+  --green-2:#2E6B50;
+  --mint:#D3E6D9;
+  --mint-2:#EAF3EC;
+  --peach:#E9875E;
+  --peach-deep:#C4623A;
+  --peach-soft:#FCE6DA;
+  --sand:#F3E7D3;
+  --ink:#1B2621;
+  --ink-2:#5B6A62;
+  --ink-3:#8A968F;
+  --line:#DCE2DA;
+  --ok:#2E6B50;
+  --ok-soft:#DCEDE2;
+  --no:#B6492C;
+  --no-soft:#F8E0D7;
+  --heart:#E0473A;
+  --link:#2F5D8A;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --sans:"Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --r:16px;
+  --r-s:10px;
+  --wrap:980px;
+  --shadow:0 1px 2px rgba(27,38,33,.05),0 6px 20px -12px rgba(27,38,33,.18);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--green-2);text-underline-offset:3px}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.1;margin:0;color:var(--ink);letter-spacing:-.01em}
+p{margin:0 0 .8em}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--peach);outline-offset:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* top streak bar */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(241,243,238,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:14px;padding-top:10px;padding-bottom:10px}
+.streak{flex:1;display:flex;align-items:center;gap:6px;min-width:0;overflow-x:auto;scrollbar-width:none}
+.streak::-webkit-scrollbar{display:none}
+.plabel{font-size:.72rem;font-weight:700;color:var(--ink-2);white-space:nowrap;padding:0 4px 0 2px}
+.plabel.p2{margin-left:12px;padding-left:12px;border-left:1px solid var(--line)}
+.dot{flex:none;width:32px;height:32px;border-radius:50%;border:2px solid var(--line);background:var(--surface);font-size:.78rem;font-weight:700;color:var(--ink-2);display:grid;place-items:center;transition:background .25s,border-color .25s,color .25s;padding:0}
+.dot.current{border-color:var(--peach);color:var(--ink)}
+.dot.done{background:var(--green);border-color:var(--green);color:#fff}
+.count{font-size:.8rem;color:var(--ink-2);white-space:nowrap;font-weight:600}
+@media (max-width:640px){.streak{gap:4px}.dot{width:25px;height:25px;font-size:.68rem;border-width:1.5px}.plabel{font-size:0;padding:0 2px}.plabel::after{content:attr(data-short);font-size:.66rem}.plabel.p2{margin-left:4px;padding-left:6px}.count{display:none}}
+
+/* hero */
+.hero{padding:56px 0 52px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:44px;align-items:center}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr;gap:32px}}
+.series{display:inline-block;font-size:.85rem;font-weight:600;color:var(--green-2);background:var(--mint-2);border:1px solid var(--mint);border-radius:999px;padding:5px 12px;margin-bottom:20px}
+.hero h1{font-size:clamp(2.6rem,7vw,4.6rem);line-height:.98;letter-spacing:-.03em;font-weight:700}
+.hero .sub{font-family:var(--display);font-weight:500;font-size:clamp(1.3rem,3vw,1.8rem);color:var(--green-2);margin:14px 0 20px;line-height:1.2}
+.lede{max-width:54ch;color:var(--ink-2)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 28px;padding:0;list-style:none}
+.facts li{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.9rem}
+.facts b{font-weight:700}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 22px;border-radius:999px;border:1.5px solid var(--green);background:var(--green);color:#fff;font-weight:700;text-decoration:none;font-size:.95rem;transition:background .2s}
+.btn:hover{background:var(--green-2)}
+.btn.ghost{background:transparent;color:var(--green)}
+.btn.ghost:hover{background:var(--mint-2)}
+.btn.small{min-height:38px;padding:6px 16px;font-size:.86rem}
+
+.habit{background:var(--surface);border-radius:24px;padding:22px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.habit-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.habit-top .ttl{font-family:var(--display);font-weight:600;font-size:1.15rem}
+.habit-top .ttl small{display:block;font-family:var(--sans);font-weight:500;font-size:.8rem;color:var(--ink-2)}
+.badge{background:var(--peach-soft);color:var(--peach-deep);font-weight:700;font-size:.78rem;border-radius:999px;padding:5px 10px;white-space:nowrap}
+.ringrow{display:flex;align-items:center;gap:20px}
+.ring{position:relative;width:118px;height:118px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:11}
+.ring .bg{stroke:var(--surface-2)}
+.ring .fg{stroke:var(--green);stroke-linecap:round;transition:stroke-dashoffset 1.1s cubic-bezier(.3,.8,.3,1)}
+.ring .lbl{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.ring .lbl b{font-family:var(--display);font-size:2rem;font-weight:700}
+.ring .lbl span{font-size:.75rem;color:var(--ink-2);margin-top:4px}
+.minidays{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;flex:1}
+.minidays i{display:block;aspect-ratio:1;border-radius:50%;background:var(--surface-2);transition:background .3s}
+.minidays i.on{background:var(--green-2)}
+.minidays i.today{box-shadow:0 0 0 2px var(--peach)}
+.habit-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+.habit-foot span{font-size:.85rem;color:var(--ink-2)}
+
+/* part banners */
+.part-banner{margin:20px 0 0;background:var(--green);color:#fff;border-radius:24px;padding:clamp(24px,4vw,36px);display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:center}
+.part-banner .pn{font-family:var(--display);font-weight:700;font-size:clamp(3rem,8vw,4.6rem);line-height:.85;color:var(--mint)}
+.part-banner h2{color:#fff;font-size:clamp(1.4rem,3vw,1.9rem)}
+.part-banner p{margin:4px 0 0;opacity:.85;font-size:.95rem;max-width:60ch}
+.part-banner.two{background:var(--peach-deep)}
+.part-banner.two .pn{color:var(--peach-soft)}
+
+/* stages */
+.stage{padding:28px 0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:clamp(22px,4vw,40px);box-shadow:var(--shadow)}
+.stage-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:22px}
+.stage-num{flex:none;width:46px;height:46px;border-radius:14px;background:var(--mint-2);border:1px solid var(--mint);color:var(--green);font-family:var(--display);font-weight:700;font-size:1.3rem;display:grid;place-items:center}
+.stage-head h2{font-size:clamp(1.45rem,3.2vw,2rem)}
+.stage-meta{font-size:.86rem;color:var(--ink-2);margin:4px 0 0}
+.stage-meta b{color:var(--peach-deep)}
+.intro{max-width:64ch;color:var(--ink-2)}
+.task{margin-top:32px;padding-top:26px;border-top:1px solid var(--line)}
+.task h3{font-size:1.25rem;margin-bottom:6px}
+.task .instr{color:var(--ink-2);margin-bottom:16px;max-width:64ch}
+.stage-foot{display:flex;justify-content:flex-end;margin-top:30px}
+.done-btn{min-height:42px;padding:8px 18px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:999px;font-weight:700;font-size:.88rem;display:inline-flex;align-items:center;gap:8px}
+.done-btn::before{content:"";width:16px;height:16px;border-radius:50%;border:2px solid currentColor;box-sizing:border-box}
+.done-btn[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.done-btn[aria-pressed="true"]::before{content:"✓";border:0;width:auto;height:auto;font-size:.95rem;line-height:1}
+
+label.fl{display:block;font-weight:600;margin-bottom:6px}
+input[type=text],textarea{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:var(--r-s);padding:11px 13px;line-height:1.45}
+textarea{min-height:76px;resize:vertical}
+input[type=text]:focus,textarea:focus{outline:none;border-color:var(--green-2);background:var(--surface);box-shadow:0 0 0 3px var(--mint)}
+::placeholder{color:var(--ink-3)}
+
+/* warm-up */
+.howwent{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:9px 16px;min-height:44px;font-weight:600;font-size:.95rem}
+.chip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.howmsg{color:var(--green-2);font-weight:600;min-height:1.5em;margin:12px 0 0}
+.qlist{display:grid;gap:10px}
+.qcard{border:1px solid var(--line);background:var(--bg);border-radius:var(--r);display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:14px;padding:12px 14px;transition:background .25s,border-color .25s}
+.qcard .n{width:32px;height:32px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-weight:700;font-size:.85rem;color:var(--ink-2)}
+.qcard .reveal{background:none;border:0;text-align:left;padding:8px 0;color:var(--ink-2)}
+.qcard .qt{font-weight:600;font-size:1.05rem;line-height:1.35;margin:0}
+.qcard .tick{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:.84rem;font-weight:600;min-height:38px;white-space:nowrap}
+.qcard.discussed{background:var(--mint-2);border-color:var(--mint)}
+.qcard.discussed .n{background:var(--green);color:#fff;border-color:var(--green)}
+.qcard.discussed .tick{background:var(--green);color:#fff;border-color:var(--green)}
+@media (max-width:560px){.qcard{grid-template-columns:32px 1fr}.qcard .tick{grid-column:2;justify-self:start}}
+
+/* social feed */
+.feed{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;align-items:start}
+.post{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:.92rem;line-height:1.45}
+.post-head{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:.78rem;flex:none;position:relative}
+.post-head .av::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--peach)}
+.who{flex:1;min-width:0;line-height:1.2}
+.who b{font-weight:700;font-size:.88rem}
+.who span{display:block;font-size:.76rem;color:var(--ink-3)}
+.more{background:none;border:0;padding:4px 6px;color:var(--ink-2);font-weight:700;letter-spacing:1px}
+.pic{aspect-ratio:5/4;display:flex;flex-direction:column;justify-content:flex-end;padding:18px 18px 16px;position:relative;overflow:hidden}
+.pic .big{font-family:var(--display);font-weight:700;font-size:clamp(2.3rem,5vw,3rem);line-height:.92;letter-spacing:-.03em;position:relative}
+.pic .smalltxt{font-weight:600;font-size:.9rem;margin-top:6px;opacity:.9;position:relative}
+.pic .deco{position:absolute;right:-34px;top:-34px;width:150px;height:150px;border-radius:50%;opacity:.16}
+.pic .dots{position:absolute;left:18px;top:18px;display:flex;gap:4px}
+.pic .dots i{width:9px;height:9px;border-radius:50%;background:currentColor;opacity:.25}
+.pic .dots i.on{opacity:1}
+.actions{display:flex;align-items:center;gap:2px;padding:8px 8px 2px}
+.actions button{background:none;border:0;padding:6px;display:grid;place-items:center;border-radius:8px}
+.actions button:hover{background:var(--bg)}
+.actions svg{width:24px;height:24px;stroke:var(--ink);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.actions .like.on svg{fill:var(--heart);stroke:var(--heart);animation:pop .35s ease}
+@keyframes pop{50%{transform:scale(1.25)}}
+.actions .save{margin-left:auto}
+.actions .save.on svg{fill:var(--ink)}
+.likes{padding:0 12px;font-weight:700;font-size:.86rem}
+.caption{padding:4px 12px 2px}
+.caption b{font-weight:700;margin-right:4px}
+.expr{font-weight:700;background:linear-gradient(transparent 55%,var(--peach-soft) 55%);padding:0 2px;border-radius:2px;color:var(--peach-deep)}
+.tag{color:var(--link)}
+.viewc{background:none;border:0;padding:4px 12px 2px;color:var(--ink-3);font-size:.88rem;text-align:left}
+.viewc:hover{color:var(--ink-2)}
+.comments{display:none;padding:6px 12px 2px;border-top:1px solid var(--line);margin-top:6px}
+.post.open .comments{display:block;animation:fade .3s ease}
+.post.open .viewc{display:none}
+.cm{display:flex;gap:9px;padding:6px 0}
+.cm .av{width:26px;height:26px;font-size:.64rem}
+.cm p{margin:0;font-size:.88rem}
+.cm p b{font-weight:700;margin-right:4px}
+.cm .ua{color:var(--green);font-weight:600}
+.cm .meta{display:block;font-size:.74rem;color:var(--ink-3);margin-top:2px}
+.when{padding:4px 12px 12px;font-size:.72rem;color:var(--ink-3)}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.feedtools{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.feedtools span{font-size:.88rem;color:var(--ink-2)}
+
+/* compose */
+.compose{max-width:560px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.compose-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line);font-weight:700}
+.compose-head span{font-size:.8rem;color:var(--ink-3);font-weight:500}
+.compose-body{display:flex;gap:10px;padding:12px 14px}
+.compose textarea{border:0;background:transparent;padding:6px 0;min-height:96px}
+.compose textarea:focus{box-shadow:none;background:transparent}
+.ins{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 12px}
+.ins button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:5px 11px;font-size:.8rem;font-weight:600;color:var(--peach-deep);min-height:32px}
+.compose-foot{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+.compose-foot small{color:var(--ink-3)}
+.mypost{max-width:560px;margin-top:14px}
+
+/* predict */
+.bigq{font-family:var(--display);font-weight:600;font-size:clamp(1.2rem,2.6vw,1.5rem);line-height:1.3;max-width:38ch;margin:0 0 14px}
+.predict{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.pcard{border:1.5px solid var(--line);background:var(--bg);border-radius:var(--r);padding:14px 16px;text-align:left;min-height:62px;font-weight:600;line-height:1.3;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pcard::after{content:"";width:20px;height:20px;border-radius:50%;border:2px solid var(--line);flex:none}
+.pcard[aria-pressed="true"]{border-color:var(--peach);background:var(--peach-soft)}
+.pcard[aria-pressed="true"]::after{background:var(--peach);border-color:var(--peach)}
+
+/* video */
+.video{border-radius:var(--r);overflow:hidden;position:relative;aspect-ratio:16/9;background:var(--green)}
+.video .poster{position:absolute;inset:0;padding:clamp(20px,5vw,44px);display:flex;flex-direction:column;justify-content:space-between;color:#fff}
+.video .poster .t{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,5vw,3.2rem);line-height:1;max-width:12ch;letter-spacing:-.02em}
+.video .poster small{font-size:.88rem;opacity:.8;font-weight:600}
+.video .poster .ringdeco{position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;border:26px solid rgba(211,230,217,.18)}
+.video .play{position:absolute;right:clamp(18px,5vw,44px);bottom:clamp(18px,5vw,44px);display:flex;align-items:center;gap:12px;background:none;border:0;color:#fff;font-weight:700}
+.video .play .disc{width:64px;height:64px;border-radius:50%;background:var(--peach);display:grid;place-items:center;flex:none}
+.video .play .disc::after{content:"";border-left:19px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vmeta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:12px}
+.vmeta .t{font-weight:700}
+.vmeta .t small{display:block;font-weight:500;font-size:.85rem;color:var(--ink-2)}
+.note{font-size:.85rem;color:var(--ink-2);margin-top:8px}
+
+/* mcq */
+.mcq{margin-bottom:24px}
+.mcq .q{font-weight:700;font-size:1.05rem;margin-bottom:10px;line-height:1.35}
+.opts{display:grid;gap:8px;max-width:680px}
+.opt{display:grid;grid-template-columns:30px 1fr;align-items:center;text-align:left;border:1.5px solid var(--line);background:var(--bg);border-radius:var(--r-s);padding:10px 14px;min-height:48px;transition:background .2s,border-color .2s}
+.opt b{width:24px;height:24px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-size:.76rem;color:var(--ink-2)}
+.opt:hover:not([disabled]){border-color:var(--green-2)}
+.opt.right{background:var(--ok-soft);border-color:var(--ok)}
+.opt.right b{background:var(--ok);color:#fff;border-color:var(--ok)}
+.opt.wrong{background:var(--no-soft);border-color:var(--no);text-decoration:line-through;text-decoration-color:rgba(182,73,44,.5)}
+.opt[disabled]{cursor:default}
+.fb{margin-top:10px;font-size:.93rem}
+.fb.ok{color:var(--ok)}
+.fb.no{color:var(--no)}
+
+/* heard */
+.heard{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;max-width:780px}
+.hitem{display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);background:var(--bg);border-radius:var(--r-s);padding:10px 12px;cursor:pointer;min-height:48px;font-weight:600}
+.hitem input{width:20px;height:20px;accent-color:var(--green);flex:none;margin:0}
+.hitem.good{background:var(--ok-soft);border-color:var(--ok)}
+.hitem.missed{border-color:var(--ok);border-style:dashed}
+.hitem.bad{background:var(--no-soft);border-color:var(--no)}
+.hitem .mk{margin-left:auto;font-size:.76rem;font-weight:700}
+.hitem.good .mk,.hitem.missed .mk{color:var(--ok)}
+.hitem.bad .mk{color:var(--no)}
+.hcheck{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.hres{font-size:.93rem;color:var(--ink-2)}
+.lq{display:grid;gap:16px;max-width:720px}
+.lq .q{font-weight:600;display:block;margin-bottom:6px}
+
+/* would you try */
+.try{display:grid;gap:10px}
+.trow{border:1px solid var(--line);background:var(--bg);border-radius:var(--r);padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:10px 16px;align-items:center}
+.trow .st{font-weight:700;line-height:1.3;margin:0}
+.trow .st small{display:block;font-weight:500;font-size:.78rem;color:var(--ink-3)}
+.tbtns{display:flex;gap:6px}
+.tbtns button{min-width:70px;min-height:40px;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;font-weight:700;font-size:.85rem}
+.tbtns button[aria-pressed="true"][data-v="Yes"]{background:var(--green);border-color:var(--green);color:#fff}
+.tbtns button[aria-pressed="true"][data-v="Maybe"]{background:var(--peach);border-color:var(--peach);color:#fff}
+.tbtns button[aria-pressed="true"][data-v="No"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.trow .why{grid-column:1/-1;display:none;color:var(--green-2);font-weight:600;margin:0}
+.trow.voted .why{display:block;animation:fade .3s ease}
+@media (max-width:560px){.trow{grid-template-columns:1fr}}
+.versus{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.versus div{border-radius:var(--r);padding:20px}
+.versus div:first-child{background:var(--peach-soft)}
+.versus div:last-child{background:var(--mint-2)}
+.versus h4{font-size:1.15rem;margin-bottom:4px}
+.versus p{margin:0;font-size:.92rem;color:var(--ink-2)}
+@media (max-width:600px){.versus{grid-template-columns:1fr}}
+
+/* mini homework */
+.minihw{background:var(--sand);border-radius:var(--r);padding:clamp(20px,4vw,30px)}
+.minihw h3{font-size:1.35rem;margin-bottom:8px}
+.minihw ol{margin:0;padding-left:1.3em}
+.minihw li{margin-bottom:8px}
+.loopmini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 4px;max-width:640px}
+.loopmini div{background:var(--surface);border-radius:var(--r-s);padding:10px 12px;font-size:.88rem}
+.loopmini b{display:block;font-family:var(--display);font-size:1.02rem}
+@media (max-width:560px){.loopmini{grid-template-columns:1fr}}
+
+/* recap */
+.recap{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.rpost{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px}
+.rpost .rwho{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:.88rem}
+.rpost .rwho .av{width:28px;height:28px;font-size:.66rem}
+.rpost .txt{margin:0 0 10px;font-size:.95rem}
+.gap{display:inline-block;min-width:90px;border-bottom:2px dashed var(--peach);text-align:center;font-weight:700;color:var(--peach-deep)}
+.gap.filled{border-bottom-style:solid}
+.ropts{display:flex;flex-wrap:wrap;gap:6px}
+.ropts button{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:.84rem;font-weight:600;min-height:36px}
+.ropts button.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.ropts button.wrong{background:var(--no-soft);border-color:var(--no);color:var(--no);text-decoration:line-through}
+.ropts button[disabled]{cursor:default}
+
+/* reading */
+.reading{background:var(--bg);border-radius:var(--r);padding:clamp(20px,4vw,40px)}
+.reading h3{font-size:clamp(1.5rem,3vw,1.9rem);margin-bottom:4px}
+.reading .by{font-size:.84rem;color:var(--ink-2);margin-bottom:22px}
+.para{display:grid;grid-template-columns:1fr 36px;gap:14px;align-items:start;max-width:72ch}
+.para p{font-size:1.08rem;line-height:1.75;margin:0 0 1.1em}
+.para .rd{margin-top:4px;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);font-size:.78rem;font-weight:700;color:var(--ink-2)}
+.para .rd[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.para.read p{color:var(--ink-2)}
+mark{background:linear-gradient(transparent 58%,var(--peach-soft) 58%);color:inherit;padding:0 1px;font-weight:600}
+.loop{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:860px}
+.loop .box{padding:16px;border-radius:var(--r);border:1px solid var(--line);position:relative}
+.loop .box:nth-child(1){background:var(--peach-soft);border-color:#F3CDB8}
+.loop .box:nth-child(2){background:var(--sand);border-color:#E9D8BC}
+.loop .box:nth-child(3){background:var(--mint-2);border-color:var(--mint)}
+.loop .box h4{font-size:1.15rem;margin-bottom:2px}
+.loop .box p{font-size:.84rem;color:var(--ink-2);margin:0 0 10px}
+.loop .box .arrow{position:absolute;right:-17px;top:20px;width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:.8rem;z-index:2}
+.loop textarea{background:rgba(255,255,255,.75);min-height:64px}
+.loopback{max-width:860px;text-align:center;font-size:.84rem;color:var(--ink-2);margin-top:8px}
+@media (max-width:640px){.loop{grid-template-columns:1fr}.loop .box .arrow{right:auto;left:18px;top:auto;bottom:-17px;transform:rotate(90deg)}}
+
+/* challenge planner */
+.ideas{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:640px){.ideas{grid-template-columns:1fr}}
+.ideas h4{font-size:1rem;margin-bottom:8px}
+.ideas .add h4{color:var(--green-2)}
+.ideas .sub h4{color:var(--peach-deep)}
+.ilist{display:flex;flex-wrap:wrap;gap:8px}
+.idea{border:1.5px solid var(--line);background:var(--bg);border-radius:999px;padding:7px 14px;min-height:40px;font-size:.88rem;font-weight:600;text-align:left}
+.idea:hover{border-color:var(--green-2)}
+.idea[aria-pressed="true"]{background:var(--green);color:#fff;border-color:var(--green)}
+.planner{margin-top:24px;background:var(--bg);border-radius:var(--r);padding:clamp(18px,4vw,30px);border:1px solid var(--line)}
+.planner h3{font-size:1.35rem;margin-bottom:4px}
+.planner .psub{color:var(--ink-2);margin-bottom:18px}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}
+.pgrid .full{grid-column:1/-1}
+@media (max-width:640px){.pgrid{grid-template-columns:1fr}}
+.pgrid label{font-weight:700;font-size:.93rem;display:block;margin-bottom:4px}
+.pgrid label small{display:block;font-weight:500;color:var(--ink-2);font-size:.84rem}
+.pgrid input[type=text],.pgrid textarea{background:var(--surface)}
+.size{display:flex;gap:8px;flex-wrap:wrap}
+.size button{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;min-height:40px;font-weight:700;font-size:.86rem}
+.size button[aria-pressed="true"]{background:var(--peach);border-color:var(--peach);color:#fff}
+.speak{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:start}
+@media (max-width:720px){.speak{grid-template-columns:1fr}}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1.5px solid var(--line);background:var(--bg);border-radius:var(--r-s);cursor:pointer}
+.check input{width:22px;height:22px;accent-color:var(--green);margin:1px 0 0;flex:none}
+.check:has(input:checked){background:var(--mint-2);border-color:var(--mint)}
+.allset{display:none;margin-top:12px;font-weight:700;color:var(--green-2)}
+.allset.on{display:block;animation:fade .4s ease}
+.timer{border-radius:var(--r);background:var(--green);color:#fff;padding:18px 22px;min-width:230px;text-align:center}
+.timer .lbl{font-size:.82rem;opacity:.85;font-weight:600}
+.timer .num{font-family:var(--display);font-weight:700;font-size:3rem;line-height:1;margin:6px 0;font-variant-numeric:tabular-nums}
+.timer .bar{height:6px;background:rgba(255,255,255,.2);border-radius:3px;position:relative;margin:4px 0 14px}
+.timer .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--mint);border-radius:3px;width:0}
+.timer .bar .m{position:absolute;left:66.6%;top:-4px;bottom:-4px;width:2px;background:var(--peach)}
+.timer .tb{display:flex;gap:8px;justify-content:center}
+.timer .btn{background:#fff;color:var(--green);border-color:#fff}
+.timer .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+.timer .msg{font-size:.84rem;color:var(--peach-soft);min-height:1.3em;margin-top:8px}
+
+/* homework */
+.disclaimer{background:var(--bg);border-radius:var(--r-s);padding:12px 16px;font-size:.92rem;color:var(--ink-2);margin:0 0 22px}
+.part{display:inline-block;font-size:.8rem;font-weight:700;color:var(--peach-deep);background:var(--peach-soft);border-radius:999px;padding:4px 10px;margin:28px 0 8px}
+.hwh{font-size:1.3rem;margin-bottom:8px}
+.hw h5{font-family:var(--display);font-size:1.02rem;font-weight:600;margin:20px 0 6px}
+.hw ul,.hw ol{margin:0;padding-left:1.3em}
+.hw li{margin-bottom:4px}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:12px 0 6px;max-width:600px}
+.week div{min-width:0;overflow:hidden;border-radius:12px;background:var(--bg);border:1px solid var(--line);aspect-ratio:1/1.1;padding:6px;font-size:.74rem;color:var(--ink-2);display:flex;flex-direction:column;justify-content:space-between}
+.week div b{font-family:var(--display);font-size:1.3rem;color:var(--ink);line-height:1}
+.week div:last-child{background:var(--peach-soft);border-color:#F3CDB8}
+@media (max-width:520px){.week{gap:3px}.week div{padding:4px;font-size:.6rem;border-radius:8px}.week div b{font-size:1rem}}
+.starters{display:grid;gap:4px;margin:6px 0}
+.starters span{background:var(--bg);border-radius:var(--r-s);padding:7px 12px;font-size:.93rem}
+.tabs{display:inline-flex;flex-wrap:wrap;gap:4px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px;margin:4px 0 14px}
+.tabs button{border:0;background:transparent;border-radius:999px;padding:8px 16px;min-height:40px;font-weight:700;font-size:.9rem;color:var(--ink-2)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(27,38,33,.15)}
+.tabpanel{border-radius:var(--r);padding:18px 20px;background:var(--bg)}
+.vocabhw{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-top:8px}
+.vocabhw label{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--line);border-radius:var(--r-s);padding:10px 12px;cursor:pointer;background:var(--bg)}
+.vocabhw input{width:20px;height:20px;accent-color:var(--peach-deep);flex:none;margin:2px 0 0}
+.vocabhw span b{font-weight:700;display:block;line-height:1.25}
+.vocabhw span small{color:var(--ink-2);font-size:.84rem}
+.vocabhw label:has(input:checked){background:var(--peach-soft);border-color:#F3CDB8}
+.sublab{font-size:.85rem;font-weight:700;color:var(--ink-2);margin:16px 0 0}
+.hwcount{font-size:.9rem;color:var(--ink-2);margin-top:10px;font-weight:600}
+.hwtools{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+
+/* teacher */
+.teacher{margin:40px 0 24px;border:1.5px dashed var(--ink-3);border-radius:var(--r);background:var(--surface-2)}
+.teacher>summary{cursor:pointer;padding:18px 22px;font-family:var(--display);font-weight:600;font-size:1.15rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.teacher>summary::-webkit-details-marker{display:none}
+.teacher>summary small{font-family:var(--sans);font-weight:500;font-size:.84rem;color:var(--ink-2)}
+.teacher[open]>summary{border-bottom:1px dashed var(--ink-3)}
+.tbody{padding:8px 22px 26px;font-size:.93rem}
+.tbody h3{font-size:1.1rem;margin:24px 0 8px;color:var(--green)}
+.tbody table{border-collapse:collapse;width:100%;margin:6px 0 10px;font-size:.9rem}
+.tbody th,.tbody td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+.tbody th{font-weight:700;color:var(--ink-2)}
+.tbody ol,.tbody ul{padding-left:1.3em;margin:0 0 8px}
+.tbody li{margin-bottom:5px}
+.tscroll{overflow-x:auto}
+footer{padding:20px 0 60px;color:var(--ink-3);font-size:.84rem}
+
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:#fff;padding:14px 22px;border-radius:18px;z-index:40;max-width:min(92vw,440px);text-align:center;transition:opacity .4s,transform .4s;pointer-events:none;box-shadow:0 16px 40px -16px rgba(0,0,0,.5)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast strong{font-family:var(--display);font-weight:700;font-size:1.25rem;display:block}
+.toast span{font-size:.9rem;opacity:.85}
+
+@media print{
+  body{background:#fff;font-size:11pt}
+  .topbar,.stage-foot,.hwtools,.video .play,.tick,.timer,.toast,.btn,.hcheck,.habit,.feedtools,.actions,.viewc,.compose-foot,.ins{display:none!important}
+  .panel{box-shadow:none;border:1px solid #ccc}
+  .part-banner{background:#fff!important;color:#000;border:2px solid #333}
+  .part-banner h2,.part-banner .pn{color:#000!important}
+  .video{aspect-ratio:auto;min-height:110px}
+  .comments,.trow .why{display:block!important}
+  .qcard .reveal{display:none!important}
+  .qcard .qt[hidden]{display:block!important}
+  .teacher:not([open]){display:none}
+  .tabpanel[hidden]{display:block!important}
+  textarea,input[type=text]{border:0;border-bottom:1px solid #999;border-radius:0;background:none;min-height:40px}
+  .post,.trow,.mcq,.para,.planner,.week,.rpost{break-inside:avoid}
+  body.print-hw .hero,body.print-hw .stage:not(.hwstage),body.print-hw .part-banner,body.print-hw .teacher{display:none!important}
+  body.print-hw.only-mini #s10,body.print-hw.only-big #s6{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar" role="navigation" aria-label="Lesson progress">
+  <div class="wrap">
+    <div class="streak" id="streak"></div>
+    <span class="count" id="count" aria-live="polite">0 of 10</span>
+  </div>
+</div>
+
+<main>
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="series">Follows on from Entertainment in the Digital Age</span>
+      <h1>Small Habits, Big Changes</h1>
+      <p class="sub">Can we really change our routines?</p>
+      <p class="lede">A lesson in two parts. In Part 1, you’ll report on your 24-hour experiment, scroll through a feed of people doing 30-day challenges, and watch a short TED talk. In Part 2, you’ll read about why habits are so hard to change and plan a challenge of your own.</p>
+      <ul class="facts">
+        <li><b>Level</b> A2+ to B1</li>
+        <li><b>Part 1</b> 50 min</li>
+        <li><b>Part 2</b> 50 min</li>
+        <li><b>Focus</b> Speaking</li>
+      </ul>
+      <a class="btn" href="#p1">Start Part 1</a>
+    </div>
+    <div class="habit" aria-label="Habit tracker example">
+      <div class="habit-top">
+        <div class="ttl">Try something new<small>Your 30-day challenge</small></div>
+        <span class="badge" id="streakBadge">0-day streak</span>
+      </div>
+      <div class="ringrow">
+        <div class="ring">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="ringFg" cx="60" cy="60" r="52"/></svg>
+          <div class="lbl"><b id="ringNum">0</b><span>of 30 days</span></div>
+        </div>
+        <div class="minidays" id="minidays" aria-hidden="true"></div>
+      </div>
+      <div class="habit-foot"><span>One small step a day.</span><button type="button" class="btn small" id="markToday">Mark today done</button></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="part-banner" id="p1">
+    <span class="pn">1</span>
+    <div><h2>Part 1: Habits, challenges and Matt Cutts</h2><p>Mission report, vocabulary feed, prediction, the TED talk, and a short homework task.</p></div>
+  </div>
+</div>
+
+<section class="stage" id="s1" data-stage="1" aria-labelledby="t1">
+  <div class="wrap"><div class="panel">
+    <div class="stage-head"><span class="stage-num">1</span><div><h2 id="t1">Mission report: 24 hours without short videos</h2><p class="stage-meta">Warm-up, <b>8 minutes</b></p></div></div>
+    <p class="intro">Last time, your homework was a 24-hour experiment. How did it go?</p>
+    <div class="howwent" role="group" aria-label="How did it go?" id="howwent">
+      <button type="button" class="chip" data-h="easy" aria-pressed="false">It was easy</button>
+      <button type="button" class="chip" data-h="hard" aria-pressed="false">It was hard</button>
+      <button type="button" class="chip" data-h="part" aria-pressed="false">I managed part of it</button>
+      <button type="button" class="chip" data-h="no" aria-pressed="false">I didn’t try</button>
+    </div>
+    <p class="howmsg" id="howmsg" aria-live="polite"></p>
+    <div class="task">
+      <h3>Let’s talk</h3>
+      <p class="instr">Open the questions one by one. Answer them, then mark each one as discussed.</p>
+      <div class="qlist" id="warmQs"></div>
+    </div>
+    <div class="stage-foot"><button type="button" class="done-btn" data-done="1" aria-pressed="false">Mark complete</button></div>
+  </div></div>
+</section>
+
+<section class="stage" id="s2" data-stage="2" aria-labelledby="t2">
+  <div class="wrap"><div class="panel">
+    <div class="stage-head"><span class="stage-num">2</span><div><h2 id="t2">#30daychallenge: the feed</h2><p class="stage-meta">Vocabulary, <b>10 minutes</b></p></div></div>
+    <p class="intro">These people are all doing 30-day challenges. Read each post. What does the highlighted expression mean? Guess first, then tap “View all comments” to check.</p>
+    <div class="feed" id="feed"></div>
+    <div class="feedtools"><button type="button" class="btn ghost small" id="openAll">Open all comments</button><span id="feedCount" aria-live="polite">0 of 9 checked</span></div>
+    <div class="task">
+      <h3>Now write your own post</h3>
+      <p class="instr">Write a short post (2–4 sentences) about a habit you’d like to build or break. Use at least two expressions from the feed. Tap an expression to add it.</p>
+      <div class="compose">
+        <div class="compose-head">New post <span>#30daychallenge</span></div>
+        <div class="compose-body">
+          <span class="av" style="background:var(--peach-deep)" aria-hidden="true">ME</span>
+          <label class="sr" for="myPost">Your post</label>
+          <textarea id="myPost" placeholder="I’ve been stuck in a rut lately, so…"></textarea>
+        </div>
+        <div class="ins" id="ins" aria-label="Add an expression"></div>
+        <div class="compose-foot"><small id="exprUsed">0 expressions used</small><button type="button" class="btn small" id="sharePost">Share</button></div>
+      </div>
+      <div class="mypost" id="mypost"></div>
+    </div>
+    <div class="stage-foot"><button type="button" class="done-btn" data-done="2" aria-pressed="false">Mark complete</button></div>
+  </div></div>
+</section>
+
+<section class="stage" id="s3" data-stage="3" aria-labelledby="t3">
+  <div class="wrap"><div class="panel">
+    <div class="stage-head"><span class="stage-num">3</span><div><h2 id="t3">Before you watch</h2><p class="stage-meta">Prediction, <b>4 minutes</b></p></div></div>
+    <p class="bigq">The speaker, Matt Cutts, tried lots of 30-day challenges. Which of these do you think he tried?</p>
+    <p class="intro">Choose the ones you think he did. You’ll check your guesses while you watch.</p>
+    <div class="predict" id="predict" role="group" aria-label="Your predictions"></div>
+    <div class="task">
+      <label class="fl" for="pred-why">Which one would be the hardest for you? Why?</label>
+      <textarea id="pred-why" placeholder="For me, the hardest one would be … because …"></textarea>
+    </div>
+    <div class="stage-foot"><button type="button" class="done-btn" data-done="3" aria-pressed="false">Mark complete</button></div>
+  </div></div>
+</section>
+
+<section class="stage" id="s4" data-stage="4" aria-labelledby="t4">
+  <div class="wrap"><div class="panel">
+    <div class="stage-head"><span class="stage-num">4</span><div><h2 id="t4">Try something new for 30 days</h2><p class="stage-meta">Listening, <b>14 minutes</b></p></div></div>
+    <div class="video" id="video">
+      <div class="poster"><span class="ringdeco" aria-hidden="true"></span><small>TED2011</small><span class="t">Try something new for 30 days</span><small>Matt Cutts</small></div>
+      <button type="button" class="play" id="playBtn"><span>Play the video here</span><span class="disc" aria-hidden="true"></span></button>
+    </div>
+    <div class="vmeta">
+      <div class="t">Try Something New for 30 Days<small>Matt Cutts, TED, 3 minutes 10 seconds</small></div>
+      <a class="btn small" href="https://www.ted.com/talks/matt_cutts_try_something_new_for_30_days" target="_blank" rel="noopener">Open on TED</a>
+    </div>
+    <p class="note">If the video doesn’t play inside the lesson, use the button. It opens in a new tab, where you can also turn on English subtitles.</p>
+    <div class="task">
+      <h3>First watch: the main message</h3>
+      <p class="instr">Watch the whole talk and choose the best summary.</p>
+      <div id="mcqGist"></div>
+    </div>
+    <div class="task">
+      <h3>Which challenges does he mention?</h3>
+      <p class="instr">Tick the challenges you heard. Then check. Were your predictions right?</p>
+      <div class="heard" id="heard"></div>
+      <div class="hcheck"><button type="button" class="btn small" id="heardCheck">Check my answers</button><button type="button" class="btn ghost small" id="heardReset">Try again</button><span class="hres" id="heardRes" aria-live="polite"></span></div>
+    </div>
+    <div class="task">
+      <h3>Second watch: the details</h3>
+      <p class="instr">Watch again and answer. Short answers are fine.</p>
+      <div id="mcqDetail"></div>
+      <div class="lq" id="lqList"></div>
+    </div>
+    <div class="stage-foot"><button type="button" class="done-btn" data-done="4" aria-pressed="false">Mark complete</button></div>
+  </div></div>
+</section>
+
+<section class="stage" id="s5" data-stage="5" aria-labelledby="t5">
+  <div class="wrap"><div class="panel">
+    <div class="stage-head"><span class="stage-num">5</span><div><h2 id="t5">Would you try it?</h2><p class="stage-meta">After listening, <b>10 minutes</b></p></div></div>
+    <p class="intro">For each challenge, choose Yes, Maybe or No. Then answer the question that appears.</p>
+    <div class="try" id="tryList"></div>
+    <div class="task">
+      <h3>Big and crazy, or small and sustainable?</h3>
+      <p class="instr">Matt says both have their place. Which kind of change works better for you? Give an example from your life.</p>
+      <div class="versus">
+        <div><h4>Big, crazy challenges</h4><p>Write a novel in a month. A lot of fun, but less likely to stick.</p></div>
+        <div><h4>Small, sustainable changes</h4><p>Things you can keep doing. More likely to stick.</p></div>
+      </div>
+    </div>
+    <div class="stage-foot"><button type="button" class="done-btn" data-done="5" aria-pressed="false">Mark complete</button></div>
+  </div></div>
+</section>
+
+<section class="stage hwstage" id="s6" data-stage="6" aria-labelledby="t6">
+  <div class="wrap"><div class="panel">
+    <div class="stage-head"><span class="stage-num">6</span><div><h2 id="t6">Homework after Part 1</h2><p class="stage-meta">Explanation, <b>4 minutes</b></p></div></div>
+    <div class="minihw">
+      <h3>Become a habit detective</h3>
+      <ol>
+        <li><b>Notice one of your everyday habits</b>, good or bad: checking your phone, an afternoon snack, a morning coffee… Write three short notes in English:
+          <div class="loopmini"><div><b>What starts it?</b>e.g. I feel bored on the bus.</div><div><b>What do I do?</b>e.g. I open Instagram.</div><div><b>What do I get?</b>e.g. I feel less bored for a moment.</div></div>
+        </li>
+        <li><b>Write one post</b> (3–5 sentences) like the ones in today’s feed, about a habit you’d like to build or break. Use at least three expressions from the feed.</li>
+        <li>Optional: watch the TED talk again with English subtitles.</li>
+      </ol>
+      <p style="margin:12px 0 0">Bring your notes and your post to the next lesson. We’ll start Part 2 with them.</p>
+    </div>
+    <div class="hwtools">
+      <button type="button" class="btn ghost small" id="printMini">Print this homework</button>
+      <button type="button" class="btn ghost small" id="copyMini">Copy the homework text</button>
+    </div>
+    <div class="stage-foot"><button type="button" class="done-btn" data-done="6" aria-pressed="false">Mark complete</button></div>
+  </div></div>
+</section>
+
+<div class="wrap">
+  <div class="part-banner two" id="p2">
+    <span class="pn">2</span>
+    <div><h2>Part 2: Why habits are hard, and your own challenge</h2><p>Start here in the next lesson if you didn’t get this far. Habit report, reading, your 30-day challenge, and the main homework.</p></div>
+  </div>
+</div>
+
+<section class="stage" id="s7" data-stage="7" aria-labelledby="t7">
+  <div class="wrap"><div class="panel">
+    <div class="stage-head"><span class="stage-num">7</span><div><h2 id="t7">Habit detective report</h2><p class="stage-meta">Warm-up and vocabulary review, <b>8 minutes</b></p></div></div>
+    <p class="intro">Tell your teacher about the habit you noticed: what starts it, what you do, and what you get from it. Then read your post out loud.</p>
+    <div class="task">
+      <h3>Remember the feed?</h3>
+      <p class="instr">Complete each post with the right expression.</p>
+      <div class="recap" id="recap"></div>
+    </div>
+    <div class="stage-foot"><button type="button" class="done-btn" data-done="7" aria-pressed="false">Mark complete</button></div>
+  </div></div>
+</section>
+
+<section class="stage" id="s8" data-stage="8" aria-labelledby="t8">
+  <div class="wrap"><div class="panel">
+    <div class="stage-head"><span class="stage-num">8</span><div><h2 id="t8">Why is it so hard to change a habit?</h2><p class="stage-meta">Reading, <b>16 minutes</b></p></div></div>
+    <p class="intro">Read the text. Tap the small circle next to a paragraph when you’ve read it. The highlighted expressions will help you plan your own challenge.</p>
+    <article class="reading">
+      <h3>Why is it so hard to change a habit?</h3>
+      <p class="by">An original text for this lesson</p>
+      <div id="paras"></div>
+    </article>
+    <div class="task">
+      <h3>Task 1: Choose the correct answer</h3>
+      <div id="mcqRead"></div>
+    </div>
+    <div class="task">
+      <h3>Task 2: Your habit loop</h3>
+      <p class="instr">Use the habit you noticed at home, or choose a new one. Fill in the loop, then explain it out loud. How could you change one part of it?</p>
+      <div class="loop">
+        <div class="box"><h4>Trigger</h4><p>What starts it?</p><label class="sr" for="loop-1">Trigger</label><textarea id="loop-1" placeholder="I feel bored on the bus…"></textarea><span class="arrow" aria-hidden="true">›</span></div>
+        <div class="box"><h4>Routine</h4><p>What do you do?</p><label class="sr" for="loop-2">Routine</label><textarea id="loop-2" placeholder="I open Instagram…"></textarea><span class="arrow" aria-hidden="true">›</span></div>
+        <div class="box"><h4>Reward</h4><p>What do you get?</p><label class="sr" for="loop-3">Reward</label><textarea id="loop-3" placeholder="I feel less bored for a moment…"></textarea></div>
+      </div>
+      <p class="loopback">…and the loop starts again</p>
+    </div>
+    <div class="task">
+      <h3>Task 3: What do you think?</h3>
+      <p class="instr">Answer out loud. Make short notes if they help you.</p>
+      <div class="lq" id="opList"></div>
+    </div>
+    <div class="stage-foot"><button type="button" class="done-btn" data-done="8" aria-pressed="false">Mark complete</button></div>
+  </div></div>
+</section>
+
+<section class="stage" id="s9" data-stage="9" aria-labelledby="t9">
+  <div class="wrap"><div class="panel">
+    <div class="stage-head"><span class="stage-num">9</span><div><h2 id="t9">Your 30-day challenge</h2><p class="stage-meta">Main speaking task, <b>21 minutes</b></p></div></div>
+    <p class="intro">Plan a 30-day challenge for yourself. Choose an idea below or invent your own. Keep it small enough to really do it.</p>
+    <div class="ideas">
+      <div class="add"><h4>Add something to your life</h4><div class="ilist" id="ideasAdd"></div></div>
+      <div class="sub"><h4>Subtract something from your life</h4><div class="ilist" id="ideasSub"></div></div>
+    </div>
+    <div class="planner">
+      <h3>My 30-day challenge</h3>
+      <p class="psub">Fill in the plan with short notes. You’ll use it to present your challenge.</p>
+      <div class="pgrid">
+        <div class="full"><label for="pl-1">My challenge <small>For the next 30 days, I’m going to…</small></label><input type="text" id="pl-1" placeholder="read ten pages every evening"></div>
+        <div><label for="pl-2">Why I want to try it</label><textarea id="pl-2" placeholder="I’ve always wanted to… / I feel stuck in a rut because…"></textarea></div>
+        <div><label for="pl-3">When and where <small>After I …, I’ll …</small></label><textarea id="pl-3" placeholder="After I make my morning coffee, I’ll…"></textarea></div>
+        <div><label for="pl-4">What might stop me</label><textarea id="pl-4" placeholder="I might get distracted by… / I might be too tired…"></textarea></div>
+        <div><label for="pl-5">How I’ll keep track</label><textarea id="pl-5" placeholder="I’ll mark an X on a calendar / I’ll use an app…"></textarea></div>
+        <div class="full"><label id="sizeLbl">Is it big and crazy or small and sustainable?</label>
+          <div class="size" role="group" aria-labelledby="sizeLbl" id="size"><button type="button" aria-pressed="false">Small and sustainable</button><button type="button" aria-pressed="false">Big and crazy</button><button type="button" aria-pressed="false">Somewhere in between</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="task">
+      <h3>Present your challenge</h3>
+      <p class="instr">Speak for 60–90 seconds. Your teacher will then ask you a few questions about your plan.</p>
+      <div class="speak">
+        <div>
+          <ul class="checks" id="checks">
+            <li><label class="check"><input type="checkbox"> <span>I explained what my challenge is and why I chose it.</span></label></li>
+            <li><label class="check"><input type="checkbox"> <span>I said when I’ll do it and what might stop me.</span></label></li>
+            <li><label class="check"><input type="checkbox"> <span>I used at least 3 expressions from the feed or the text.</span></label></li>
+          </ul>
+          <p class="allset" id="allset">Challenge planned. Now you just have to start.</p>
+        </div>
+        <div class="timer" aria-label="Speaking timer">
+          <div class="lbl">Speaking timer</div>
+          <div class="num" id="tNum">0:00</div>
+          <div class="bar"><i id="tBar"></i><span class="m" title="60 seconds"></span></div>
+          <div class="tb"><button type="button" class="btn small" id="tStart">Start</button><button type="button" class="btn ghost small" id="tReset">Reset</button></div>
+          <div class="msg" id="tMsg" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+    <div class="stage-foot"><button type="button" class="done-btn" data-done="9" aria-pressed="false">Mark complete</button></div>
+  </div></div>
+</section>
+
+<section class="stage hwstage" id="s10" data-stage="10" aria-labelledby="t10">
+  <div class="wrap"><div class="panel hw">
+    <div class="stage-head"><span class="stage-num">10</span><div><h2 id="t10">Homework: Day 1 starts now</h2><p class="stage-meta">Explanation, <b>5 minutes</b></p></div></div>
+    <p class="disclaimer">Your challenge is your choice. Keep it small, safe and realistic. If something gets in the way, it’s fine to change the plan; the goal is to notice what happens, not to be perfect.</p>
+    <span class="part">Part A, for everyone</span>
+    <h3 class="hwh">Start your 30-day challenge and keep a diary for one week</h3>
+    <ul>
+      <li>Start the challenge you planned in today’s lesson.</li>
+      <li>Every day, write 1–2 sentences in English about how it went. Use your phone notes, a notebook, or send them to your teacher.</li>
+      <li>On day 7, record a voice message (1.5–2 minutes) about your first week.</li>
+    </ul>
+    <div class="week" aria-hidden="true">
+      <div><span>Day</span><b>1</b></div><div><span>Day</span><b>2</b></div><div><span>Day</span><b>3</b></div><div><span>Day</span><b>4</b></div><div><span>Day</span><b>5</b></div><div><span>Day</span><b>6</b></div><div><span>Voice</span><b>7</b></div>
+    </div>
+    <h5>Diary sentence starters</h5>
+    <div class="starters">
+      <span>Day 3: I did it, but it was hard because…</span>
+      <span>Today I almost gave up when…</span>
+      <span>It’s getting easier / harder because…</span>
+      <span>I missed today, but tomorrow I’ll get back on track.</span>
+    </div>
+    <h5>Your voice message on day 7</h5>
+    <ol>
+      <li>What is your challenge, and why did you choose it?</li>
+      <li>Which day was the easiest? Which was the hardest? Why?</li>
+      <li>What tried to stop you? What helped you?</li>
+      <li>Do you think this habit will stick? Will you continue?</li>
+    </ol>
+    <span class="part">Part B, choose one</span>
+    <div><div class="tabs" role="tablist" aria-label="Choose part B">
+      <button type="button" role="tab" id="tabA" aria-controls="panA" aria-selected="true">Habit interview</button>
+      <button type="button" role="tab" id="tabB" aria-controls="panB" aria-selected="false">Advice letter</button>
+    </div></div>
+    <div class="tabpanel" role="tabpanel" id="panA" aria-labelledby="tabA">
+      <p><b>Interview someone you know</b> (a friend, a family member, a colleague) about a habit they changed. Ask them in any language, but tell the story to your teacher in English in the next lesson.</p>
+      <ol>
+        <li>What habit did you build or break?</li>
+        <li>Why did you decide to change it?</li>
+        <li>Was it hard? Did you ever give up and start again?</li>
+        <li>What helped you stick to it?</li>
+        <li>What advice would you give to someone who wants to change a habit?</li>
+      </ol>
+    </div>
+    <div class="tabpanel" role="tabpanel" id="panB" aria-labelledby="tabB" hidden>
+      <p><b>Write a letter of 8–10 sentences</b> to a friend who says: “I spend hours on my phone every evening. I want to stop, but I always give up after two days.”</p>
+      <ul>
+        <li>Show that you understand the problem.</li>
+        <li>Explain why habits are hard to break (use ideas from the text).</li>
+        <li>Give 2–3 practical tips.</li>
+        <li>Finish with some encouragement.</li>
+      </ul>
+    </div>
+    <h5>Vocabulary challenge</h5>
+    <p>In Part A and Part B together, use at least five expressions: at least three from this lesson and at least two from our last lesson. Tick them as you use them.</p>
+    <p class="sublab">From this lesson</p>
+    <div class="vocabhw" id="hwToday"></div>
+    <p class="sublab">From our last lesson</p>
+    <div class="vocabhw" id="hwLast"></div>
+    <p class="hwcount" id="hwcount" aria-live="polite">0 from this lesson, 0 from last lesson</p>
+    <div class="hwtools">
+      <button type="button" class="btn ghost small" id="printHw">Print the homework</button>
+      <button type="button" class="btn ghost small" id="copyHw">Copy the homework text</button>
+    </div>
+    <div class="stage-foot"><button type="button" class="done-btn" data-done="10" aria-pressed="false">Mark complete</button></div>
+  </div></div>
+</section>
+
+<div class="wrap">
+
+</div>
+</main>
+
+<div class="wrap"><footer>Small Habits, Big Changes. A2+ to B1 speaking lesson in two parts.</footer></div>
+<div class="toast" id="toast" role="status" aria-live="polite"><strong id="toastT">Part 1 complete</strong><span id="toastS">See you in Part 2.</span></div>
+
+<script>
+(function(){
+"use strict";
+/* No saving anywhere: every page load starts as a clean sheet. */
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+
+var stageNames=["Mission report","Vocabulary feed","Prediction","Listening","Would you try it?","Homework after Part 1","Habit detective report","Reading","Your challenge","Homework"];
+var N=stageNames.length;
+
+/* hero habit tracker */
+var C=2*Math.PI*52,ring=$("#ringFg"),days=0;
+ring.style.strokeDasharray=C;ring.style.strokeDashoffset=C;
+var md=$("#minidays");
+for(var i=0;i<30;i++){md.appendChild(document.createElement("i"));}
+function paintRing(){
+  ring.style.strokeDashoffset=C*(1-days/30);
+  $("#ringNum").textContent=days;
+  $("#streakBadge").textContent=days+"-day streak";
+  $$("#minidays i").forEach(function(d,k){d.classList.toggle("on",k<days);d.classList.toggle("today",k===days&&days<30);});
+  $("#markToday").textContent=days>=30?"Start again":"Mark today done";
+}
+paintRing();
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+setTimeout(function(){days=6;paintRing();},reduce?0:500);
+$("#markToday").addEventListener("click",function(){days=days>=30?0:days+1;paintRing();});
+
+/* streak bar */
+var streak=$("#streak"),done={},celebrated={};
+var l1=document.createElement("span");l1.className="plabel";l1.textContent="Part 1";l1.dataset.short="P1";streak.appendChild(l1);
+stageNames.forEach(function(n,i){
+  if(i===6){var l2=document.createElement("span");l2.className="plabel p2";l2.textContent="Part 2";l2.dataset.short="P2";streak.appendChild(l2);}
+  var b=document.createElement("button");b.type="button";b.className="dot";b.textContent=i+1;
+  b.setAttribute("aria-label",(i<6?"Part 1, ":"Part 2, ")+"stage "+(i+1)+": "+n);b.title=n;
+  b.addEventListener("click",function(){document.getElementById("s"+(i+1)).scrollIntoView();});
+  streak.appendChild(b);
+});
+var dots=$$(".dot");
+function toast(t,s){$("#toastT").textContent=t;$("#toastS").textContent=s;var e=$("#toast");e.classList.add("on");setTimeout(function(){e.classList.remove("on");},4800);}
+function paintDone(){
+  var n=0,p1=0,p2=0;
+  for(var i=1;i<=N;i++){
+    var on=!!done[i];if(on){n++;if(i<=6)p1++;else p2++;}
+    dots[i-1].classList.toggle("done",on);
+    var btn=$('[data-done="'+i+'"]');btn.setAttribute("aria-pressed",on?"true":"false");btn.textContent=on?"Completed":"Mark complete";
+  }
+  $("#count").textContent=n+" of "+N;
+  return [p1,p2];
+}
+$$("[data-done]").forEach(function(b){
+  b.addEventListener("click",function(){
+    done[b.dataset.done]=!done[b.dataset.done];
+    var p=paintDone();
+    if(p[0]===6&&!celebrated.p1){celebrated.p1=1;toast("Part 1 complete","Great work. See you in Part 2.");}
+    if(p[1]===4&&!celebrated.p2){celebrated.p2=1;toast("Lesson complete","That’s day 1 of something new.");}
+  });
+});
+paintDone();
+if("IntersectionObserver" in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=+e.target.dataset.stage;dots.forEach(function(d,k){d.classList.toggle("current",k===i-1);});var cd=dots[i-1];if(cd&&streak.scrollWidth>streak.clientWidth){streak.scrollLeft=cd.offsetLeft-streak.clientWidth/2;}}});},{rootMargin:"-40% 0px -55% 0px"});
+  $$(".stage").forEach(function(s){io.observe(s);});
+}
+
+/* warm-up */
+var warmSets={
+  tried:["Was it difficult to avoid short videos? Why or why not?","When did you most want to check social media?","What did you do instead?","Did you notice any changes in your concentration or mood?","Would you try this experiment again? Would you try it for longer?"],
+  no:["What stopped you from trying the experiment?","When do you usually watch short videos during the day?","If you tried it this week, what would be the hardest moment?","What could you do instead of scrolling in that moment?","Would it be easier to try it for one evening instead of 24 hours?"]
+};
+var howMsgs={easy:"Interesting. What made it easy for you?",hard:"That’s honest, and very normal. Today we’ll look at why habits are so hard to change.",part:"Part of it still counts. When did you stop, and why?",no:"No problem. Let’s talk about what got in the way. That’s useful too."};
+function renderWarm(set){
+  var wq=$("#warmQs");wq.innerHTML="";
+  warmSets[set].forEach(function(q,i){
+    var d=document.createElement("div");d.className="qcard";
+    d.innerHTML='<span class="n" aria-hidden="true">'+(i+1)+'</span><div><button type="button" class="reveal" aria-expanded="false">Tap to reveal question '+(i+1)+'</button><p class="qt" hidden>'+esc(q)+'</p></div><button type="button" class="tick" aria-pressed="false" hidden>Mark as discussed</button>';
+    var rv=$(".reveal",d),qt=$(".qt",d),tk=$(".tick",d);
+    rv.addEventListener("click",function(){rv.hidden=true;rv.setAttribute("aria-expanded","true");qt.hidden=false;tk.hidden=false;});
+    tk.addEventListener("click",function(){var v=!d.classList.contains("discussed");d.classList.toggle("discussed",v);tk.setAttribute("aria-pressed",v?"true":"false");tk.textContent=v?"Discussed":"Mark as discussed";});
+    wq.appendChild(d);
+  });
+}
+var currentSet="tried";renderWarm(currentSet);
+$$("#howwent .chip").forEach(function(c){
+  c.addEventListener("click",function(){
+    $$("#howwent .chip").forEach(function(o){o.setAttribute("aria-pressed",o===c?"true":"false");});
+    $("#howmsg").textContent=howMsgs[c.dataset.h];
+    var set=c.dataset.h==="no"?"no":"tried";
+    if(set!==currentSet){currentSet=set;renderWarm(set);}
+  });
+});
+
+/* vocabulary feed */
+var ICON={
+  heart:'<svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 6.9 4.5c2.1 0 3.6 1.2 5.1 3 1.5-1.8 3-3 5.1-3 3.5 0 5.5 3.5 4.2 6.8-1.8 4.6-9.3 9.2-9.3 9.2z"/></svg>',
+  comment:'<svg viewBox="0 0 24 24"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.6-4.2A8.5 8.5 0 1 1 20.5 11.5z"/></svg>',
+  send:'<svg viewBox="0 0 24 24"><path d="M21.5 3.5 10.5 13.5M21.5 3.5l-7 17-4-7-7-4z"/></svg>',
+  save:'<svg viewBox="0 0 24 24"><path d="M6 3.5h12v17l-6-4.5-6 4.5z"/></svg>'
+};
+var helper={h:"english.notes",c:"#2E6B50",i:"EN"};
+var posts=[
+ {u:"olena.daily",i:"OL",c:"#C4623A",place:"Kyiv",ago:"2 hours",bg:"#FCE6DA",fg:"#7A3A1F",big:"Day 0",sm:"Something new starts tomorrow",d:0,likes:842,
+  cap:"Same routine every single day: work, dinner, a series, sleep. I’ve been <span class='expr'>stuck in a rut</span> for months. Tomorrow I’m starting something new. Wish me luck!",tags:"#30daychallenge #newme",
+  term:"be stuck in a rut",ua:"застрягнути в рутині; жити одноманітно і не знати, як це змінити",ex:{u:"max.writes",i:"MX",c:"#5B6A62",t:"Same here! I was stuck in a rut at work, and a new hobby really helped."}},
+ {u:"ivan.runs",i:"IV",c:"#2F5D8A",place:"Lviv",ago:"5 hours",bg:"#DCE8F2",fg:"#1F3E5C",big:"Day 21",sm:"Water before coffee",d:7,likes:1290,
+  cap:"Three weeks of drinking a glass of water before my morning coffee. Small thing, but I’m finally <span class='expr'>building a habit</span> I can actually keep.",tags:"#smallsteps #habits",
+  term:"build a habit",ua:"сформувати (виробити) звичку",ex:{u:"anna.k",i:"AK",c:"#A06E22",t:"It takes time to build a habit. Well done!"}},
+ {u:"marta.reads",i:"MA",c:"#6B4E9B",place:"Odesa",ago:"8 hours",bg:"#E7E0F1",fg:"#3E2B61",big:"Night 5",sm:"Phone stays in the kitchen",d:5,likes:2104,
+  cap:"Trying to <span class='expr'>break the habit</span> of scrolling in bed. My phone sleeps in the kitchen now. Night 5, and I’m reading real books again.",tags:"#phonefree #bookstagram",
+  term:"break a habit",ua:"позбутися звички",ex:{u:"oleh.v",i:"OV",c:"#2E6B50",t:"Breaking a bad habit is harder than starting a good one. Respect!"}},
+ {u:"andriy.k",i:"AN",c:"#B6492C",place:"Dnipro",ago:"1 day",bg:"#F8E0D7",fg:"#7A2B18",big:"Day 30",sm:"No sugar. Tomorrow: cake?",d:10,likes:3517,
+  cap:"Thirty days ago I <span class='expr'>gave up</span> sugar completely. Day 31 plan: one piece of cake. Okay, maybe two.",tags:"#nosugar #day31",
+  term:"give up (something)",ua:"відмовитися від чогось, кинути (звичку); також «здатися»",ex:{u:"iryna.dance",i:"IR",c:"#C4623A",t:"I gave up coffee last year and I don’t miss it at all!"}},
+ {u:"sofia.moves",i:"SO",c:"#2E6B50",place:"Kharkiv",ago:"1 day",bg:"#DCEDE2",fg:"#1F4D3A",big:"Month 6",sm:"Still running, 3× a week",d:10,likes:1876,
+  cap:"Started running in January. It’s June, and I’m still out there three times a week. The secret? I made it small enough to <span class='expr'>stick</span>.",tags:"#running #consistency",
+  term:"stick / stick to (something)",ua:"закріпитися (про звичку); дотримуватися чогось",ex:{u:"taras.fit",i:"TA",c:"#1F4D3A",t:"Same for me. Short runs are easier to stick to than long ones."}},
+ {u:"taras.fit",i:"TA",c:"#1F4D3A",place:"Vinnytsia",ago:"2 days",bg:"#F3E7D3",fg:"#5C4520",big:"2× a week",sm:"Short workouts, real results",d:4,likes:964,
+  cap:"Unpopular opinion: two hours at the gym every day isn’t <span class='expr'>sustainable</span> for most people. Two short workouts a week changed more for me.",tags:"#fitness #realistic",
+  term:"sustainable",ua:"такий, що його можна підтримувати довго; стійкий",ex:{u:"sofia.moves",i:"SO",c:"#2E6B50",t:"Totally agree. I want small, sustainable changes, not a crazy plan for one week."}},
+ {u:"kate.speaks",i:"KA",c:"#A06E22",place:"Kyiv",ago:"3 days",bg:"#FBF0D9",fg:"#6B4A10",big:"30 / 30",sm:"Spoke up in every meeting",d:10,likes:2233,
+  cap:"A month ago I was too scared to speak in meetings. My challenge: say one thing in every meeting. Today I led one, and my <span class='expr'>self-confidence</span> has grown so much.",tags:"#confidence #worklife",
+  term:"self-confidence",ua:"впевненість у собі",ex:{u:"olena.daily",i:"OL",c:"#C4623A",t:"This is inspiring! My self-confidence needs a challenge like this."}},
+ {u:"dmytro.cooks",i:"DM",c:"#5B6A62",place:"Lutsk",ago:"4 days",bg:"#E7EBE3",fg:"#2E3A33",big:"Dinner for 6",sm:"From zero to chef in 30 days",d:10,likes:1588,
+  cap:"In September I couldn’t even fry an egg. I learned everything <span class='expr'>from scratch</span>: one new recipe a day for 30 days. Tonight I cooked dinner for six people.",tags:"#homecooking #learning",
+  term:"from scratch",ua:"з нуля",ex:{u:"marta.reads",i:"MA",c:"#6B4E9B",t:"Learning something from scratch as an adult is so brave. Recipe please!"}},
+ {u:"iryna.dance",i:"IR",c:"#C4623A",place:"Poltava",ago:"5 days",bg:"#FCE6DA",fg:"#7A3A1F",big:"Week 3",sm:"Salsa, twice a week",d:3,likes:1102,
+  cap:"I’d never danced in my life. A friend invited me to a salsa class and I thought, why not <span class='expr'>give it a shot</span>? Week 3, and I’m completely hooked.",tags:"#salsa #trysomethingnew",
+  term:"give it a shot",ua:"спробувати (без гарантії, що вийде)",ex:{u:"andriy.k",i:"AN",c:"#B6492C",t:"Love this! I should give it a shot too."}}
+];
+var feed=$("#feed"),opened=0;
+function fmt(n){return n.toLocaleString("en-US");}
+posts.forEach(function(p){
+  var dotsH="";for(var j=0;j<10;j++)dotsH+='<i'+(j<p.d?' class="on"':'')+'></i>';
+  var a=document.createElement("article");a.className="post";a.setAttribute("aria-label","Post by "+p.u);
+  a.innerHTML=
+   '<div class="post-head"><span class="av" style="background:'+p.c+'" aria-hidden="true">'+p.i+'</span><div class="who"><b>'+p.u+'</b><span>'+p.place+'</span></div><button type="button" class="more" aria-label="More options">···</button></div>'+
+   '<div class="pic" style="background:'+p.bg+';color:'+p.fg+'"><span class="deco" style="background:'+p.fg+'"></span><span class="dots" aria-hidden="true">'+dotsH+'</span><span class="big">'+p.big+'</span><span class="smalltxt">'+p.sm+'</span></div>'+
+   '<div class="actions"><button type="button" class="like" aria-pressed="false" aria-label="Like">'+ICON.heart+'</button><button type="button" class="cbtn" aria-label="Show comments">'+ICON.comment+'</button><button type="button" aria-label="Share">'+ICON.send+'</button><button type="button" class="save" aria-pressed="false" aria-label="Save">'+ICON.save+'</button></div>'+
+   '<div class="likes"><span class="ln">'+fmt(p.likes)+'</span> likes</div>'+
+   '<div class="caption"><b>'+p.u+'</b>'+p.cap+' <span class="tag">'+p.tags+'</span></div>'+
+   '<button type="button" class="viewc" aria-expanded="false">View all 2 comments</button>'+
+   '<div class="comments">'+
+     '<div class="cm"><span class="av" style="background:'+helper.c+'" aria-hidden="true">'+helper.i+'</span><p><b>'+helper.h+'</b><span class="expr">'+esc(p.term)+'</span> = <span class="ua" lang="uk">'+esc(p.ua)+'</span><span class="meta">1h, 48 likes</span></p></div>'+
+     '<div class="cm"><span class="av" style="background:'+p.ex.c+'" aria-hidden="true">'+p.ex.i+'</span><p><b>'+p.ex.u+'</b>'+esc(p.ex.t)+'<span class="meta">45m, 12 likes</span></p></div>'+
+   '</div>'+
+   '<div class="when">'+p.ago+' ago</div>';
+  var like=$(".like",a),ln=$(".ln",a),save=$(".save",a);
+  like.addEventListener("click",function(){var on=like.getAttribute("aria-pressed")!=="true";like.setAttribute("aria-pressed",on?"true":"false");like.classList.toggle("on",on);ln.textContent=fmt(p.likes+(on?1:0));});
+  save.addEventListener("click",function(){var on=save.getAttribute("aria-pressed")!=="true";save.setAttribute("aria-pressed",on?"true":"false");save.classList.toggle("on",on);});
+  function openC(){if(a.classList.contains("open"))return;a.classList.add("open");$(".viewc",a).setAttribute("aria-expanded","true");opened++;$("#feedCount").textContent=opened+" of 9 checked";}
+  $(".viewc",a).addEventListener("click",openC);$(".cbtn",a).addEventListener("click",openC);
+  a._open=openC;
+  feed.appendChild(a);
+});
+$("#openAll").addEventListener("click",function(){$$("#feed .post").forEach(function(a){a._open();});});
+
+/* compose own post */
+var exprs=["stuck in a rut","build a habit","break a habit","give up","stick to","sustainable","self-confidence","from scratch","give it a shot"];
+var detect=[/stuck in a rut/i,/\bbuil(d|ds|ding|t) (a |the |my |this )?(new |good )?habits?\b/i,/\bbr(eak|eaks|eaking|oke) (a |the |my |this )?(bad )?habits?\b/i,/\b(give|gives|giving|gave|given) up\b/i,/\bstick(s|ing)?\b|\bstuck to\b/i,/\bsustainable\b/i,/self-confidence/i,/from scratch/i,/\b(give|gave|giving) it a shot\b/i];
+var hlRe=[/stuck in a rut/gi,/\bbuil(?:d|ds|ding|t) (?:a |the |my |this )?(?:new |good )?habits?\b/gi,/\bbr(?:eak|eaks|eaking|oke) (?:a |the |my |this )?(?:bad )?habits?\b/gi,/\b(?:give|gives|giving|gave|given) up\b/gi,/\bstick(?:s|ing)?(?: to)?\b|\bstuck to\b/gi,/\bsustainable\b/gi,/self-confidence/gi,/from scratch/gi,/\b(?:give|gave|giving) it a shot\b/gi];
+var ins=$("#ins"),ta=$("#myPost");
+exprs.forEach(function(e){
+  var b=document.createElement("button");b.type="button";b.textContent=e;
+  b.addEventListener("click",function(){
+    var s=ta.selectionStart||ta.value.length,v=ta.value,pre=v.slice(0,s),post=v.slice(s);
+    var add=(pre&&!/\s$/.test(pre)?" ":"")+e+(post&&!/^\s/.test(post)?" ":"");
+    ta.value=pre+add+post;ta.focus();var q=(pre+add).length;ta.setSelectionRange(q,q);countExpr();
+  });
+  ins.appendChild(b);
+});
+function countExpr(){var n=0;detect.forEach(function(r){if(r.test(ta.value))n++;});$("#exprUsed").textContent=n+(n===1?" expression":" expressions")+" used"+(n>=2?". Nice!":"");return n;}
+ta.addEventListener("input",countExpr);
+$("#sharePost").addEventListener("click",function(){
+  var txt=ta.value.trim();if(!txt){ta.focus();return;}
+  var h=esc(txt),marks=[];
+  hlRe.forEach(function(re){h=h.replace(re,function(m){marks.push(m);return "\u0000"+(marks.length-1)+"\u0000";});});
+  h=h.replace(/\u0000(\d+)\u0000/g,function(m,k){return "<span class='expr'>"+marks[+k]+"</span>";});
+  $("#mypost").innerHTML='<article class="post"><div class="post-head"><span class="av" style="background:var(--peach-deep)" aria-hidden="true">ME</span><div class="who"><b>you</b><span>Just now</span></div></div><div class="caption" style="padding:2px 12px 10px">'+h+' <span class="tag">#30daychallenge</span></div><div class="actions" style="padding-top:0"><button type="button" class="like on" aria-label="Liked">'+ICON.heart+'</button><button type="button" aria-label="Comments">'+ICON.comment+'</button></div><div class="likes" style="padding-bottom:12px">1 like, from your teacher</div></article>';
+});
+
+/* prediction */
+["Take a photo every day","Learn a new language","Bike to work","Write a novel","Run a marathon","Give up sugar","Wake up at 5 a.m.","No social media"].forEach(function(p){
+  var b=document.createElement("button");b.type="button";b.className="pcard";b.textContent=p;b.setAttribute("aria-pressed","false");
+  b.addEventListener("click",function(){b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true");});
+  $("#predict").appendChild(b);
+});
+
+/* MCQ builder */
+var L="ABC";
+function buildMcq(m,host){
+  var w=document.createElement("div");w.className="mcq";w.setAttribute("role","group");w.setAttribute("aria-label",m.q);
+  var h='<p class="q">'+esc(m.q)+'</p><div class="opts">';
+  m.opts.forEach(function(o,k){h+='<button type="button" class="opt" data-k="'+k+'"><b>'+L[k]+'</b><span>'+esc(o)+'</span></button>';});
+  w.innerHTML=h+'</div><p class="fb" aria-live="polite"></p>';
+  var fb=$(".fb",w);
+  $$(".opt",w).forEach(function(b){
+    b.addEventListener("click",function(){
+      if(+b.dataset.k===m.correct){
+        $$(".opt",w).forEach(function(x){x.disabled=true;if(+x.dataset.k===m.correct)x.classList.add("right");});
+        fb.className="fb ok";fb.innerHTML="<strong>Correct.</strong> "+esc(m.ok);
+      }else{b.classList.add("wrong");b.disabled=true;fb.className="fb no";fb.innerHTML="<strong>Not quite.</strong> "+esc(m.no);}
+    });
+  });
+  host.appendChild(w);
+}
+buildMcq({q:"What is the main message of the talk?",opts:["To change your life, you need to do big, crazy challenges.","Trying something new for 30 days can make life more interesting and help you build new habits.","Writing a novel is much easier than most people think."],correct:1,ok:"Matt suggests choosing something you’ve always wanted to try and doing it for 30 days.",no:"Think about his final question: “What are you waiting for?” Try again."},$("#mcqGist"));
+buildMcq({q:"How many words a day do you need to write a 50,000-word novel in a month?",opts:["About 500","1,667","5,000"],correct:1,ok:"He says that’s all you need to do, every day for a month.",no:"Listen to the part about November and writing a novel again."},$("#mcqDetail"));
+
+[["Take a photo every day",1],["Learn a new language",0],["Bike to work",1],["Write a novel",1],["Run a marathon",0],["Give up sugar",1],["Wake up at 5 a.m.",0],["No social media",0]].forEach(function(h){
+  var l=document.createElement("label");l.className="hitem";
+  l.innerHTML='<input type="checkbox" data-ok="'+h[1]+'"><span>'+esc(h[0])+'</span><span class="mk"></span>';
+  $("#heard").appendChild(l);
+});
+$("#heardCheck").addEventListener("click",function(){
+  var right=0;
+  $$("#heard .hitem").forEach(function(l){
+    var c=$("input",l),ok=c.dataset.ok==="1",mk=$(".mk",l);
+    l.classList.remove("good","bad","missed");mk.textContent="";
+    if(ok&&c.checked){l.classList.add("good");mk.textContent="Yes";right++;}
+    else if(ok){l.classList.add("missed");mk.textContent="Missed";}
+    else if(c.checked){l.classList.add("bad");mk.textContent="Not mentioned";}
+    else right++;
+  });
+  $("#heardRes").textContent=right+" of 8 correct. He mentions four of these challenges.";
+});
+$("#heardReset").addEventListener("click",function(){$$("#heard .hitem").forEach(function(l){l.classList.remove("good","bad","missed");$(".mk",l).textContent="";$("input",l).checked=false;});$("#heardRes").textContent="";});
+
+["How did Matt feel before he started his 30-day challenges?","Why does he think 30 days is a good amount of time?","What happened to his self-confidence?","What is his secret for finishing a novel in a month?","According to Matt, which changes are more likely to stick?","What happened after he gave up sugar for 30 days?"].forEach(function(q,i){
+  var d=document.createElement("div");
+  d.innerHTML='<label class="q" for="lq-'+(i+1)+'">'+(i+1)+'. '+esc(q)+'</label><input type="text" id="lq-'+(i+1)+'" placeholder="Your answer">';
+  $("#lqList").appendChild(d);
+});
+$("#playBtn").addEventListener("click",function(){
+  $("#video").innerHTML='<iframe src="https://embed.ted.com/talks/matt_cutts_try_something_new_for_30_days" title="Try something new for 30 days, Matt Cutts, TED" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>';
+});
+
+/* would you try it */
+[{s:"Take a photo every day for a month",n:"From the talk",fu:"What would you photograph? Would it make the month more memorable?"},
+ {s:"Bike or walk to work or school every day",n:"From the talk",fu:"What would be the biggest problem: weather, time, or motivation?"},
+ {s:"Write a novel from scratch in 30 days",n:"From the talk",fu:"What would your novel be about?"},
+ {s:"Give up sugar for 30 days",n:"From the talk",fu:"What would day 31 look like for you?"},
+ {s:"Stop watching the news for 30 days",n:"His example of subtracting a habit",fu:"Would you feel calmer, or would you feel that you were missing something?"}
+].forEach(function(t){
+  var r=document.createElement("div");r.className="trow";
+  r.innerHTML='<p class="st"><small>'+esc(t.n)+'</small>'+esc(t.s)+'</p><div class="tbtns" role="group" aria-label="Would you try it?"><button type="button" data-v="Yes" aria-pressed="false">Yes</button><button type="button" data-v="Maybe" aria-pressed="false">Maybe</button><button type="button" data-v="No" aria-pressed="false">No</button></div><p class="why">'+esc(t.fu)+'</p>';
+  var bs=$$(".tbtns button",r);
+  bs.forEach(function(b){b.addEventListener("click",function(){bs.forEach(function(o){o.setAttribute("aria-pressed",o===b?"true":"false");});r.classList.add("voted");});});
+  $("#tryList").appendChild(r);
+});
+
+/* part 2 recap */
+[{u:"olena.daily",i:"OL",c:"#C4623A",before:"Same day, every day. I’ve been",after:"for weeks.",opts:["stuck in a rut","from scratch","self-confidence"],k:0},
+ {u:"taras.fit",i:"TA",c:"#1F4D3A",before:"Two short walks a day is much more",after:"than a marathon every weekend.",opts:["self-confidence","sustainable","give it a shot"],k:1},
+ {u:"andriy.k",i:"AN",c:"#B6492C",before:"I wanted cake so badly, but I didn’t",after:"!",opts:["build","stick","give up"],k:2},
+ {u:"iryna.dance",i:"IR",c:"#C4623A",before:"Salsa? I’ve never tried it, but I’ll",after:".",opts:["give it a shot","break a habit","stick to"],k:0},
+ {u:"dmytro.cooks",i:"DM",c:"#5B6A62",before:"I knew nothing about cooking, so I learned",after:".",opts:["sustainable","from scratch","stuck in a rut"],k:1},
+ {u:"kate.speaks",i:"KA",c:"#A06E22",before:"Every small success gives me more",after:".",opts:["give up","from scratch","self-confidence"],k:2}
+].forEach(function(r){
+  var d=document.createElement("div");d.className="rpost";
+  d.innerHTML='<div class="rwho"><span class="av" style="background:'+r.c+'" aria-hidden="true">'+r.i+'</span><b>'+r.u+'</b></div><p class="txt">'+esc(r.before)+' <span class="gap">?</span> '+esc(r.after)+'</p><div class="ropts" role="group" aria-label="Choose the expression"></div>';
+  var g=$(".gap",d),ro=$(".ropts",d);
+  r.opts.forEach(function(o,k){
+    var b=document.createElement("button");b.type="button";b.textContent=o;
+    b.addEventListener("click",function(){
+      if(k===r.k){$$("button",ro).forEach(function(x){x.disabled=true;});b.classList.add("right");g.textContent=o;g.classList.add("filled");}
+      else{b.classList.add("wrong");b.disabled=true;}
+    });
+    ro.appendChild(b);
+  });
+  $("#recap").appendChild(d);
+});
+
+/* reading */
+var paras=[
+ "Every January, millions of people make the same promises: “This year I’ll go to the gym three times a week. I’ll stop eating sugar. I’ll read more and scroll less.” By February, many of them have already given up. Why does this happen to so many of us?",
+ "The answer is that habits are automatic. When you do something again and again in the same situation, your brain starts to do it without thinking. This saves energy, which is useful: you don’t need to think about how to brush your teeth or tie your shoes. But it also means that bad habits are very hard to break.",
+ "Many experts describe a habit as a loop with three parts. First, there is a trigger: for example, your phone buzzes. Then there is the routine: you pick up the phone and check it. Finally, there is a reward: you see a new message and feel good for a moment. The more often this loop repeats, the stronger the habit becomes.",
+ "So how long does it take to build a new habit? Many people believe it takes 21 days, but research suggests it’s often longer. In one well-known study from University College London, it usually took people around 66 days to make a new behaviour automatic. For some people it was much faster, and for others much slower.",
+ "The good news is that a few simple strategies can help. Start small: reading two pages a day is better than a plan to read for an hour. Connect the new habit to something you already do: “After I make my morning coffee, I’ll do five minutes of stretching.” And make it easy: if you want to read more in the evening, put your book on your pillow and your phone in another room.",
+ "Most importantly, don’t aim to be perfect. Missing one day doesn’t mean you’ve failed. What matters is getting back on track the next day. Change rarely happens overnight, but small steps, repeated often, can take you surprisingly far."
+];
+var hl=["given up","hard to break","trigger","reward","build a new habit","Start small","getting back on track","happens overnight"];
+paras.forEach(function(p,i){
+  var t=esc(p);
+  hl.forEach(function(h){var k=t.indexOf(h);if(k>-1)t=t.slice(0,k)+"<mark>"+h+"</mark>"+t.slice(k+h.length);});
+  var d=document.createElement("div");d.className="para";
+  d.innerHTML='<p>'+t+'</p><button type="button" class="rd" aria-pressed="false" aria-label="Mark paragraph '+(i+1)+' as read">'+(i+1)+'</button>';
+  var rd=$(".rd",d);
+  rd.addEventListener("click",function(){var v=!d.classList.contains("read");d.classList.toggle("read",v);rd.setAttribute("aria-pressed",v?"true":"false");rd.textContent=v?"✓":String(i+1);});
+  $("#paras").appendChild(d);
+});
+[{q:"1. According to the text, why are bad habits hard to break?",opts:["Because most people are lazy.","Because habits become automatic.","Because the brain doesn’t like change in winter."],correct:1,ok:"Paragraph 2: the brain starts to do them without thinking.",no:"Look at paragraph 2 again."},
+ {q:"2. In the phone example, what is the reward?",opts:["Your phone buzzes.","You pick up the phone and check it.","You see a new message and feel good for a moment."],correct:2,ok:"The buzz is the trigger and checking is the routine.",no:"Look at paragraph 3. Which part comes last?"},
+ {q:"3. What did the study from University College London find?",opts:["It always takes exactly 21 days to build a habit.","It usually took about 66 days, but it was different for different people.","Most people can’t build new habits."],correct:1,ok:"Paragraph 4: around 66 days, but faster for some and slower for others.",no:"Look at paragraph 4 again."},
+ {q:"4. What does the author say about missing a day?",opts:["It means you’ve failed.","You should start again from day one.","It isn’t a failure; get back on track the next day."],correct:2,ok:"Paragraph 6: what matters is getting back on track.",no:"Read the last paragraph again."}
+].forEach(function(m){buildMcq(m,$("#mcqRead"));});
+["Matt Cutts says 30 days is about right for a new habit. The text mentions a study that found about 66 days. Who do you believe, and why?","Which strategy from paragraph 5 would work best for you?","Have you ever made a promise to yourself and given up? What happened?"].forEach(function(q,i){
+  var d=document.createElement("div");
+  d.innerHTML='<label class="q" for="op-'+(i+1)+'">'+esc(q)+'</label><textarea id="op-'+(i+1)+'" placeholder="Notes (optional)"></textarea>';
+  $("#opList").appendChild(d);
+});
+
+/* challenge planner */
+function idea(list,host){
+  list.forEach(function(t){
+    var b=document.createElement("button");b.type="button";b.className="idea";b.textContent=t;b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",function(){$$(".idea").forEach(function(o){o.setAttribute("aria-pressed",o===b?"true":"false");});var f=$("#pl-1");f.value=t.charAt(0).toLowerCase()+t.slice(1);f.focus({preventScroll:true});});
+    host.appendChild(b);
+  });
+}
+idea(["Read 10 pages every evening","Walk for 20 minutes a day","Take one photo a day","Learn 5 English words a day","Drink a glass of water before coffee","Write one sentence in a diary","Stretch for 5 minutes every morning"],$("#ideasAdd"));
+idea(["No phone during breakfast","No short videos on weekdays","No social media after 9 p.m.","No sugar in my tea or coffee","No snacks after dinner","No phone in bed"],$("#ideasSub"));
+$$("#size button").forEach(function(b){b.addEventListener("click",function(){$$("#size button").forEach(function(o){o.setAttribute("aria-pressed",o===b?"true":"false");});});});
+function checkAll(){$("#allset").classList.toggle("on",$$("#checks input").every(function(c){return c.checked;}));}
+$("#checks").addEventListener("change",checkAll);
+
+var tSec=0,tInt=null,MAX=90;
+function tPaint(){
+  $("#tNum").textContent=Math.floor(tSec/60)+":"+("0"+(tSec%60)).slice(-2);
+  $("#tBar").style.width=Math.min(100,tSec/MAX*100)+"%";
+  $("#tMsg").textContent=tSec>=MAX?"90 seconds. Time to finish.":tSec>=60?"60 seconds. You can finish soon.":"";
+}
+$("#tStart").addEventListener("click",function(){
+  var btn=this;
+  if(tInt){clearInterval(tInt);tInt=null;btn.textContent="Start";return;}
+  if(tSec>=MAX)tSec=0;btn.textContent="Pause";
+  tInt=setInterval(function(){tSec++;tPaint();if(tSec>=MAX){clearInterval(tInt);tInt=null;btn.textContent="Start";}},1000);
+});
+$("#tReset").addEventListener("click",function(){clearInterval(tInt);tInt=null;tSec=0;$("#tStart").textContent="Start";tPaint();});
+tPaint();
+
+/* homework */
+var tabs=[["tabA","panA"],["tabB","panB"]];
+tabs.forEach(function(t){$("#"+t[0]).addEventListener("click",function(){tabs.forEach(function(o){var on=o[0]===t[0];$("#"+o[0]).setAttribute("aria-selected",on?"true":"false");$("#"+o[1]).hidden=!on;});});});
+var hwToday=[["be stuck in a rut","застрягнути в рутині"],["build a habit","сформувати звичку"],["break a habit","позбутися звички"],["give up","відмовитися, кинути"],["stick / stick to","закріпитися / дотримуватися"],["sustainable","такий, що можна підтримувати довго"],["self-confidence","впевненість у собі"],["from scratch","з нуля"],["give it a shot","спробувати"],["get back on track","повернутися до плану"]];
+var hwLast=[["attention span","тривалість концентрації уваги"],["stay focused","залишатися зосередженим"],["get distracted","відволікатися"],["take a break","зробити перерву"],["block out distractions","відгородитися від відволікаючих чинників"],["lose track of time","втратити відчуття часу"],["put your phone away","відкласти телефон"]];
+function hwList(list,host){list.forEach(function(v){var l=document.createElement("label");l.innerHTML='<input type="checkbox"><span><b>'+esc(v[0])+'</b><small lang="uk">'+esc(v[1])+'</small></span>';host.appendChild(l);});}
+hwList(hwToday,$("#hwToday"));hwList(hwLast,$("#hwLast"));
+function hwCount(){var t=$$('#hwToday input:checked').length,l=$$('#hwLast input:checked').length;$("#hwcount").textContent=t+" from this lesson, "+l+" from last lesson"+(t>=3&&l>=2?". Vocabulary challenge complete.":"");}
+$("#hwToday").addEventListener("change",hwCount);$("#hwLast").addEventListener("change",hwCount);
+
+function doPrint(cls){document.body.classList.add("print-hw",cls);window.print();setTimeout(function(){document.body.classList.remove("print-hw",cls);},500);}
+$("#printMini").addEventListener("click",function(){doPrint("only-mini");});
+$("#printHw").addEventListener("click",function(){doPrint("only-big");});
+function copy(btn,text,label){
+  function ok(){btn.textContent="Copied";setTimeout(function(){btn.textContent=label;},1800);}
+  function fallback(){var t=document.createElement("textarea");t.value=text;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();try{document.execCommand("copy");ok();}catch(e){btn.textContent="Copy failed";}document.body.removeChild(t);}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(ok,fallback);}else{fallback();}
+}
+$("#copyMini").addEventListener("click",function(){
+  copy(this,"Homework after Part 1: Become a habit detective\n\n1. Notice one of your everyday habits (good or bad). Write three short notes in English:\n- What starts it?\n- What do I do?\n- What do I get?\n\n2. Write one post (3–5 sentences) like the ones in today’s feed, about a habit you’d like to build or break. Use at least three expressions: "+exprs.join(", ")+".\n\n3. Optional: watch the TED talk again with English subtitles: https://www.ted.com/talks/matt_cutts_try_something_new_for_30_days\n\nBring your notes and your post to the next lesson.","Copy the homework text");
+});
+$("#copyHw").addEventListener("click",function(){
+  copy(this,"Homework: Day 1 starts now\n\nPART A (everyone)\nStart your 30-day challenge and keep a diary for one week.\n- Every day, write 1–2 sentences in English about how it went.\n- On day 7, record a voice message (1.5–2 minutes):\n1. What is your challenge, and why did you choose it?\n2. Which day was the easiest? Which was the hardest? Why?\n3. What tried to stop you? What helped you?\n4. Do you think this habit will stick? Will you continue?\n\nDiary starters: Day 3: I did it, but it was hard because… / Today I almost gave up when… / It’s getting easier / harder because… / I missed today, but tomorrow I’ll get back on track.\n\nPART B (choose one)\nOption 1, Habit interview: interview someone about a habit they changed (What habit? Why? Was it hard? What helped? What advice would they give?). Tell the story in English next lesson.\nOption 2, Advice letter: write 8–10 sentences to a friend who spends hours on their phone every evening and always gives up after two days. Explain why habits are hard to break and give 2–3 tips.\n\nVOCABULARY: use at least 5 expressions (3+ from this lesson, 2+ from last lesson).\nThis lesson: "+hwToday.map(function(v){return v[0];}).join(", ")+".\nLast lesson: "+hwLast.map(function(v){return v[0];}).join(", ")+".","Copy the homework text");
+});
+
+/* clean start: clear anything the browser restores on reload */
+$$("input,textarea").forEach(function(f){f.setAttribute("autocomplete","off");if(f.type==="checkbox")f.checked=false;else f.value="";});
+hwCount();checkAll();countExpr();
+window.addEventListener("pageshow",function(e){if(e.persisted)location.reload();});
+})();
+</script>
+</body>
+</html>
