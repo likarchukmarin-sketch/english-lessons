@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phone Calls: Calling Friends</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F6FB; --card:#FFFFFF; --ink:#16263F; --muted:#5E6E85; --line:#DAE4F0;
+  --teal:#2F5D9B; --teal-soft:#E1ECFA; --peach:#FFB547; --peach-soft:#FFF1D6; --rose:#E4572E; --rose-soft:#FCE1D8;
+  --ok:#2F7D4F; --ok-soft:#DDF0E3; --bad:#C0392B; --bad-soft:#FBE0DC; --skin:#F7D9C4;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;font-size:17px;line-height:1.55}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;color:var(--ink);line-height:1.15;margin:0}
+.wrap{max-width:940px;margin:0 auto;padding:0 18px}
+button{font-family:inherit}
+
+.hero{background:linear-gradient(135deg,#2F5D9B 0%,#1B3A66 100%);color:#fff;padding:36px 0 30px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:repeating-linear-gradient(90deg,var(--peach) 0 40px,#fff 40px 80px,var(--rose) 80px 120px)}
+.hero .tag{display:inline-block;background:var(--peach);color:var(--ink);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:99px}
+.hero h1{color:#fff;font-size:clamp(32px,6vw,52px);margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;max-width:650px;opacity:.95;font-size:18px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);padding:5px 12px;border-radius:99px;font-size:14px;font-weight:700}
+.hero .sign{position:absolute;right:24px;top:20px;font-size:50px;opacity:.9}
+@media(max-width:600px){.hero .sign{display:none}}
+
+.audiobar{background:var(--card);border:1px solid var(--line);border-radius:16px;margin:20px 0 0}
+.audiobar summary{cursor:pointer;padding:12px 18px;font-weight:800}
+.audiobar .in{padding:4px 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+@media(max-width:640px){.audiobar .in{grid-template-columns:1fr}}
+.audiobar label{display:block;font-weight:800;font-size:14px;margin-bottom:4px}
+.audiobar select{width:100%;padding:8px 10px;border:2px solid var(--line);border-radius:10px;font-family:inherit;font-size:15px;background:#fff}
+.audiobar .row{display:flex;gap:8px;align-items:center;margin-top:6px}
+.audiobar .full{grid-column:1/-1}
+.audiobar .tip{font-size:14px;color:var(--muted)}
+.audiobar input[type=range]{width:100%;accent-color:var(--teal)}
+
+.line{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(20,52,59,.06);margin-top:20px}
+.line-inner{display:flex;align-items:center;gap:10px;padding:10px 18px;max-width:940px;margin:0 auto}
+.stops{flex:1;display:flex;justify-content:space-between;position:relative;overflow-x:auto;padding:4px 2px;scrollbar-width:none}
+.stops::-webkit-scrollbar{display:none}
+.stops:before{content:"";position:absolute;left:14px;right:14px;top:17px;height:3px;background:var(--line);z-index:0}
+.stops .fill{position:absolute;left:14px;top:17px;height:3px;background:var(--teal);z-index:0;width:0;transition:width .4s}
+.stop{position:relative;z-index:1;background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:62px;color:var(--muted);font-size:11px;font-weight:700}
+.stop i{width:28px;height:28px;border-radius:50%;background:var(--card);border:3px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:12px;color:var(--muted);transition:.25s}
+.stop.on i{border-color:var(--teal);background:var(--teal);color:#fff;transform:scale(1.1)}
+.stop.done i{border-color:var(--teal);color:var(--teal)}
+.stop.on{color:var(--teal)}
+.ua-btn{border:2px solid var(--teal);background:var(--card);color:var(--teal);font-weight:800;border-radius:99px;padding:6px 12px;cursor:pointer;font-size:13px;white-space:nowrap}
+body.ua-on .ua-btn{background:var(--teal);color:#fff}
+
+.ua{display:none;color:#B5502F;font-size:.88em;font-weight:600}
+body.ua-on .ua{display:block;margin-top:2px}
+.always-ua{display:block !important;color:#B5502F;font-weight:700}
+
+.step{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px 24px;margin:26px 0;box-shadow:0 6px 22px rgba(20,52,59,.06)}
+.step-head{display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap}
+.num{width:42px;height:42px;border-radius:50%;background:var(--peach);color:var(--ink);display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:800;font-size:20px;flex:none}
+.step h2{font-size:clamp(24px,4vw,32px)}
+.time{margin-left:auto;background:var(--peach-soft);color:var(--ink);font-weight:800;font-size:13px;padding:4px 12px;border-radius:99px}
+.goal{color:var(--muted);margin:2px 0 14px}
+.task{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:10px 14px;margin:20px 0 12px;font-weight:700}
+.task small{display:block;font-weight:600;color:var(--muted)}
+.how{background:var(--peach-soft);border-radius:14px;padding:12px 16px;margin:10px 0;font-weight:700}
+.how ol{margin:6px 0 0 20px;padding:0}
+.how li{margin:3px 0}
+
+.btn{background:var(--teal);color:#fff;border:0;border-radius:99px;padding:10px 20px;font-weight:800;font-size:15px;cursor:pointer;transition:transform .12s,background .2s;text-decoration:none;display:inline-block}
+.btn:hover{background:#234A7D;transform:translateY(-1px)}
+.btn.alt{background:var(--card);color:var(--teal);border:2px solid var(--teal)}
+.btn.peach{background:var(--peach);color:var(--ink)}
+.btn.rose{background:var(--rose)}
+.btn.sm{padding:6px 14px;font-size:14px}
+.btn.on{background:var(--rose);border-color:var(--rose);color:#fff}
+.play{width:36px;height:36px;border-radius:50%;border:0;background:var(--teal);color:#fff;cursor:pointer;font-size:14px;flex:none;display:inline-grid;place-items:center}
+.play:hover{background:#234A7D}
+.play.on{background:var(--rose)}
+
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.qcard{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-weight:700}
+.qcard b{font-family:'Fraunces',serif;color:var(--rose);margin-right:6px}
+.qcard.y{background:var(--peach-soft);border-color:var(--peach)}
+
+.moods{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.mood{border:2px solid var(--line);background:#fff;border-radius:16px;padding:10px 16px;font-size:16px;font-weight:800;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:92px}
+.mood span{font-size:30px}
+.mood.sel{border-color:var(--teal);background:var(--teal-soft)}
+
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.fcard{position:relative;background:var(--bg);border:2px solid var(--line);border-radius:16px;min-height:150px;padding:14px;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transition:.2s}
+.fcard:hover{border-color:var(--teal)}
+.fcard .emo{font-size:34px;line-height:1}
+.fcard .en{font-family:'Fraunces',serif;font-weight:800;font-size:21px;color:var(--ink);margin-top:6px}
+.fcard .back{display:none;flex-direction:column;gap:4px}
+.fcard.flip{background:var(--peach-soft);border-color:var(--peach)}
+.fcard.flip .front{display:none}
+.fcard.flip .back{display:flex}
+.fcard .back .u{font-weight:800;color:#B5502F;font-size:18px}
+.fcard .back .ex{font-size:14px}
+.fcard .mini{position:absolute;right:8px;top:8px;width:28px;height:28px;font-size:11px}
+
+.bodybox{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:18px;align-items:start;margin:10px 0}
+@media(max-width:700px){.bodybox{grid-template-columns:1fr}}
+.bodysvg{background:#fff;border:2px solid var(--teal);border-radius:20px;padding:6px;max-width:300px;margin:0 auto;width:100%}
+.bodysvg svg{width:100%;height:auto;display:block}
+.part{cursor:pointer;fill:rgba(244,162,97,0);stroke:none;transition:fill .15s}
+.part:hover{fill:rgba(244,162,97,.35)}
+.part.sel{fill:rgba(244,162,97,.6)}
+.part.good{fill:rgba(47,170,100,.6)}
+.part.bad{fill:rgba(231,76,60,.55)}
+.scene{display:grid;grid-template-columns:200px 1fr;gap:16px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0}
+@media(max-width:640px){.scene{grid-template-columns:1fr}}
+.ph{position:relative;border-radius:12px;overflow:hidden;min-height:150px;background:linear-gradient(135deg,var(--teal-soft),var(--peach-soft));display:grid;place-items:center;font-size:60px}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph label{position:absolute;left:6px;bottom:6px;font-size:12px;font-weight:800;background:rgba(255,255,255,.85);border-radius:99px;padding:2px 10px;cursor:pointer;color:var(--teal)}
+.ph input{display:none}
+.scene h3{font-size:20px;margin-bottom:4px}
+.sline{margin:3px 0;font-weight:600}
+.sline b{color:var(--rose)}
+.wchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.wchip{border:2px solid var(--teal);background:#fff;color:var(--teal);border-radius:99px;padding:4px 12px;font-weight:800;cursor:pointer;font-size:15px}
+.wchip.open{background:var(--teal);color:#fff}
+.wtr{margin-top:6px;font-weight:800;color:#B5502F;min-height:1.4em}
+.bodyinfo{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-height:150px}
+.bodyinfo .big{font-family:'Fraunces',serif;font-size:34px;font-weight:800;color:var(--teal)}
+.bodyinfo .sent{font-size:20px;font-weight:800;margin-top:4px}
+.bodymodes{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.bodyfb{font-weight:800;margin-top:8px;min-height:1.4em}
+.bodyfb.ok{color:var(--ok)} .bodyfb.no{color:var(--bad)}
+
+.audiobox{background:var(--bg);border:2px dashed var(--teal);border-radius:16px;padding:16px;margin:12px 0}
+.audiobox .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:6px 0}
+.audiobox audio{width:100%;margin-top:8px}
+.audiobox .note{font-size:14px;color:var(--muted)}
+.own{margin-top:10px;font-size:14px;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.own input{display:none}
+
+.video{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden;background:#000;margin:10px 0}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.credit{font-size:14px;color:var(--muted)}
+.credit a{color:var(--teal);font-weight:800}
+
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.pcard{border:2px solid var(--line);border-radius:16px;padding:14px;background:#fff;display:flex;flex-direction:column;gap:8px}
+.pcard.fav{border-color:var(--peach);background:var(--peach-soft)}
+.pcard .sit{font-weight:700;color:#B5502F}
+.pcard .eng{display:none;font-family:'Fraunces',serif;font-weight:800;font-size:19px;color:var(--ink)}
+.pcard.show .eng{display:block}
+.pcard .row{display:flex;gap:8px;align-items:center}
+.pcard .star{margin-left:auto;background:none;border:0;font-size:24px;cursor:pointer;color:#d8c7a8}
+.pcard.fav .star{color:var(--peach)}
+.favcount{font-weight:800;margin:8px 0}
+.formula{background:var(--ink);color:#fff;border-radius:16px;padding:16px 20px;margin:14px 0;font-weight:700}
+.formula .f{font-family:'Fraunces',serif;font-size:clamp(18px,3.2vw,24px);margin:4px 0}
+.formula em{font-style:normal;color:var(--peach)}
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+@media(max-width:640px){.contrast{grid-template-columns:1fr}}
+.contrast div{border-radius:14px;padding:12px 16px;font-weight:700}
+.contrast .c1{background:var(--teal-soft);border:2px solid var(--teal)}
+.contrast .c2{background:var(--rose-soft);border:2px solid var(--rose)}
+.contrast b{display:block;font-family:'Fraunces',serif;font-size:19px;margin-bottom:4px}
+
+.qblock{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0;background:#fff}
+.qblock .q{font-weight:800;margin-bottom:8px;display:flex;gap:10px;align-items:center}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:2px solid var(--line);background:var(--card);border-radius:12px;padding:8px 14px;font-weight:700;cursor:pointer;font-size:16px;color:var(--ink);text-align:left}
+.opt:hover{border-color:var(--teal)}
+.opt.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.opt.locked{cursor:default}
+.score{margin-top:10px;font-weight:800}
+.fb{font-weight:800;margin-top:8px;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--bad)}
+.check{display:flex;gap:10px;align-items:center;padding:8px 12px;border:2px solid var(--line);border-radius:12px;margin:6px 0;cursor:pointer;background:#fff;font-weight:700}
+.check input{width:20px;height:20px;accent-color:var(--teal)}
+.check.right{background:var(--ok-soft);border-color:var(--ok)}
+.check.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.order{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.ochip{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 14px;font-weight:700;cursor:pointer;font-size:16px}
+.ochip.used{opacity:.35;pointer-events:none}
+.answerline{min-height:46px;border:2px dashed var(--line);border-radius:12px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+.answerline .ochip{background:var(--teal-soft);border-color:var(--teal)}
+
+.advcard{background:var(--ink);color:#fff;border-radius:18px;padding:18px 22px;margin:12px 0;min-height:130px}
+.advcard .tag{display:inline-block;background:var(--peach);color:var(--ink);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:99px}
+.advcard .big{font-family:'Fraunces',serif;font-size:26px;color:var(--peach);margin-top:8px}
+.advcard .ua{color:#FCD5BE}
+.advcard .hint{display:none;margin-top:10px;background:rgba(255,255,255,.1);border-radius:10px;padding:10px 14px;font-weight:700}
+.advcard .hint.show{display:block}
+.advcard .play{margin-top:8px}
+.advcard .act{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+
+.sim{border:3px solid var(--teal);border-radius:20px;background:#F8FCFA;padding:14px}
+.simtop{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.simtop .grow{flex:1;min-width:120px;font-weight:800;color:var(--teal)}
+.chat{display:flex;flex-direction:column;gap:10px;max-height:420px;overflow-y:auto;padding:6px 4px}
+.msg{display:flex;gap:8px;align-items:flex-start;max-width:92%}
+.msg .av{font-size:26px;flex:none}
+.bub{border-radius:16px;padding:10px 14px;font-weight:700;line-height:1.4}
+.msg.doc .bub{background:#fff;border:2px solid var(--teal)}
+.msg.me{align-self:flex-end;flex-direction:row-reverse}
+.msg.me .bub{background:var(--teal-soft);border:2px solid var(--teal)}
+.hidetext .msg.doc .bub .tx{filter:blur(6px);user-select:none}
+.msg .play{width:30px;height:30px;font-size:12px}
+.choices{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.choice{display:flex;gap:8px;align-items:center}
+.choice .pick{flex:1;text-align:left;border:2px solid var(--teal);background:#fff;border-radius:14px;padding:10px 14px;font-weight:800;font-size:17px;cursor:pointer;color:var(--ink)}
+.choice .pick:hover{background:var(--teal-soft)}
+.choice .pick.own{border-style:dashed;color:var(--muted)}
+.choice .play{width:30px;height:30px;font-size:12px}
+.simhelp{font-weight:700;color:var(--muted);margin:6px 0}
+.endbox{background:var(--peach-soft);border:2px solid var(--peach);border-radius:14px;padding:12px 16px;margin-top:10px;font-weight:700}
+.endbox ul{margin:6px 0 6px 18px;padding:0}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.timer{font-family:'Fraunces',serif;font-size:34px;min-width:110px}
+.timer.low{color:var(--rose)}
+
+.ticks label{display:flex;gap:10px;align-items:center;padding:8px 0;font-weight:700;cursor:pointer}
+.ticks input{width:20px;height:20px;accent-color:var(--teal)}
+.card{background:var(--bg);border:2px dashed var(--teal);border-radius:16px;padding:16px 20px;font-size:19px;font-weight:700;line-height:2}
+.blank{display:inline-block;min-width:110px;border-bottom:3px dotted var(--teal);height:1.1em;vertical-align:baseline}
+.recbox{background:var(--bg);border:2px dashed var(--teal);border-radius:16px;padding:14px 16px;margin:12px 0}
+.recbox .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.recbox audio{width:100%;margin-top:8px}
+.recmsg{font-size:14px;color:var(--muted);margin-top:6px}
+
+details.notes{margin-top:22px;border:1px dashed var(--muted);border-radius:12px;background:#F8F3E6}
+details.notes summary{cursor:pointer;padding:10px 16px;font-weight:800;color:var(--muted)}
+details.notes[open] summary{border-bottom:1px dashed var(--muted)}
+details.notes .body{padding:12px 18px 16px;font-size:15.5px}
+details.notes ul{margin:6px 0 6px 18px;padding:0}
+
+.finish{text-align:center;padding:30px 24px}
+.stamp{display:none;margin:20px auto;width:210px;height:210px;border-radius:50%;border:6px double var(--teal);color:var(--teal);place-items:center;text-align:center;transform:rotate(-8deg);font-family:'Fraunces',serif;font-weight:800;font-size:22px;line-height:1.1}
+.stamp.show{display:grid;animation:pop .6s cubic-bezier(.2,1.6,.4,1)}
+.stamp small{display:block;font-family:'Nunito',sans-serif;font-size:13px;letter-spacing:.1em;font-weight:800;margin-top:6px}
+@keyframes pop{0%{transform:scale(.2) rotate(-40deg);opacity:0}100%{transform:scale(1) rotate(-8deg);opacity:1}}
+.confetti{position:fixed;top:-20px;width:10px;height:14px;z-index:999;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.9}}
+footer{text-align:center;color:var(--muted);font-size:14px;padding:10px 0 50px}
+.hidetext .msg.doc .bub.reveal .tx{filter:none}
+.dlg.hidetext .msg .bub .tx{filter:blur(6px);user-select:none}
+.dlg{display:flex;flex-direction:column;gap:10px;margin:8px 0}
+.bub small{font-weight:800;color:var(--muted);font-size:12px}
+.phonebtns{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
+.scbar{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.scsit{margin-bottom:8px}
+.phoneout{background:var(--bg);border:2px dashed var(--teal);border-radius:16px;padding:12px 16px;margin:10px 0}
+.sline.blur{filter:blur(6px);user-select:none}
+.choice{flex-wrap:wrap}
+.choice input{min-width:0;width:100%;flex:1 1 180px}
+.scene{grid-template-columns:140px 1fr}
+.ph{font-size:44px}
+@media(max-width:640px){.scene{grid-template-columns:1fr}}
+.phrasebank{margin:10px 0}
+.phrasebank .choice{align-items:center}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="sign">📞</div>
+  <div class="wrap">
+    <span class="tag">Speaking &amp; Listening · A1+ → A2</span>
+    <h1>Phone Calls: Calling Friends</h1>
+    <p>Answer the phone, ask for someone, leave a voicemail, say goodbye. Real phone calls with friends, family and work.</p>
+    <div class="meta">
+      <span class="chip">50 minutes</span>
+      <span class="chip">phone words</span>
+      <span class="chip">3 real calls</span>
+      <span class="chip">phone phrases</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <details class="audiobar" id="audiobar">
+    <summary>🔊 Audio settings — choose the best voices on this computer</summary>
+    <div class="in">
+      <div>
+        <label for="voiceA">Voice 1 (woman, Natali)</label>
+        <select id="voiceA"></select>
+        <div class="row"><button class="btn sm alt" id="testA" type="button">Test voice 1</button></div>
+      </div>
+      <div>
+        <label for="voiceB">Voice 2 (man, the other person)</label>
+        <select id="voiceB"></select>
+        <div class="row"><button class="btn sm alt" id="testB" type="button">Test voice 2</button></div>
+      </div>
+      <div class="full">
+        <label for="speed">Speed: <span id="speedVal">0.90</span></label>
+        <input type="range" id="speed" min="0.6" max="1.1" step="0.05" value="0.9">
+      </div>
+      <div class="full tip">
+        Default voices: <b>Google US English</b> (woman) and <b>Google UK English Male</b> (man), in Chrome. If they are not there, the lesson uses <b>Microsoft Mark</b> or the best voice it can find.
+      </div>
+    </div>
+  </details>
+</div>
+
+<nav class="line" aria-label="Lesson progress">
+  <div class="line-inner">
+    <div class="stops" id="stops"><div class="fill" id="fill"></div></div>
+    <button class="ua-btn" id="uaBtn" type="button">UA: off</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- 1 WARM-UP -->
+<section class="step" id="s1" data-label="Warm-up">
+  <div class="step-head"><div class="num">1</div><h2>Warm-up: How Are You?</h2><span class="time">4 min</span></div>
+  <p class="goal">Click how you feel today. Then talk to the teacher.</p>
+  <div class="moods" id="moods"></div>
+  <div class="qgrid">
+    <div class="qcard y"><b>1</b>How often do you make phone calls?<span class="ua">Як часто ти телефонуєш?</span></div>
+    <div class="qcard y"><b>2</b>Who do you talk to on the phone the most?<span class="ua">З ким ти найбільше розмовляєш по телефону?</span></div>
+    <div class="qcard y"><b>3</b>Do you ever make phone calls in English? Who do you call?<span class="ua">Ти телефонуєш англійською? Кому?</span></div>
+    <div class="qcard y"><b>4</b>What is difficult on the phone?<span class="ua">Що складно по телефону?</span></div>
+  </div>
+</section>
+
+<!-- 2 PHONE WORDS -->
+<section class="step" id="s2" data-label="Phone words">
+  <div class="step-head"><div class="num">2</div><h2>Phone Words in Context</h2><span class="time">8 min</span></div>
+  <p class="goal">Read and listen to three tiny scenes. Click the words to see the meaning. Then do the tasks.</p>
+  <div id="scenes"></div>
+
+  <div class="task">A. What does it mean?<span class="ua">Що це означає?</span></div>
+  <div id="defQuiz"></div>
+  <div class="task">B. Choose the word.<span class="ua">Обери слово</span></div>
+  <div id="gapQuiz"></div>
+
+</section>
+
+<!-- 3 LISTENING -->
+<section class="step" id="s3" data-label="Listening">
+  <div class="step-head"><div class="num">3</div><h2>Listening: Three Phone Calls</h2><span class="time">10 min</span></div>
+  <p class="goal">Listen to three short calls. Answer the questions. Then listen again and find the missing words.</p>
+
+  <div class="task">Before you listen<span class="ua">Перед слуханням</span>
+    <small>Three people call. Look at the words: <b>Is dad there?</b> · <b>The meeting starts in five minutes.</b> · <b>concert tickets</b>. Who calls? Why? Guess.</small></div>
+
+  <div class="audiobox">
+    <div><b>🎧 Play the real recording</b></div>
+    <a class="btn" href="https://www.linguahouse.com/esl-lesson-plans/general-english/calling-friends" target="_blank" rel="noopener">Open the audio (Lingua House)</a>
+    <div class="credit">On that page: tab <b>Multimedia</b> → <b>calling_friends_ae.mp3</b>. Three calls: 1 → 2 → 3.</div>
+  </div>
+  <details class="notes" style="margin:10px 0"><summary>Backup: computer voices (if the recording does not play)</summary><div class="body">
+    <div class="controls" id="backupBar"></div>
+    <div class="credit">These are computer voices, not the real recording.</div>
+  </div></details>
+
+  <div class="task">A. Listen and choose.<span class="ua">Послухай і обери</span></div>
+  <div id="lA"></div>
+  <div class="task">B. Listen again. Choose the missing word.<span class="ua">Послухай ще раз. Обери пропущене слово</span></div>
+  <div id="lB"></div>
+
+  <details class="notes"><summary>Script: open after the tasks</summary><div class="body" id="scriptBox"></div></details>
+
+  <div class="task">C. Talk about it.<span class="ua">Обговоримо</span></div>
+  <div class="qgrid">
+    <div class="qcard y"><b>1</b>Why does Ben call? What does he ask?<span class="ua">Чому Бен дзвонить? Про що просить?</span></div>
+    <div class="qcard y"><b>2</b>What does John say in the voicemail? Is it a good message?<span class="ua">Що Джон каже у голосовій пошті?</span></div>
+    <div class="qcard y"><b>3</b>Sue and Tom: why does the call end?<span class="ua">Чому розмова Сью й Тома закінчується?</span></div>
+  </div>
+
+</section>
+
+<!-- 4 PHRASES -->
+<section class="step" id="s4" data-label="Phrases">
+  <div class="step-head"><div class="num">4</div><h2>Phone Phrases</h2><span class="time">7 min</span></div>
+  <p class="goal">Every phone call has parts. What is the job of each phrase?</p>
+
+  <div class="phrasebank" id="phraseBank"></div>
+
+  <div class="task">What is it?<span class="ua">Що це за фраза?</span></div>
+  <div id="phQuiz"></div>
+
+</section>
+
+<!-- 5 DISAPPEARING DIALOGUES -->
+<section class="step" id="s5" data-label="Memory dialogues">
+  <div class="step-head"><div class="num">5</div><h2>Disappearing Dialogues</h2><span class="time">6 min</span></div>
+  <p class="goal">Read the call aloud. Click "Hide more" and say it again. At the end the words are gone, but you can still say the call!</p>
+  <div class="scbar" id="ddBar"></div>
+  <div class="sim" id="ddBox"><div class="chat" id="ddChat"></div></div>
+  <div class="controls">
+    <button class="btn" id="ddPlay" type="button">▶ Listen</button>
+    <button class="btn peach" id="ddHide" type="button">Hide more</button>
+    <button class="btn alt" id="ddShow" type="button">Show all</button>
+    <span class="credit" id="ddLevel"></span>
+  </div>
+
+</section>
+
+<!-- 6 SIMULATIONS -->
+<section class="step" id="s6" data-label="Phone calls">
+  <div class="step-head"><div class="num">6</div><h2>Speaking: Make the Call</h2><span class="time">12 min</span></div>
+  <p class="goal">Choose a situation. Prepare for 1 minute. Then make the call. Say your answer first, then check the ideas.</p>
+
+  <div class="scbar" id="scBar"></div>
+  <div class="scsit" id="scSit"></div>
+
+  <div class="sim" id="simBox">
+    <div class="simtop">
+      <span class="grow" id="simWho">📞 Phone</span>
+      <button class="btn sm alt" id="simVoice" type="button">Voice: on</button>
+      <button class="btn sm alt" id="simHide" type="button">Hide text: off</button>
+      <button class="btn sm alt" id="simType" type="button">Answer: choose</button>
+      <button class="btn sm alt" id="simIdeas" type="button">Ideas: hidden</button>
+      <button class="btn sm peach" id="simRestart" type="button">↺ Start again</button>
+    </div>
+    <div class="chat" id="simChat"></div>
+    <div class="phonebtns">
+      <button class="btn sm rose" id="simRep" type="button">🔁 Sorry, can you repeat that?</button>
+      <button class="btn sm rose" id="simSlow" type="button">🐢 Could you speak more slowly?</button>
+    </div>
+    <div class="choices" id="simChoices"></div>
+  </div>
+
+  <div class="controls">
+    <div class="timer" id="timer">12:00</div>
+    <button class="btn sm peach" id="tStart" type="button">Start</button>
+    <button class="btn sm alt" id="tReset" type="button">Reset</button>
+  </div>
+
+</section>
+
+<!-- 7 WRAP-UP + HW -->
+<section class="step" id="s7" data-label="Wrap-up">
+  <div class="step-head"><div class="num">7</div><h2>Wrap-up &amp; Homework</h2><span class="time">3 min</span></div>
+
+  <div class="task">My phone card. Say it out loud.<span class="ua">Моя картка для дзвінка. Скажи вголос</span></div>
+  <div class="card">
+    Hello, this is <span class="blank"></span>.<br>
+    Can I talk to <span class="blank"></span>, please?<br>
+    Just a second. <span class="blank"></span>.<br>
+    Sorry, I can't talk. <span class="blank"></span>.<br>
+    Please leave a message. / Call me <span class="blank"></span>!
+  </div>
+
+  <div class="task">Self-check<span class="ua">Самоперевірка</span></div>
+  <div class="ticks">
+    <label><input type="checkbox"> I can answer the phone and say who I am.</label>
+    <label><input type="checkbox"> I can ask for someone (Can I talk to…?).</label>
+    <label><input type="checkbox"> I can leave a voicemail.</label>
+    <label><input type="checkbox"> I can end a call (I have to go. I'll speak to you soon.).</label>
+    <label><input type="checkbox"> I can ask people to repeat or speak slowly.</label>
+  </div>
+
+  <div class="task">Teacher feedback: 3 phrases to improve<span class="ua">Фідбек від викладачки: 3 фрази, які покращуємо</span></div>
+  <div class="card" style="line-height:2.2">
+    1. I said: <span class="blank" style="min-width:160px"></span> → Better: <span class="blank" style="min-width:160px"></span><br>
+    2. I said: <span class="blank" style="min-width:160px"></span> → Better: <span class="blank" style="min-width:160px"></span><br>
+    3. I said: <span class="blank" style="min-width:160px"></span> → Better: <span class="blank" style="min-width:160px"></span>
+  </div>
+
+  <div class="task">Homework 1: Listen again and repeat (3 times)<span class="ua">ДЗ 1: послухай ще раз і повторюй</span>
+    <small>Listen to the three calls again. Read the script aloud with the recording. Do it 3 times.</small></div>
+  <a class="btn" href="https://www.linguahouse.com/esl-lesson-plans/general-english/calling-friends" target="_blank" rel="noopener">Open the audio</a>
+
+  <div class="task">Homework 2: Voice message (1 minute)<span class="ua">ДЗ 2: голосове повідомлення</span>
+    <small>Call a friend and leave a voicemail: say who you are, why you call, and "Call me back". Use your Phone Card.</small></div>
+  <div class="recbox">
+    <div class="row">
+      <button class="btn sm" id="recStart" type="button">● Record</button>
+      <button class="btn sm alt" id="recStop" type="button" disabled>■ Stop</button>
+      <a class="btn sm alt" id="recDl" style="display:none" download="my-voice-message.webm">Download</a>
+    </div>
+    <audio id="recPlay" controls style="display:none"></audio>
+    <div class="recmsg" id="recMsg">Listen to yourself. Send the recording to your teacher. If recording does not work in your browser, record a voice message on your phone.</div>
+  </div>
+
+  <div class="task">Homework 3 (optional): Your number<span class="ua">ДЗ 3: твій номер</span>
+    <small>Say your own phone number and your name spelled by letters. Write them in your notes.</small></div>
+
+
+  <div class="finish">
+    <div class="stamp" id="stamp"><div>CALL<br>COMPLETE<small>WELL DONE, NATALI</small></div></div>
+    <button class="btn peach" id="finishBtn" type="button">Finish lesson</button>
+  </div>
+</section>
+
+</main>
+<footer>Phone Calls: Calling Friends · A1+ → A2 · 1-to-1 speaking lesson · based on Lingua House "Calling friends"</footer>
+
+<script>
+/* ---------- HELPERS ---------- */
+function $(id){return document.getElementById(id)}
+function el(tag, cls, html){var e=document.createElement(tag); if(cls)e.className=cls; if(html!==undefined)e.innerHTML=html; return e}
+function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+$("uaBtn").onclick=function(){ var on=document.body.classList.toggle("ua-on"); this.textContent = on ? "UA: on" : "UA: off"; };
+
+/* ---------- SPEECH ---------- */
+var VOICES=[], voiceA=null, voiceB=null, stopFlag=false, speedBase=0.9;
+var FEM=/female|samantha|karen|moira|zira|susan|serena|tessa|fiona|victoria|hazel|libby|maisie|sonia|jenny|aria|ava|emma|nova|joanna|kendra|salli|ivy/i;
+var MAL=/\bmale\b|daniel|alex|david|george|mark|oliver|ryan|thomas|guy|james|fred|davis|brian|eric|roger|arthur/i;
+var PREF_A=[/^Google US English$/i,/Google US English/i,/Google UK English Female/i];
+var PREF_B=[/^Google UK English Male$/i,/Google UK English Male/i,/Microsoft Mark/i,/\bMark\b/i];
+function vscore(v,wantFem){
+  var s=0, n=v.name, pref=wantFem?PREF_A:PREF_B;
+  for(var i=0;i<pref.length;i++){ if(pref[i].test(n)){ s+=100-i*10; break; } }
+  if(/natural|online/i.test(n)) s+=20;
+  if(/enhanced|premium/i.test(n)) s+=12;
+  if(/^en-GB/i.test(v.lang)) s+=3; else if(/^en-US/i.test(v.lang)) s+=2;
+  var isF=FEM.test(n) && !/\bmale\b/i.test(n.replace(/female/i,""));
+  var isM=MAL.test(n) && !isF;
+  if(wantFem && isF) s+=10; if(!wantFem && isM) s+=10;
+  if(wantFem && isM) s-=10; if(!wantFem && isF) s-=10;
+  return s;
+}
+function fillSelect(sel, wantFem, current){
+  sel.innerHTML="";
+  var sorted=VOICES.slice().sort(function(a,b){return vscore(b,wantFem)-vscore(a,wantFem)});
+  sorted.forEach(function(v){ var o=document.createElement("option"); o.value=v.voiceURI; o.textContent=v.name+" ("+v.lang+")"; sel.appendChild(o); });
+  if(current && sorted.some(function(v){return v.voiceURI===current})) sel.value=current;
+  else if(sorted[0]) sel.value=sorted[0].voiceURI;
+}
+function byURI(u){ return VOICES.find(function(v){return v.voiceURI===u}) || null; }
+function pickVoices(){
+  var all=(window.speechSynthesis && speechSynthesis.getVoices())||[];
+  VOICES=all.filter(function(v){return /^en/i.test(v.lang)});
+  var curA=$("voiceA").value, curB=$("voiceB").value;
+  fillSelect($("voiceA"),true,curA); fillSelect($("voiceB"),false,curB);
+  if(VOICES.length>1 && $("voiceA").value===$("voiceB").value){
+    var other=Array.prototype.find.call($("voiceB").options,function(o){return o.value!==$("voiceA").value});
+    if(other) $("voiceB").value=other.value;
+  }
+  voiceA=byURI($("voiceA").value); voiceB=byURI($("voiceB").value);
+}
+if(window.speechSynthesis){ pickVoices(); speechSynthesis.onvoiceschanged=pickVoices; }
+$("voiceA").onchange=function(){ voiceA=byURI(this.value); };
+$("voiceB").onchange=function(){ voiceB=byURI(this.value); };
+$("speed").oninput=function(){ speedBase=parseFloat(this.value); $("speedVal").textContent=speedBase.toFixed(2); };
+$("testA").onclick=function(){ stopSpeech(); stopFlag=false; speakOne("Hello, this is Natali.","A",false); };
+$("testB").onclick=function(){ stopSpeech(); stopFlag=false; speakOne("Hello, this is Mark.","B",false); };
+
+function speakOne(text, key, slow, done){
+  if(!window.speechSynthesis){ if(done)done(); return; }
+  var u=new SpeechSynthesisUtterance(text);
+  var v = key==="A" ? voiceA : voiceB;
+  if(v){u.voice=v; u.lang=v.lang;} else {u.lang="en-GB";}
+  u.rate = slow ? speedBase*0.75 : speedBase;
+  u.pitch = (!v || voiceA===voiceB) ? (key==="A"?1.2:0.8) : 1;
+  u.onend=function(){ if(done)done(); };
+  u.onerror=function(){ if(done)done(); };
+  speechSynthesis.speak(u);
+}
+function stopSpeech(){
+  stopFlag=true;
+  if(window.speechSynthesis) speechSynthesis.cancel();
+  document.querySelectorAll(".play.on").forEach(function(b){b.classList.remove("on"); b.textContent="▶";});
+}
+function playBtn(btn, text, key){
+  btn.onclick=function(e){
+    if(e) e.stopPropagation();
+    var wasOn=btn.classList.contains("on");
+    stopSpeech(); if(wasOn) return;
+    stopFlag=false; btn.classList.add("on"); btn.textContent="■";
+    var t = typeof text==="function" ? text() : text;
+    speakOne(t,key,false,function(){ btn.classList.remove("on"); btn.textContent="▶"; });
+  };
+}
+
+/* ---------- QUIZ ---------- */
+function renderQuiz(id, items){
+  var box=$(id), count=0, ok=0, sc=el("div","score","");
+  items.forEach(function(it){
+    var blk=el("div","qblock"); var q=el("div","q"); q.appendChild(document.createTextNode(it.q)); blk.appendChild(q);
+    var opts=el("div","opts"), touched=false, done=false;
+    var order=it.o.map(function(_,i){return i;}); if(!(it.o[0]==="True"&&it.o[1]==="False")) shuffle(order);
+    order.forEach(function(idx){
+      var txt=it.o[idx]; var btn=el("button","opt",txt); btn.type="button";
+      btn.onclick=function(){
+        if(done) return;
+        if(idx===it.a){
+          done=true; btn.classList.add("right");
+          opts.querySelectorAll(".opt").forEach(function(x){x.classList.add("locked")});
+          count++; if(!touched) ok++;
+          if(count===items.length) sc.textContent="First try: "+ok+" / "+items.length+(ok===items.length?"  Perfect!":"  Good work!");
+        } else { touched=true; btn.classList.add("wrong"); }
+      };
+      opts.appendChild(btn);
+    });
+    blk.appendChild(opts); box.appendChild(blk);
+  });
+  box.appendChild(sc);
+}
+function renderMulti(id, list){
+  var box=$(id), rows=[];
+  list.forEach(function(it){
+    var l=el("label","check"); var c=el("input"); c.type="checkbox";
+    l.appendChild(c); l.appendChild(document.createTextNode(it[0])); box.appendChild(l); rows.push({l:l,c:c,a:it[1]});
+  });
+  var b=el("button","btn sm","Check"); b.type="button"; var f=el("div","fb");
+  b.onclick=function(){
+    var ok=0;
+    rows.forEach(function(r){ r.l.classList.remove("right","wrong"); if(r.c.checked===r.a){ r.l.classList.add("right"); ok++; } else r.l.classList.add("wrong"); });
+    f.className="fb "+(ok===rows.length?"ok":"no");
+    f.textContent= ok===rows.length ? "All correct!" : ok+" / "+rows.length+". Try again and fix the red ones.";
+  };
+  box.appendChild(b); box.appendChild(f);
+}
+function renderOrder(id, correct){
+  var box=$(id), picked=[];
+  var line=el("div","answerline"); var pool=el("div","order"); var fb=el("div","fb");
+  var chips=shuffle(correct.slice());
+  function redraw(){
+    line.innerHTML=""; pool.innerHTML="";
+    picked.forEach(function(t){ line.appendChild(el("span","ochip",t)); });
+    if(!picked.length) line.appendChild(el("span","","Click in order…"));
+    chips.forEach(function(t){
+      var c=el("button","ochip"+(picked.indexOf(t)>-1?" used":""),t); c.type="button";
+      c.onclick=function(){ picked.push(t); fb.textContent=""; redraw(); };
+      pool.appendChild(c);
+    });
+  }
+  var chk=el("button","btn sm","Check"); chk.type="button";
+  var rst=el("button","btn sm alt","Reset"); rst.type="button"; rst.style.marginLeft="8px";
+  chk.onclick=function(){
+    if(picked.length<correct.length){ fb.className="fb no"; fb.textContent="Choose all the questions."; return; }
+    var ok=picked.every(function(t,i){return t===correct[i]});
+    fb.className="fb "+(ok?"ok":"no"); fb.textContent= ok ? "Correct!" : "Not yet. Listen again.";
+  };
+  rst.onclick=function(){ picked=[]; fb.textContent=""; redraw(); };
+  box.appendChild(line); box.appendChild(pool); box.appendChild(chk); box.appendChild(rst); box.appendChild(fb);
+  redraw();
+}
+/* ---------- DATA ---------- */
+var MOODS=[["😄","great"],["🙂","good"],["😐","so-so"],["😴","tired"],["🤒","not well"]];
+function strip(t){ return t.replace(/<[^>]+>/g,""); }
+var SCENES=[
+ {t:"A missed call",img:"photo-1555965435-f88618f05915",ico:"📱❗",ua:"Пропущений дзвінок.",
+  lines:[["A","I have three <b>missed calls</b> from Anna."],["A","I <b>call</b> her back. It <b>rings</b>…"],["B","Hello? Natali? I'm sorry, I was at work."],["A","No problem. Why didn't you <b>answer</b>?"]],
+  w:[["missed call","пропущений дзвінок","I have three missed calls."],["call","дзвонити / дзвінок","I call her back."],["ring","дзвонити (про телефон)","The phone rings."],["answer","відповісти на дзвінок","Please answer the phone."]]},
+ {t:"The line is busy",img:"photo-1758874573348-bb585ae8e0f6",ico:"📞⛔",ua:"Зайнято. Голосова пошта.",
+  lines:[["A","I call Mark. The line is <b>busy</b>."],["A","He is on another <b>call</b>. I try again."],["B","Hi, this is Mark. Please leave a message."],["A","Hi Mark, it's Natali. Call me back, please. Bye!"]],
+  w:[["busy","зайнято (лінія)","The line is busy."],["voicemail","голосова пошта","Please leave a voicemail."],["leave a message","залишити повідомлення","Please leave a message."],["Call me back","передзвони мені","Call me back, please."]]},
+ {t:"Who is calling?",img:"photo-1544717301-9cdcb1f5940f",ico:"📵❓",ua:"Невідомий номер.",
+  lines:[["A","My phone is <b>ringing</b>. The <b>caller</b> doesn't show their number."],["A","Hello? Hello? Who's that?"],["A","Nobody is there. I <b>hang up</b>."]],
+  w:[["caller","той, хто дзвонить","The caller didn't show their number."],["hang up","покласти слухавку, завершити дзвінок","I hang up the phone."],["Who's that?","хто це?","Hello? Who's that?"]]}
+];
+var DEFQ=[
+ ["call (n)","a telephone conversation",["call someone on the phone","a call that wasn't answered"]],
+ ["call (v)","call someone on the phone",["a telephone conversation","take the call"]],
+ ["answer (v)","take the call",["end a telephone call","the person who calls"]],
+ ["caller (n)","the person who calls a telephone number",["a phone message recorded for someone","a call that wasn't answered"]],
+ ["busy (adj.)","when the caller is on another call",["try to speak to someone on the phone","end a telephone call"]],
+ ["hang up (v)","end a telephone call",["take the call","call someone on the phone"]],
+ ["ring (v)","try to speak to someone on the phone",["the person who calls","when the caller is on another call"]],
+ ["missed call (n)","a call that wasn't answered",["a telephone conversation","take the call"]],
+ ["voicemail (n)","a phone message recorded by someone when you don't answer their call",["a call that wasn't answered","the person who calls"]]
+].map(function(d){ return {q:d[0]+" means:", o:[d[1]].concat(d[2]), a:0}; });
+var GAPQ=[
+ {q:"I called him but he didn't ___, so I left a voicemail.", o:["answer","busy","hang up"], a:0},
+ {q:"The line is ___. She must be on a call with someone else.", o:["busy","answer","voicemail"], a:0},
+ {q:"Sorry, I have to take this ___. It is important.", o:["call","voicemail","caller"], a:0},
+ {q:"I always tell my son I love him before I ___.", o:["hang up","ring","answer"], a:0},
+ {q:"I have six ___ from my girlfriend. I should call her.", o:["missed calls","callers","voicemail"], a:0},
+ {q:"The ___ didn't show their number, so I don't know who called.", o:["caller","call","voicemail"], a:0}
+];
+var LA=[
+ {q:"Call 1: Who is calling?", o:["A son","A colleague","A friend"], a:0},
+ {q:"Call 1: Why does he call?", o:["He wants his dad to pick him up.","He asks about the tickets.","He asks where she is."], a:0},
+ {q:"Call 2: Who is calling?", o:["A colleague","A son","A friend"], a:0},
+ {q:"Call 2: Why does he call?", o:["The meeting starts in five minutes. Where is she?","He wants his dad to pick him up.","He asks about the tickets."], a:0},
+ {q:"Call 3: Who is calling?", o:["A friend","A son","A colleague"], a:0},
+ {q:"Call 3: Why does he call?", o:["He asks if she got the concert tickets.","He wants his dad to pick him up.","The meeting starts in five minutes."], a:0}
+];
+var LB=[
+ {q:"Call 1. Hi mom. Is dad ___?", o:["there","at","on"], a:0},
+ {q:"Call 1. Just a ___, I'll get him.", o:["second","hour","night"], a:0},
+ {q:"Call 2. I'm sorry I can't take your ___ right now.", o:["call","answer","caller"], a:0},
+ {q:"Call 2. Please, ___ a message.", o:["leave","put","give"], a:0},
+ {q:"Call 2. Call me ___.", o:["back","behind","early"], a:0},
+ {q:"Call 3. Hey Tom, what's ___?", o:["up","on","out"], a:0},
+ {q:"Call 3. Oh, there's ___ call coming through.", o:["another","other","others"], a:0},
+ {q:"Call 3. I ___ to go.", o:["have","am","do"], a:0}
+];
+var SCRIPT=[
+ ["Call 1",[["A","Hi mom. Is dad there?"],["B","Just a second, I'll get him."],["B","Hi Ben, everything OK?"],["A","Can you pick me up, please? I missed the bus. I'm downtown."],["B","OK, I will be there in fifteen minutes."]]],
+ ["Call 2",[["B","I'm sorry I can't take your call right now. Please, leave a message."],["A","Hey Lisa? Where are you? The meeting starts in five minutes. I will tell the boss you are on the way. Call me back."]]],
+ ["Call 3",[["A","Hey Tom, what's up?"],["B","Hey, did you get the concert tickets for next week?"],["A","No, the store was closed. I'll go back tomorrow."],["B","OK... but... Oh, there's another call coming through. I have to go."],["A","OK, bye. I'll let you know when I get them."]]]
+];
+var PHR=[
+ ["Hey Tom, what's up?","Answering the phone","Asking for someone","Ending a call","Привіт, Томе, як справи?"],
+ ["Is dad there?","Asking for someone","Connecting someone","Answering the phone","Тато вдома? (можна тата?)"],
+ ["Can I talk to Jose?","Asking for someone","Leaving a voicemail","Ending a call","Можна Хосе?"],
+ ["Just a second, I'll get him.","Connecting someone","Recording a voicemail","Asking for someone","Секунду, я його покличу."],
+ ["Hang on a moment. I'll see if he's in.","Connecting someone","Answering the phone","Leaving a voicemail","Зачекайте. Подивлюся, чи він тут."],
+ ["I'm sorry I can't take your call right now. Please leave a message.","Recording a voicemail","Ending a call","Connecting someone","Я не можу відповісти. Залиште повідомлення."],
+ ["Hey, it's Pete. Can you give me a call?","Leaving a voicemail","Recording a voicemail","Answering the phone","Привіт, це Піт. Зателефонуй мені."],
+ ["There's another call coming through. I have to go.","Ending a call","Answering the phone","Connecting someone","Мені йде інший дзвінок. Я маю йти."],
+ ["I'll speak to you soon.","Ending a call","Asking for someone","Recording a voicemail","Скоро поговоримо."]
+];
+var PHQ=PHR.map(function(p){ return {q:'"'+p[0]+'"', o:[p[1],p[2],p[3]], a:0}; });
+var DD=[
+ ["Call 1: Ben, mom and dad",[["A","Hi mom. Is dad there?"],["B","Just a second, I'll get him."],["B","Hi Ben, everything OK?"],["A","Can you pick me up, please? I missed the bus. I'm downtown."],["B","OK, I will be there in fifteen minutes."]]],
+ ["Call 2: Voicemail",[["B","I'm sorry I can't take your call right now. Please, leave a message."],["A","Hey Lisa? Where are you? The meeting starts in five minutes. I will tell the boss you are on the way. Call me back."]]],
+ ["Call 3: Sue and Tom",[["A","Hey Tom, what's up?"],["B","Hey, did you get the concert tickets for next week?"],["A","No, the store was closed. I'll go back tomorrow."],["B","OK... but... Oh, there's another call coming through. I have to go."],["A","OK, bye. I'll let you know when I get them."]]]
+];
+
+/* ---------- SCENES ---------- */
+(function(){
+  var box=$("scenes");
+  SCENES.forEach(function(c){
+    var d=el("div","scene");
+    var ph=el("div","ph",c.ico); d.appendChild(ph);
+    if(c.img){ var im0=el("img"); im0.alt=c.t; im0.loading="lazy"; im0.referrerPolicy="no-referrer"; im0.onerror=function(){ im0.remove(); }; im0.src="https://images.unsplash.com/"+c.img+"?w=500&q=70&auto=format&fit=crop"; ph.appendChild(im0); }
+    var r=el("div",""); r.appendChild(el("h3","",c.t)); r.appendChild(el("div","ua always-ua",c.ua));
+    c.lines.forEach(function(l){ r.appendChild(el("div","sline",(l[0]==="A"?"🙋‍♀️ ":"📞 ")+l[1])); });
+    var pb=el("button","btn sm alt","▶ Listen"); pb.type="button"; pb.style.marginTop="8px";
+    pb.onclick=function(){ stopSpeech(); stopFlag=false; var i=0; (function next(){ if(stopFlag||i>=c.lines.length) return; var l=c.lines[i++]; speakOne(strip(l[1]),l[0],false,next); })(); };
+    r.appendChild(pb);
+    var chips=el("div","wchips"), tr=el("div","wtr","");
+    c.w.forEach(function(w){
+      var b=el("button","wchip",w[0]); b.type="button";
+      b.onclick=function(){ chips.querySelectorAll(".wchip").forEach(function(x){x.classList.remove("open")}); b.classList.add("open"); tr.textContent=w[0]+" = "+w[1]+"  ·  "+w[2]; stopSpeech(); stopFlag=false; speakOne(w[2],"A",false); };
+      chips.appendChild(b);
+    });
+    r.appendChild(chips); r.appendChild(tr); d.appendChild(r); box.appendChild(d);
+  });
+})();
+
+/* ---------- MOODS ---------- */
+(function(){
+  var box=$("moods");
+  MOODS.forEach(function(m){
+    var b=el("button","mood",'<span>'+m[0]+'</span>'+m[1]); b.type="button";
+    b.onclick=function(){ box.querySelectorAll(".mood").forEach(function(x){x.classList.remove("sel")}); b.classList.add("sel"); };
+    box.appendChild(b);
+  });
+})();
+
+/* ---------- RENDER ---------- */
+function shuf(a){ var b=a.slice(); for(var i=b.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=b[i]; b[i]=b[j]; b[j]=t; } return b; }
+renderQuiz("defQuiz",DEFQ); renderQuiz("gapQuiz",GAPQ);
+renderQuiz("lA",LA); renderQuiz("lB",LB); renderQuiz("phQuiz",PHQ);
+
+/* backup voices + script */
+(function(){
+  var bar=$("backupBar");
+  SCRIPT.forEach(function(c,ci){
+    var b=el("button","btn sm alt","▶ Play "+c[0]); b.type="button";
+    b.onclick=function(){ stopSpeech(); stopFlag=false; var i=0; (function next(){ if(stopFlag||i>=c[1].length) return; var l=c[1][i++]; speakOne(l[1],l[0],false,next); })(); };
+    bar.appendChild(b);
+  });
+  var box=$("scriptBox");
+  SCRIPT.forEach(function(c){
+    box.appendChild(el("div","task",c[0]));
+    c[1].forEach(function(l){ box.appendChild(el("div","sline",(l[0]==="A"?"🙋 ":"📞 ")+l[1])); });
+  });
+})();
+
+/* phrase bank */
+(function(){
+  var box=$("phraseBank");
+  PHR.forEach(function(p){
+    var row=el("div","choice");
+    var pb=el("button","play","▶"); pb.type="button"; playBtn(pb,p[0],"A");
+    var t=el("div","pick own",'<b>'+p[0]+'</b><span class="ua"> · '+p[4]+'</span>'); t.style.cursor="default";
+    row.appendChild(pb); row.appendChild(t); box.appendChild(row);
+  });
+})();
+
+/* disappearing dialogues */
+var dd={i:0,lvl:0,order:[]};
+(function(){
+  var bar=$("ddBar");
+  DD.forEach(function(d,i){
+    var b=el("button","btn alt",d[0]); b.type="button"; b.id="dd_"+i;
+    b.onclick=function(){ ddPick(i); }; bar.appendChild(b);
+  });
+  $("ddHide").onclick=function(){ if(dd.lvl<4){ dd.lvl++; ddDraw(); } };
+  $("ddShow").onclick=function(){ dd.lvl=0; ddDraw(); };
+  $("ddPlay").onclick=function(){
+    stopSpeech(); stopFlag=false; var l=DD[dd.i][1],i=0;
+    (function next(){ if(stopFlag||i>=l.length) return; var x=l[i++]; speakOne(x[1],x[0],false,next); })();
+  };
+  ddPick(0);
+})();
+function ddPick(i){
+  dd.i=i; dd.lvl=0; stopSpeech();
+  DD.forEach(function(d,k){ $("dd_"+k).className="btn"+(k===i?"":" alt"); });
+  var n=0, words=[]; DD[i][1].forEach(function(l,li){ l[1].split(" ").forEach(function(w,wi){ words.push([li,wi]); }); });
+  dd.order=shuf(words.map(function(x,k){return k;}));
+  ddDraw();
+}
+function ddDraw(){
+  var d=DD[dd.i][1], chat=$("ddChat"); chat.innerHTML="";
+  var all=[]; d.forEach(function(l,li){ l[1].split(" ").forEach(function(w,wi){ all.push(1); }); });
+  var hideN=Math.ceil(all.length*dd.lvl/4), hidden={};
+  for(var k=0;k<hideN;k++) hidden[dd.order[k]]=true;
+  var idx=0;
+  d.forEach(function(l){
+    var parts=l[1].split(" ").map(function(w){
+      var h=hidden[idx++];
+      return h?'<span style="display:inline-block;min-width:'+(10+w.length*8)+'px;border-bottom:2px solid var(--teal);margin:0 2px">&nbsp;</span>':w;
+    });
+    var m=el("div","msg "+(l[0]==="A"?"me":"doc"));
+    m.innerHTML='<div class="av">'+(l[0]==="A"?"🙋":"📞")+'</div><div class="bub">'+parts.join(" ")+'</div>';
+    chat.appendChild(m);
+  });
+  $("ddLevel").textContent=dd.lvl===0?"All words":(dd.lvl<4?"Hidden: "+dd.lvl*25+"%":"All hidden: say it from memory!");
+}
+
+var SC={
+ cinema:{name:"1 Call a friend",who:"📞 Peter, your friend",key:"B",ico:"📞",start:"M1",goal:["Хто ти (it's Natali)","Запроси в кіно","Домовся про час"],
+  sit:"Ти дзвониш другові Peter. Запроси його в кіно. Домовся про час. Потім йому телефонує начальник, і розмова закінчується.",
+  nodes:{
+   M1:{say:"Hello?",opts:[{say:"Hi Peter, it's Natali.",next:"M2"},{say:"Hello, Peter. This is Natali.",next:"M2"}]},
+   M2:{say:"Hey Natali! What's up?",opts:[{say:"Do you want to go to the movies?",next:"M3"},{say:"Do you want to go to the cinema on Friday?",next:"M3"}]},
+   M3:{say:"Sure, great idea! What time?",opts:[{say:"At seven o'clock.",next:"M4"},{say:"At eight o'clock.",next:"M4"},{say:"At six, after work.",next:"M4"}]},
+   M4:{say:"Perfect. Oh, wait, there's another call coming through. I have to go. I'll speak to you soon.",opts:[{say:"OK, bye!",next:"M5"},{say:"OK, no problem. See you on Friday.",next:"M5"}]},
+   M5:{say:"Bye, Natali!",end:true}
+  }},
+ voicemail:{name:"2 Leave a voicemail",who:"📞 Anna's voicemail",key:"B",ico:"📞",start:"V1",goal:["Хто ти","Навіщо дзвониш","Попроси передзвонити"],
+  sit:"Сестра Anna не відповідає. Увімкнулася голосова пошта. Залиш повідомлення: хто ти, навіщо дзвониш, попроси передзвонити.",
+  nodes:{
+   V1:{say:"Hi, this is Anna. I'm sorry I can't take your call right now. Please leave a message after the beep. Beep.",opts:[{say:"Hi Anna, it's Natali. Can you give me a call? Thanks.",next:"V2"},{say:"Hello Anna, this is Natali. Please call me back. Bye!",next:"V2"},{say:"Hey Anna, it's Natali. I'll be at home tonight. Call me back!",next:"V2"}]},
+   V2:{say:"Your message is saved. Goodbye!",end:true}
+  }},
+ work:{name:"3 Call your boss",who:"📞 Mark, your boss",key:"B",ico:"📞",start:"W1",goal:["Хто ти (Hello, it's Natali)","Що не прийдеш на роботу","Яка проблема","Коли передзвониш"],
+  sit:"Ти захворіла й не можеш прийти на роботу. Зателефонуй керівнику Mark: скажи, хто ти, що не прийдеш, яка проблема і коли передзвониш.",
+  nodes:{
+   W1:{say:"Hello, this is Mark.",opts:[{say:"Hello, Mark. It's Natali.",next:"W2"},{say:"Good morning, Mark. This is Natali.",next:"W2"}]},
+   W2:{say:"Hi Natali. What's up?",opts:[{say:"I can't come to work today.",next:"W3"},{say:"I'm sick today. I can't come to work.",next:"W3"},{say:"I have a fever. I can't come today.",next:"W3"}]},
+   W3:{say:"Oh no, I'm sorry to hear that. What's the problem?",opts:[{say:"I have a fever and a headache.",next:"W4"},{say:"I have a stomach ache. I feel sick.",next:"W4"},{say:"I have a sore throat and a cough.",next:"W4"}]},
+   W4:{say:"Do you need to see a doctor?",opts:[{say:"Yes, I'll make an appointment today.",next:"W5"},{say:"No, I think I need some rest.",next:"W5"},{say:"I'm not sure. Maybe.",next:"W5"}]},
+   W5:{say:"OK. How long will you be away?",opts:[{say:"Maybe two days.",next:"W6"},{say:"I don't know. I'll call you tomorrow.",next:"W6"},{say:"Until Monday.",next:"W6"}]},
+   W6:{say:"OK. Please call me tomorrow. Do you need anything?",opts:[{say:"No, thank you.",next:"W7"},{say:"Can you tell my colleagues?",next:"W7b"},{say:"Can I send you a doctor's note?",next:"W7a"}],
+     kw:[["note|doctor|paper|send|mail","W7a"],["tell|colleague|team|friends","W7b"]]},
+   W7:{say:"OK. Get well soon. Bye!",end:true},
+   W7a:{say:"Yes, please send it by e-mail. Get well soon. Bye!",end:true},
+   W7b:{say:"Of course, I'll tell them. Get well soon. Bye!",end:true}
+  }},
+ hotel:{name:"4 Book a hotel room",who:"📞 Hotel Central",key:"B",ico:"📞",start:"H1",goal:["Що хочеш (кімнату)","На скільки ночей","Дата","Ціна й твоє ім'я"],
+  sit:"Ти їдеш у Бельгію й хочеш забронювати кімнату в готелі. Зателефонуй: скажи, на скільки ночей і яка дата, дізнайся ціну й назви своє ім'я.",
+  nodes:{
+   H1:{say:"Hotel Central, good morning. How can I help you?",opts:[{say:"Hello, I'd like to book a room, please.",next:"H2"},{say:"Good morning. I need a room for two nights.",next:"H2"}]},
+   H2:{say:"Of course. For how many nights?",opts:[{say:"One night.",next:"H3"},{say:"Two nights.",next:"H3"},{say:"Three nights.",next:"H3"}]},
+   H3:{say:"And what is the date?",opts:[{say:"Friday, the twelfth of March.",next:"H4"},{say:"Next Monday.",next:"H4"},{say:"Tomorrow.",next:"H4"}]},
+   H4:{say:"We have a room for that date. It's eighty euros a night. Is that OK?",opts:[{say:"Yes, that's fine.",next:"H5"},{say:"Sorry, that's too expensive.",next:"H4b"},{say:"Can I pay by card?",next:"H4c"}],
+     kw:[["expensive|cheap|too much|a lot","H4b"],["card|cash|pay","H4c"]]},
+   H4b:{say:"I understand. We have a smaller room for sixty euros.",opts:[{say:"Yes, that's OK.",next:"H5"},{say:"Yes, please.",next:"H5"}]},
+   H4c:{say:"Yes, you can pay by card at the hotel.",opts:[{say:"Great. Thank you.",next:"H5"}]},
+   H5:{say:"Can I have your name, please?",opts:[{say:"It's Natali. N-A-T-A-L-I.",next:"H6"},{say:"My name is Natali.",next:"H6"}]},
+   H6:{say:"Thank you. Your room is booked. See you on Friday. Goodbye!",end:true}
+  }}
+};
+var sim={sc:null,node:null,log:[],voice:true,hide:false,type:false,ideas:false,last:"",prepT:null};
+function simBar(){
+  var bar=$("scBar"); bar.innerHTML="";
+  Object.keys(SC).forEach(function(k){
+    var b=el("button","btn alt",SC[k].name); b.type="button"; b.id="sc_"+k;
+    b.onclick=function(){ simSelect(k); }; bar.appendChild(b);
+  });
+}
+function simSelect(k){
+  sim.sc=k; sim.node=null; stopSpeech(); if(sim.prepT){ clearInterval(sim.prepT); sim.prepT=null; }
+  Object.keys(SC).forEach(function(x){ $("sc_"+x).className="btn"+(x===k?"":" alt"); });
+  $("scSit").innerHTML='<div class="always-ua" style="margin:8px 0">'+SC[k].sit+'</div>';
+  $("simWho").textContent=SC[k].who;
+  $("simChat").innerHTML=""; var box=$("simChoices"); box.innerHTML="";
+  var prep=el("div","endbox","<div><b>⏱ Prepare (1 minute).</b> Think what you will say. Say it in your head or quietly.</div><ul>"+SC[k].goal.map(function(g){return "<li>"+g+"</li>"}).join("")+"</ul>");
+  var cnt=el("div","timer","1:00"); cnt.style.fontSize="26px"; prep.appendChild(cnt);
+  var go=el("button","btn peach","▶ Start the call"); go.type="button"; prep.appendChild(go);
+  var secs=60; sim.prepT=setInterval(function(){ secs--; cnt.textContent=Math.floor(secs/60)+":"+("0"+(secs%60)).slice(-2); if(secs<=0){ clearInterval(sim.prepT); sim.prepT=null; cnt.textContent="Ready!"; } },1000);
+  go.onclick=function(){ if(sim.prepT){ clearInterval(sim.prepT); sim.prepT=null; } simStart(); };
+  box.appendChild(prep);
+}
+function simAddDoc(text){
+  var m=el("div","msg doc"); sim.last=text;
+  m.innerHTML='<div class="av">'+SC[sim.sc].ico+'</div><div class="bub"><span class="tx">'+text+'</span></div>';
+  var b=el("button","play","▶"); b.type="button"; playBtn(b,text,SC[sim.sc].key); m.appendChild(b);
+  $("simChat").appendChild(m); $("simChat").scrollTop=$("simChat").scrollHeight;
+  if(sim.voice){ stopSpeech(); stopFlag=false; speakOne(text,SC[sim.sc].key,false); }
+}
+function simAddMe(text){
+  var m=el("div","msg me"); m.innerHTML='<div class="av">🙋‍♀️</div><div class="bub">'+text+'</div>';
+  $("simChat").appendChild(m); $("simChat").scrollTop=$("simChat").scrollHeight;
+}
+function simOpts(box,n){
+  n.opts.forEach(function(o){
+    var row=el("div","choice");
+    var pb=el("button","play","▶"); pb.type="button"; playBtn(pb,o.say,"A");
+    var pk=el("button","pick",o.say); pk.type="button";
+    pk.onclick=function(){ choose(o.say,o.next); };
+    row.appendChild(pb); row.appendChild(pk); box.appendChild(row);
+  });
+}
+function simGo(id,skipDoc){
+  sim.node=id; var n=SC[sim.sc].nodes[id];
+  if(!skipDoc) simAddDoc(n.say);
+  var box=$("simChoices"); box.innerHTML="";
+  if(n.end){
+    var e=el("div","endbox","<div>✅ Great call! Your sentences:</div><ul>"+sim.log.map(function(t){return "<li>"+t+"</li>"}).join("")+"</ul><div>Now try another call, or do this one again and answer without looking.</div>");
+    var rb=el("button","btn sm peach","↺ Play again"); rb.type="button"; rb.style.marginTop="8px"; rb.onclick=simStart; e.appendChild(rb);
+    box.appendChild(e); return;
+  }
+  if(sim.type){ simTyping(id,n,box); return; }
+  box.appendChild(el("div","simhelp","Say your answer first. Then click the idea that is closest, or 'I said my own answer'."));
+  var ideas=el("div","");
+  function showIdeas(){ ideas.innerHTML=""; simOpts(ideas,n); }
+  if(sim.ideas) showIdeas(); else {
+    var ib=el("button","btn sm alt","💡 Show ideas"); ib.type="button"; ib.onclick=function(){ showIdeas(); }; box.appendChild(ib);
+  }
+  box.appendChild(ideas);
+  var row2=el("div","choice"); var pk2=el("button","pick own","✏️ I said my own answer"); pk2.type="button";
+  pk2.onclick=function(){ choose("(my own answer)",n.opts[0].next); };
+  row2.appendChild(pk2); box.appendChild(row2);
+}
+function simTyping(id,n,box){
+  box.appendChild(el("div","simhelp","Type your answer."));
+  var row=el("div","choice"); var inp=el("input"); inp.type="text"; inp.placeholder="Write your answer…";
+  inp.style.cssText="flex:1;padding:10px 14px;border:2px solid var(--teal);border-radius:14px;font:inherit;font-weight:700;font-size:17px";
+  var go=el("button","btn","Send"); go.type="button";
+  row.appendChild(inp); row.appendChild(go); box.appendChild(row);
+  var idl=el("div","credit","Ideas: "+n.opts.map(function(o){return o.say}).join(" · "));
+  if(sim.ideas) box.appendChild(idl); else {
+    var ib=el("button","btn sm alt","💡 Show ideas"); ib.type="button"; ib.onclick=function(){ ib.remove(); box.appendChild(idl); }; box.appendChild(ib);
+  }
+  function send(){
+    var t=inp.value.trim(); if(!t) return;
+    var nxt=n.opts[0].next;
+    (n.kw||[]).some(function(k){ if(new RegExp(k[0],"i").test(t)){ nxt=k[1]; return true; } return false; });
+    choose(t,nxt);
+  }
+  go.onclick=send; inp.onkeydown=function(e){ if(e.key==="Enter") send(); };
+  setTimeout(function(){ inp.focus(); },50);
+}
+function choose(text,next){
+  stopSpeech(); sim.log.push(text); simAddMe(text); $("simChoices").innerHTML="";
+  setTimeout(function(){ simGo(next); },350);
+}
+function simStart(){
+  if(!sim.sc) return;
+  stopSpeech(); if(sim.prepT){ clearInterval(sim.prepT); sim.prepT=null; }
+  sim.log=[]; $("simChat").innerHTML=""; $("simChoices").innerHTML="";
+  simGo(SC[sim.sc].start);
+}
+function simRepeat(slow){
+  if(!sim.last) return;
+  simAddMe(slow?"Could you speak more slowly, please?":"Sorry, can you repeat that, please?");
+  var bubs=$("simChat").querySelectorAll(".msg.doc .bub"); if(bubs.length) bubs[bubs.length-1].classList.add("reveal");
+  stopSpeech(); stopFlag=false; speakOne(sim.last,SC[sim.sc].key,!!slow);
+}
+$("simRestart").onclick=simStart;
+$("simRep").onclick=function(){ simRepeat(false); };
+$("simSlow").onclick=function(){ simRepeat(true); };
+$("simVoice").onclick=function(){ sim.voice=!sim.voice; this.textContent="Voice: "+(sim.voice?"on":"off"); if(!sim.voice) stopSpeech(); };
+$("simHide").onclick=function(){ sim.hide=!sim.hide; this.textContent="Hide text: "+(sim.hide?"on":"off"); $("simBox").classList.toggle("hidetext",sim.hide); };
+$("simType").onclick=function(){ sim.type=!sim.type; this.textContent="Answer: "+(sim.type?"type":"choose");
+  if(sim.node && sim.sc && !SC[sim.sc].nodes[sim.node].end){ $("simChoices").innerHTML=""; simGo(sim.node,true); } };
+$("simIdeas").onclick=function(){ sim.ideas=!sim.ideas; this.textContent="Ideas: "+(sim.ideas?"shown":"hidden");
+  if(sim.node && sim.sc && !SC[sim.sc].nodes[sim.node].end){ $("simChoices").innerHTML=""; simGo(sim.node,true); } };
+simBar();
+(function(){ $("simChat").appendChild(el("div","simhelp","Choose a situation above to start.")); })();
+
+/* timer */
+(function(){
+  var secs=720, tid=null;
+  function show(){ var m=Math.floor(secs/60), s=secs%60; var t=$("timer"); t.textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s; t.className="timer"+(secs<=60?" low":""); }
+  $("tStart").onclick=function(){
+    if(tid){ clearInterval(tid); tid=null; this.textContent="Start"; return; }
+    this.textContent="Pause";
+    tid=setInterval(function(){ secs--; show(); if(secs<=0){ clearInterval(tid); tid=null; $("tStart").textContent="Start"; secs=0; show(); } },1000);
+  };
+  $("tReset").onclick=function(){ clearInterval(tid); tid=null; secs=720; show(); $("tStart").textContent="Start"; };
+  show();
+})();
+
+/* ---------- RECORDER ---------- */
+(function(){
+  var rec=null, chunks=[], stream=null;
+  function msg(t){ $("recMsg").textContent=t; }
+  $("recStart").onclick=function(){
+    if(!navigator.mediaDevices || !window.MediaRecorder){ msg("Recording does not work in this browser. Record a voice message on your phone."); return; }
+    navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){
+      stream=s; chunks=[]; rec=new MediaRecorder(s);
+      rec.ondataavailable=function(e){ if(e.data&&e.data.size) chunks.push(e.data); };
+      rec.onstop=function(){
+        var blob=new Blob(chunks,{type:rec.mimeType||"audio/webm"}), url=URL.createObjectURL(blob);
+        var p=$("recPlay"); p.src=url; p.style.display="block";
+        var d=$("recDl"); d.href=url; d.style.display="inline-block";
+        stream.getTracks().forEach(function(t){t.stop()});
+        msg("Listen to yourself. Then send the recording to your teacher.");
+      };
+      rec.start(); $("recStart").disabled=true; $("recStop").disabled=false; msg("Recording… speak now.");
+    }).catch(function(){ msg("The microphone is not allowed. Record a voice message on your phone."); });
+  };
+  $("recStop").onclick=function(){ if(rec&&rec.state!=="inactive") rec.stop(); $("recStart").disabled=false; $("recStop").disabled=true; };
+})();
+
+/* ---------- PROGRESS NAV ---------- */
+(function(){
+  var steps=[].slice.call(document.querySelectorAll(".step"));
+  var stops=$("stops"), btns=[];
+  steps.forEach(function(s,i){
+    var b=el("button","stop",'<i>'+(i+1)+'</i><span>'+s.dataset.label+'</span>'); b.type="button";
+    b.onclick=function(){ s.scrollIntoView({behavior:"smooth"}); };
+    stops.appendChild(b); btns.push(b);
+  });
+  function update(){
+    var current=0, mid=window.innerHeight*0.35;
+    steps.forEach(function(s,i){ if(s.getBoundingClientRect().top<mid) current=i; });
+    btns.forEach(function(b,i){ b.classList.toggle("on",i===current); b.classList.toggle("done",i<current); });
+    var w=btns.length>1 ? (current/(btns.length-1))*(stops.scrollWidth-28) : 0;
+    $("fill").style.width=w+"px";
+  }
+  window.addEventListener("scroll",update,{passive:true}); window.addEventListener("resize",update); update();
+})();
+
+/* ---------- FINISH ---------- */
+$("finishBtn").onclick=function(){
+  $("stamp").classList.add("show");
+  var colors=["#2F5D9B","#FFB547","#E4572E","#16263F","#fff"];
+  for(var i=0;i<90;i++){
+    var c=document.createElement("div"); c.className="confetti";
+    c.style.left=Math.random()*100+"vw"; c.style.background=colors[i%colors.length];
+    c.style.animationDuration=(2+Math.random()*2.5)+"s"; c.style.animationDelay=(Math.random()*0.8)+"s";
+    c.style.borderRadius=(i%3===0?"50%":"2px");
+    document.body.appendChild(c);
+    (function(n){setTimeout(function(){n.remove()},6000)})(c);
+  }
+  this.textContent="Lesson complete";
+};
+window.addEventListener("beforeunload",function(){ if(window.speechSynthesis) speechSynthesis.cancel(); });
+</script>
+<script type="application/json" id="lesson-meta">{"title": "Phone Calls: Calling Friends", "topic": "Телефонні розмови: дзвінок другові, голосова пошта, завершення розмови", "grammar": "", "tags": ["Розмова", "Лексика", "Аудіювання"], "words": [{"en": "missed call", "uk": "пропущений дзвінок", "ex": "I have three missed calls."}, {"en": "call", "uk": "дзвонити / дзвінок", "ex": "I call her back."}, {"en": "ring", "uk": "дзвонити (про телефон)", "ex": "The phone rings."}, {"en": "answer", "uk": "відповісти на дзвінок", "ex": "Please answer the phone."}, {"en": "busy", "uk": "зайнято (лінія)", "ex": "The line is busy."}, {"en": "voicemail", "uk": "голосова пошта", "ex": "Please leave a voicemail."}, {"en": "leave a message", "uk": "залишити повідомлення", "ex": "Please leave a message."}, {"en": "Call me back", "uk": "передзвони мені", "ex": "Call me back, please."}, {"en": "caller", "uk": "той, хто дзвонить", "ex": "The caller didn't show their number."}, {"en": "hang up", "uk": "покласти слухавку, завершити дзвінок", "ex": "I hang up the phone."}, {"en": "Who's that?", "uk": "хто це?", "ex": "Hello? Who's that?"}]}</script>
+</body>
+</html>
